@@ -1,0 +1,907 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Travel Buddy — AI Itinerary Planner</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    /* ── Reset & Base ─────────────────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body { height: 100%; font-family: 'Poppins', sans-serif; overflow: hidden; }
+
+    /* ── BG.png Background with navy overlay ─────────────────────────────── */
+    body {
+      background: url('BG.png') center / cover no-repeat fixed;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background: rgba(10, 20, 60, 0.45);
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    /* ── Floating Clouds (background decoration) ─────────────────────────── */
+    .clouds { position: fixed; inset: 0; pointer-events: none; overflow: hidden; z-index: 0; }
+    .cloud {
+      position: absolute;
+      background: rgba(255,255,255,0.55);
+      border-radius: 50px;
+      filter: blur(2px);
+      animation: drift linear infinite;
+    }
+    .cloud::before, .cloud::after {
+      content: '';
+      position: absolute;
+      background: inherit;
+      border-radius: 50%;
+    }
+    .cloud-1  { width:180px; height:55px; top:8%;  animation-duration:55s; animation-delay:-10s; }
+    .cloud-1::before  { width:70px;  height:70px;  top:-35px; left:20px; }
+    .cloud-1::after   { width:50px;  height:50px;  top:-25px; right:20px; }
+    .cloud-2  { width:130px; height:40px; top:20%; animation-duration:70s; animation-delay:-35s; }
+    .cloud-2::before  { width:55px;  height:55px;  top:-28px; left:15px; }
+    .cloud-2::after   { width:40px;  height:40px;  top:-20px; right:15px; }
+    .cloud-3  { width:220px; height:65px; top:5%;  animation-duration:85s; animation-delay:-50s; }
+    .cloud-3::before  { width:85px;  height:85px;  top:-42px; left:25px; }
+    .cloud-3::after   { width:60px;  height:60px;  top:-30px; right:25px; }
+    .cloud-4  { width:100px; height:30px; top:35%; animation-duration:60s; animation-delay:-20s; opacity:.4; }
+    .cloud-4::before  { width:40px;  height:40px;  top:-20px; left:10px; }
+    .cloud-4::after   { width:30px;  height:30px;  top:-15px; right:10px; }
+    @keyframes drift { from { transform: translateX(-300px); } to { transform: translateX(110vw); } }
+
+    /* ── Dotted flight path ───────────────────────────────────────────────── */
+    .flight-path {
+      position: fixed;
+      bottom: 18%;
+      left: -60px;
+      width: calc(100vw + 120px);
+      height: 2px;
+      border-top: 2px dashed rgba(255,255,255,0.35);
+      pointer-events: none;
+      z-index: 0;
+      transform: rotate(-3deg);
+    }
+    .plane-anim {
+      position: fixed;
+      bottom: 18.4%;
+      left: -40px;
+      font-size: 22px;
+      animation: flyAcross 18s linear infinite;
+      pointer-events: none;
+      z-index: 1;
+      transform: rotate(-3deg);
+      filter: drop-shadow(0 2px 4px rgba(0,0,0,0.15));
+    }
+    @keyframes flyAcross {
+      0%   { left: -60px;      opacity: 0; }
+      5%   { opacity: 1; }
+      95%  { opacity: 1; }
+      100% { left: calc(100vw + 60px); opacity: 0; }
+    }
+
+    /* ── Main Chat Card ───────────────────────────────────────────────────── */
+    .chat-card {
+      position: relative;
+      z-index: 10;
+      width: min(780px, 96vw);
+      height: min(88vh, 820px);
+      background: rgba(251,228,216,0.94);
+      backdrop-filter: blur(18px);
+      border-radius: 28px;
+      box-shadow:
+        0 8px 32px rgba(133,79,108,0.30),
+        0 2px 8px rgba(0,0,0,0.10),
+        inset 0 1px 0 rgba(251,228,216,0.9);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      border: 1px solid rgba(251,228,216,0.7);
+    }
+
+    /* ── Header ──────────────────────────────────────────────────────────── */
+    .header {
+      background: linear-gradient(135deg, #5c2d47 0%, #854F6C 55%, #a8637f 100%);
+      padding: 18px 24px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      flex-shrink: 0;
+      position: relative;
+      overflow: hidden;
+    }
+    .header::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.05), transparent);
+    }
+    .header-logo {
+      width: 46px; height: 46px;
+      background: rgba(251,228,216,0.25);
+      border-radius: 14px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 22px;
+      border: 1.5px solid rgba(251,228,216,0.45);
+      flex-shrink: 0;
+    }
+    .header-text { flex: 1; }
+    .header-title {
+      color: #fff;
+      font-size: 18px;
+      font-weight: 700;
+      letter-spacing: -0.3px;
+      line-height: 1.2;
+    }
+    .header-tagline {
+      color: rgba(255,255,255,0.75);
+      font-size: 11.5px;
+      font-weight: 400;
+      margin-top: 1px;
+    }
+    .status-badge {
+      display: flex; align-items: center; gap: 6px;
+      background: rgba(251,228,216,0.18);
+      border: 1px solid rgba(251,228,216,0.35);
+      border-radius: 20px;
+      padding: 5px 12px;
+      color: #fff;
+      font-size: 11px;
+      font-weight: 500;
+      flex-shrink: 0;
+    }
+    .status-dot {
+      width: 7px; height: 7px;
+      border-radius: 50%;
+      background: #4ade80;
+      box-shadow: 0 0 6px #4ade80;
+      transition: background .3s, box-shadow .3s;
+    }
+    .status-dot.connecting { background: #fbbf24; box-shadow: 0 0 6px #fbbf24; }
+    .status-dot.disconnected { background: #f87171; box-shadow: 0 0 6px #f87171; }
+
+    /* ── Quick city chips ─────────────────────────────────────────────────── */
+    .city-chips {
+      padding: 10px 20px 6px;
+      display: flex;
+      gap: 7px;
+      flex-wrap: wrap;
+      background: #f5d9cc;
+      border-bottom: 1px solid #e4b9a8;
+      flex-shrink: 0;
+    }
+    .city-chips-label {
+      font-size: 10.5px;
+      color: #64748b;
+      font-weight: 500;
+      align-self: center;
+      white-space: nowrap;
+    }
+    .chip {
+      background: #FBE4D8;
+      color: #854F6C;
+      border: 1px solid #e4b9a8;
+      border-radius: 20px;
+      padding: 3px 11px;
+      font-size: 11px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all .18s;
+      white-space: nowrap;
+    }
+    .chip:hover { background: #854F6C; color: #FBE4D8; border-color: #854F6C; transform: translateY(-1px); }
+    .chip.active { background: #854F6C; color: #FBE4D8; border-color: #854F6C; }
+
+    /* ── Messages Area ───────────────────────────────────────────────────── */
+    .messages {
+      flex: 1;
+      overflow-y: auto;
+      padding: 20px 20px 10px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      scroll-behavior: smooth;
+    }
+    .messages::-webkit-scrollbar { width: 4px; }
+    .messages::-webkit-scrollbar-track { background: transparent; }
+    .messages::-webkit-scrollbar-thumb { background: #854F6C; border-radius: 4px; }
+
+    /* ── Welcome screen ──────────────────────────────────────────────────── */
+    .welcome {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      flex: 1;
+      gap: 12px;
+      opacity: 1;
+      transition: opacity .4s;
+      padding: 20px;
+      text-align: center;
+    }
+    .welcome-icon { font-size: 54px; animation: bobble 3s ease-in-out infinite; }
+    @keyframes bobble {
+      0%,100% { transform: translateY(0); }
+      50%       { transform: translateY(-8px); }
+    }
+    .welcome h2 { color: #854F6C; font-size: 20px; font-weight: 700; }
+    .welcome p  { color: #64748b; font-size: 13px; line-height: 1.6; max-width: 380px; }
+    .welcome-hints {
+      display: flex; gap: 8px; flex-wrap: wrap; justify-content: center; margin-top: 4px;
+    }
+    .hint-bubble {
+      background: #FBE4D8;
+      color: #854F6C;
+      border: 1px solid #e4b9a8;
+      border-radius: 16px;
+      padding: 5px 13px;
+      font-size: 11.5px;
+      cursor: pointer;
+      transition: all .2s;
+    }
+    .hint-bubble:hover { background: #854F6C; color: #FBE4D8; }
+
+    /* ── Message rows ────────────────────────────────────────────────────── */
+    .msg-row {
+      display: flex;
+      align-items: flex-end;
+      gap: 8px;
+      animation: slideUp .28s ease-out both;
+    }
+    @keyframes slideUp {
+      from { opacity: 0; transform: translateY(12px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .msg-row.user  { flex-direction: row-reverse; }
+
+    .avatar {
+      width: 32px; height: 32px;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 15px;
+      flex-shrink: 0;
+    }
+    .avatar.bot  { background: linear-gradient(135deg,#5c2d47,#854F6C); color:#FBE4D8; }
+    .avatar.user { background: linear-gradient(135deg,#f97316,#fbbf24); color:#fff; }
+
+    .bubble {
+      max-width: 72%;
+      padding: 11px 15px;
+      border-radius: 18px;
+      font-size: 13.5px;
+      line-height: 1.65;
+      white-space: pre-wrap;
+      word-break: break-word;
+      position: relative;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+    }
+    .bubble.bot {
+      background: #FBE4D8;
+      color: #3d1a2a;
+      border: 1px solid #e4b9a8;
+      border-bottom-left-radius: 5px;
+    }
+    .bubble.user {
+      background: linear-gradient(135deg,#5c2d47,#854F6C);
+      color: #FBE4D8;
+      border-bottom-right-radius: 5px;
+    }
+    .bubble-time {
+      font-size: 10px;
+      color: #94a3b8;
+      margin-top: 3px;
+      text-align: right;
+    }
+    .msg-row.user .bubble-time { text-align: right; }
+    .msg-row.bot  .bubble-time { text-align: left;  }
+
+    /* ── Typing cursor ───────────────────────────────────────────────────── */
+    .cursor {
+      display: inline-block;
+      width: 2px; height: 14px;
+      background: #854F6C;
+      border-radius: 2px;
+      vertical-align: middle;
+      margin-left: 2px;
+      animation: blink .7s steps(1) infinite;
+    }
+    @keyframes blink { 0%,100%{opacity:1;} 50%{opacity:0;} }
+
+    /* ── Typing indicator ────────────────────────────────────────────────── */
+    .typing-indicator {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      padding: 12px 16px;
+    }
+    .typing-dot {
+      width: 7px; height: 7px;
+      background: #94a3b8;
+      border-radius: 50%;
+      animation: typingBounce .9s ease-in-out infinite;
+    }
+    .typing-dot:nth-child(2) { animation-delay: .15s; }
+    .typing-dot:nth-child(3) { animation-delay: .30s; }
+    @keyframes typingBounce {
+      0%,60%,100% { transform: translateY(0); }
+      30%           { transform: translateY(-6px); }
+    }
+
+    /* ── Input area ──────────────────────────────────────────────────────── */
+    .input-area {
+      padding: 14px 16px 16px;
+      background: #f5d9cc;
+      border-top: 1px solid #e4b9a8;
+      flex-shrink: 0;
+    }
+    .input-row {
+      display: flex;
+      gap: 10px;
+      align-items: flex-end;
+    }
+    .input-wrap {
+      flex: 1;
+      background: #FBE4D8;
+      border: 1.5px solid #e4b9a8;
+      border-radius: 22px;
+      display: flex;
+      align-items: flex-end;
+      padding: 8px 14px;
+      transition: border-color .2s, box-shadow .2s;
+    }
+    .input-wrap:focus-within {
+      border-color: #854F6C;
+      box-shadow: 0 0 0 3px rgba(133,79,108,0.20);
+    }
+    #msgInput {
+      flex: 1;
+      border: none;
+      outline: none;
+      font-family: 'Poppins', sans-serif;
+      font-size: 13.5px;
+      color: #1e293b;
+      background: transparent;
+      resize: none;
+      max-height: 110px;
+      overflow-y: auto;
+      line-height: 1.5;
+    }
+    #msgInput::placeholder { color: #94a3b8; }
+    .send-btn {
+      width: 44px; height: 44px;
+      background: linear-gradient(135deg,#5c2d47,#854F6C);
+      border: none;
+      border-radius: 50%;
+      cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 18px;
+      transition: transform .18s, box-shadow .18s, background .18s;
+      box-shadow: 0 3px 10px rgba(133,79,108,0.40);
+      flex-shrink: 0;
+    }
+    .send-btn:hover:not(:disabled) {
+      transform: translateY(-2px) scale(1.06);
+      box-shadow: 0 6px 16px rgba(133,79,108,0.45);
+    }
+    .send-btn:active:not(:disabled) { transform: scale(0.95); }
+    .send-btn:disabled { background: #cbd5e1; box-shadow: none; cursor: not-allowed; }
+    .send-btn svg { width: 18px; height: 18px; fill: white; }
+
+    /* ── Footer actions ──────────────────────────────────────────────────── */
+    .footer-actions {
+      display: flex;
+      gap: 8px;
+      margin-top: 9px;
+      align-items: center;
+    }
+    .action-btn {
+      display: flex; align-items: center; gap: 5px;
+      background: transparent;
+      border: 1.5px solid #cbd5e1;
+      border-radius: 20px;
+      padding: 4px 12px;
+      font-family: 'Poppins', sans-serif;
+      font-size: 11.5px;
+      color: #64748b;
+      cursor: pointer;
+      transition: all .18s;
+    }
+    .action-btn:hover { border-color: #854F6C; color: #854F6C; background: #FBE4D8; }
+    .action-btn span { font-size: 13px; }
+    .char-count { margin-left: auto; font-size: 11px; color: #94a3b8; }
+
+    /* ── Connecting overlay ──────────────────────────────────────────────── */
+    .connecting-overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(251,228,216,0.88);
+      backdrop-filter: blur(6px);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 14px;
+      z-index: 50;
+      border-radius: 28px;
+      transition: opacity .4s;
+    }
+    .connecting-overlay.hidden { opacity: 0; pointer-events: none; }
+    .spin-globe { font-size: 44px; animation: spinGlobe 2s linear infinite; }
+    @keyframes spinGlobe { from{transform:rotate(0deg);} to{transform:rotate(360deg);} }
+    .connecting-overlay p { color: #854F6C; font-size: 14px; font-weight: 500; }
+
+    /* ── Toast notification ──────────────────────────────────────────────── */
+    .toast {
+      position: fixed;
+      bottom: 30px;
+      left: 50%;
+      transform: translateX(-50%) translateY(20px);
+      background: #1e293b;
+      color: #fff;
+      padding: 10px 20px;
+      border-radius: 24px;
+      font-size: 12.5px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity .3s, transform .3s;
+      z-index: 999;
+      white-space: nowrap;
+    }
+    .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+    /* ── Markdown-like formatting in bot bubbles ─────────────────────────── */
+    .bubble.bot strong { font-weight: 600; color: #854F6C; }
+    .bubble.bot em { font-style: italic; color: #475569; }
+    .bubble.bot code {
+      background: #f1f5f9;
+      padding: 1px 5px;
+      border-radius: 4px;
+      font-size: 12px;
+      color: #e11d48;
+    }
+
+    /* ── Responsive ──────────────────────────────────────────────────────── */
+    @media (max-width: 500px) {
+      .bubble { max-width: 88%; }
+      .header-title { font-size: 15px; }
+      .city-chips { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- Clouds -->
+<div class="clouds">
+  <div class="cloud cloud-1"></div>
+  <div class="cloud cloud-2"></div>
+  <div class="cloud cloud-3"></div>
+  <div class="cloud cloud-4"></div>
+</div>
+
+<!-- Animated flight path -->
+<div class="flight-path"></div>
+<div class="plane-anim">✈️</div>
+
+<!-- Toast -->
+<div class="toast" id="toast"></div>
+
+<!-- ── Main Chat Card ──────────────────────────────────────────────────────── -->
+<div class="chat-card" id="card">
+
+  <!-- Connecting overlay -->
+  <div class="connecting-overlay" id="overlay">
+    <div class="spin-globe">🌍</div>
+    <p>Connecting to Travel Buddy…</p>
+  </div>
+
+  <!-- Header -->
+  <div class="header">
+    <div class="header-logo">✈️</div>
+    <div class="header-text">
+      <div class="header-title">Travel Buddy</div>
+      <div class="header-tagline">Your AI travel guide — powered by Qwen 2.5</div>
+    </div>
+    <div class="status-badge">
+      <div class="status-dot connecting" id="statusDot"></div>
+      <span id="statusText">Connecting</span>
+    </div>
+  </div>
+
+  <!-- City quick-select chips -->
+  <div class="city-chips">
+    <span class="city-chips-label">✈ Quick city:</span>
+    <span class="chip" data-city="istanbul"  data-flag="🕌">Istanbul</span>
+    <span class="chip" data-city="tokyo"     data-flag="🗾">Tokyo</span>
+    <span class="chip" data-city="paris"     data-flag="🗼">Paris</span>
+    <span class="chip" data-city="dubai"     data-flag="🏙️">Dubai</span>
+    <span class="chip" data-city="bangkok"   data-flag="🛕">Bangkok</span>
+    <span class="chip" data-city="barcelona" data-flag="⛪">Barcelona</span>
+    <span class="chip" data-city="lahore"    data-flag="🕌">Lahore</span>
+    <span class="chip" data-city="singapore" data-flag="🌴">Singapore</span>
+    <span class="chip" data-city="islamabad" data-flag="⛰️">Islamabad</span>
+  </div>
+
+  <!-- Messages -->
+  <div class="messages" id="messages">
+    <!-- Welcome screen (hidden once chatting starts) -->
+    <div class="welcome" id="welcome">
+      <div class="welcome-icon">🗺️</div>
+      <h2>Where are you headed?</h2>
+      <p>Tell me your destination and travel dates — I'll craft a personalised day-by-day itinerary with food picks, cultural tips, and packing advice.</p>
+      <div class="welcome-hints">
+        <div class="hint-bubble" onclick="fillHint(this)">I'm visiting Tokyo for 5 days 🇯🇵</div>
+        <div class="hint-bubble" onclick="fillHint(this)">Plan a 3-day trip to Istanbul 🕌</div>
+        <div class="hint-bubble" onclick="fillHint(this)">Weekend in Dubai, what should I do? 🏙️</div>
+        <div class="hint-bubble" onclick="fillHint(this)">Best food spots in Bangkok 🍜</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Input area -->
+  <div class="input-area">
+    <div class="input-row">
+      <div class="input-wrap">
+        <textarea
+          id="msgInput"
+          rows="1"
+          placeholder="Ask about itineraries, food, culture, packing…"
+          maxlength="2000"
+        ></textarea>
+      </div>
+      <button class="send-btn" id="sendBtn" title="Send" onclick="sendMessage()">
+        <!-- Paper plane icon -->
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/>
+        </svg>
+      </button>
+    </div>
+    <div class="footer-actions">
+      <button class="action-btn" onclick="resetChat()" title="Start a new conversation">
+        <span>🔄</span> New Trip
+      </button>
+      <button class="action-btn" onclick="copyLast()" title="Copy last response">
+        <span>📋</span> Copy
+      </button>
+      <span class="char-count" id="charCount">0 / 2000</span>
+    </div>
+  </div>
+</div>
+
+<!-- ── JavaScript ─────────────────────────────────────────────────────────── -->
+<script>
+  // ── Config ────────────────────────────────────────────────────────────────
+  const WS_URL = 'ws://localhost:8000/ws/chat';
+
+  // ── State ─────────────────────────────────────────────────────────────────
+  let ws           = null;
+  let convId       = null;
+  let selectedCity = null;
+  let isStreaming  = false;
+  let streamBubble = null;
+  let lastBotText  = '';
+
+  // ── DOM refs ──────────────────────────────────────────────────────────────
+  const messagesEl  = document.getElementById('messages');
+  const welcomeEl   = document.getElementById('welcome');
+  const inputEl     = document.getElementById('msgInput');
+  const sendBtn     = document.getElementById('sendBtn');
+  const statusDot   = document.getElementById('statusDot');
+  const statusText  = document.getElementById('statusText');
+  const overlay     = document.getElementById('overlay');
+  const charCount   = document.getElementById('charCount');
+
+  // ── WebSocket ─────────────────────────────────────────────────────────────
+  function connect() {
+    setStatus('connecting');
+    ws = new WebSocket(WS_URL);
+
+    ws.onopen = () => {
+      // wait for hello frame
+    };
+
+    ws.onmessage = (evt) => {
+      const frame = JSON.parse(evt.data);
+      handleFrame(frame);
+    };
+
+    ws.onerror = () => {
+      setStatus('disconnected');
+      showToast('⚠️ Connection error — is the server running?');
+    };
+
+    ws.onclose = () => {
+      setStatus('disconnected');
+      setTimeout(connect, 3000);   // auto-reconnect
+    };
+  }
+
+  function handleFrame(frame) {
+    switch (frame.type) {
+      case 'hello':
+        convId = frame.conversation_id;
+        setStatus('connected');
+        overlay.classList.add('hidden');
+        break;
+
+      case 'token':
+        if (!streamBubble) {
+          hideWelcome();
+          streamBubble = appendBotBubble('');
+        }
+        appendToken(streamBubble, frame.token);
+        break;
+
+      case 'final':
+        lastBotText = frame.message || '';
+        if (streamBubble) {
+          removeCursor(streamBubble);
+          streamBubble = null;
+        }
+        isStreaming = false;
+        setSendState(true);
+        scrollBottom();
+        break;
+
+      case 'error':
+        if (streamBubble) { removeCursor(streamBubble); streamBubble = null; }
+        appendBotBubble(`⚠️ ${frame.message || 'Something went wrong.'}`);
+        isStreaming = false;
+        setSendState(true);
+        scrollBottom();
+        break;
+    }
+  }
+
+  // ── Send message ──────────────────────────────────────────────────────────
+  function sendMessage() {
+    const text = inputEl.value.trim();
+    if (!text || isStreaming || !ws || ws.readyState !== WebSocket.OPEN) return;
+
+    hideWelcome();
+    appendUserBubble(text);
+    inputEl.value = '';
+    inputEl.style.height = 'auto';
+    charCount.textContent = '0 / 2000';
+
+    const payload = {
+      type:            'chat',
+      conversation_id: convId,
+      message:         text,
+    };
+    if (selectedCity) payload.city = selectedCity;
+
+    ws.send(JSON.stringify(payload));
+    isStreaming = true;
+    setSendState(false);
+
+    // Show typing indicator immediately
+    showTypingIndicator();
+    scrollBottom();
+  }
+
+  // ── Chip selection ────────────────────────────────────────────────────────
+  document.querySelectorAll('.chip').forEach(chip => {
+    chip.addEventListener('click', () => {
+      document.querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
+      chip.classList.add('active');
+      selectedCity = chip.dataset.city;
+      const flag   = chip.dataset.flag || '';
+      showToast(`${flag} ${chip.textContent} selected as destination`);
+      inputEl.focus();
+    });
+  });
+
+  // ── Hint bubbles ──────────────────────────────────────────────────────────
+  function fillHint(el) {
+    inputEl.value = el.textContent.replace(/[🇯🇵🕌🏙️🍜]/u, '').trim();
+    inputEl.focus();
+    charCount.textContent = `${inputEl.value.length} / 2000`;
+  }
+
+  // ── Bubble factories ──────────────────────────────────────────────────────
+  function appendUserBubble(text) {
+    const row  = document.createElement('div');
+    row.className = 'msg-row user';
+
+    const avatar = document.createElement('div');
+    avatar.className = 'avatar user';
+    avatar.textContent = '👤';
+
+    const col = document.createElement('div');
+
+    const bubble = document.createElement('div');
+    bubble.className = 'bubble user';
+    bubble.textContent = text;
+
+    const time = document.createElement('div');
+    time.className = 'bubble-time';
+    time.textContent = now();
+
+    col.appendChild(bubble);
+    col.appendChild(time);
+    row.appendChild(col);
+    row.appendChild(avatar);
+
+    removeTypingIndicator();
+    messagesEl.appendChild(row);
+    scrollBottom();
+    return bubble;
+  }
+
+  function appendBotBubble(text) {
+    removeTypingIndicator();
+
+    const row = document.createElement('div');
+    row.className = 'msg-row bot';
+
+    const avatar = document.createElement('div');
+    avatar.className = 'avatar bot';
+    avatar.textContent = '✈️';
+
+    const col = document.createElement('div');
+
+    const bubble = document.createElement('div');
+    bubble.className = 'bubble bot';
+
+    const textSpan = document.createElement('span');
+    textSpan.className = 'bubble-text';
+    textSpan.textContent = text;
+
+    const cursor = document.createElement('span');
+    cursor.className = 'cursor';
+    cursor.id = 'activeCursor';
+
+    const time = document.createElement('div');
+    time.className = 'bubble-time';
+    time.textContent = now();
+
+    bubble.appendChild(textSpan);
+    bubble.appendChild(cursor);
+    col.appendChild(bubble);
+    col.appendChild(time);
+    row.appendChild(avatar);
+    row.appendChild(col);
+
+    messagesEl.appendChild(row);
+    scrollBottom();
+    return bubble;
+  }
+
+  function appendToken(bubble, token) {
+    const span = bubble.querySelector('.bubble-text');
+    if (span) {
+      span.textContent += token;
+      scrollBottom();
+    }
+  }
+
+  function removeCursor(bubble) {
+    const c = bubble.querySelector('.cursor');
+    if (c) c.remove();
+  }
+
+  // ── Typing indicator ──────────────────────────────────────────────────────
+  function showTypingIndicator() {
+    removeTypingIndicator();
+    const row = document.createElement('div');
+    row.className = 'msg-row bot';
+    row.id = 'typingRow';
+
+    const avatar = document.createElement('div');
+    avatar.className = 'avatar bot';
+    avatar.textContent = '✈️';
+
+    const bubble = document.createElement('div');
+    bubble.className = 'bubble bot';
+    bubble.style.padding = '8px 14px';
+
+    const ind = document.createElement('div');
+    ind.className = 'typing-indicator';
+    for (let i = 0; i < 3; i++) {
+      const d = document.createElement('div');
+      d.className = 'typing-dot';
+      ind.appendChild(d);
+    }
+
+    bubble.appendChild(ind);
+    row.appendChild(avatar);
+    row.appendChild(bubble);
+    messagesEl.appendChild(row);
+    scrollBottom();
+  }
+
+  function removeTypingIndicator() {
+    const r = document.getElementById('typingRow');
+    if (r) r.remove();
+  }
+
+  // ── Welcome screen ────────────────────────────────────────────────────────
+  function hideWelcome() {
+    if (welcomeEl && welcomeEl.parentNode) {
+      welcomeEl.style.opacity = '0';
+      setTimeout(() => welcomeEl.remove(), 350);
+    }
+  }
+
+  // ── Reset chat ────────────────────────────────────────────────────────────
+  function resetChat() {
+    convId       = null;
+    selectedCity = null;
+    isStreaming  = false;
+    streamBubble = null;
+    lastBotText  = '';
+    document.querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
+    setSendState(true);
+
+    // Clear messages and re-insert welcome
+    messagesEl.innerHTML = '';
+    const w = welcomeEl.cloneNode(true);
+    w.style.opacity = '1';
+    w.querySelectorAll('.hint-bubble').forEach(h => h.addEventListener('click', () => fillHint(h)));
+    messagesEl.appendChild(w);
+
+    showToast('🔄 Chat reset — start a new trip!');
+  }
+
+  // ── Copy last response ────────────────────────────────────────────────────
+  function copyLast() {
+    if (!lastBotText) { showToast('Nothing to copy yet.'); return; }
+    navigator.clipboard.writeText(lastBotText)
+      .then(() => showToast('📋 Copied to clipboard!'))
+      .catch(() => showToast('Failed to copy.'));
+  }
+
+  // ── Helpers ───────────────────────────────────────────────────────────────
+  function scrollBottom() {
+    requestAnimationFrame(() => {
+      messagesEl.scrollTop = messagesEl.scrollHeight;
+    });
+  }
+
+  function setSendState(enabled) {
+    sendBtn.disabled = !enabled;
+  }
+
+  function setStatus(state) {
+    statusDot.className = 'status-dot ' + (state !== 'connected' ? state : '');
+    statusText.textContent =
+      state === 'connected'    ? 'Online'       :
+      state === 'connecting'   ? 'Connecting…'  :
+                                 'Offline';
+  }
+
+  function now() {
+    return new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+  }
+
+  function showToast(msg) {
+    const t = document.getElementById('toast');
+    t.textContent = msg;
+    t.classList.add('show');
+    setTimeout(() => t.classList.remove('show'), 2800);
+  }
+
+  // ── Textarea auto-resize + Enter to send ─────────────────────────────────
+  inputEl.addEventListener('input', () => {
+    inputEl.style.height = 'auto';
+    inputEl.style.height = Math.min(inputEl.scrollHeight, 110) + 'px';
+    charCount.textContent = `${inputEl.value.length} / 2000`;
+  });
+
+  inputEl.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter' && !e.shiftKey) {
+      e.preventDefault();
+      sendMessage();
+    }
+  });
+
+  // ── Boot ──────────────────────────────────────────────────────────────────
+  connect();
+</script>
+</body>
+</html>

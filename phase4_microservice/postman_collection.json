@@ -1,0 +1,86 @@
+{
+  "info": {
+    "name": "Phase IV \u2014 Travel Planner Chat Microservice (Ollama)",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Health Check",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8000/healthz",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8000",
+          "path": [
+            "healthz"
+          ]
+        }
+      }
+    },
+    {
+      "name": "WS \u2014 Istanbul itinerary (Turn 1)",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "ws://localhost:8000/ws/chat",
+          "protocol": "ws",
+          "host": [
+            "localhost"
+          ],
+          "port": "8000",
+          "path": [
+            "ws",
+            "chat"
+          ]
+        },
+        "description": "1. Connect to ws://localhost:8000/ws/chat\n2. Receive {type:'hello', conversation_id:'...'}\n3. Send Turn 1:\n   {\"type\":\"chat\",\"conversation_id\":\"demo-1\",\"city\":\"istanbul\",\"message\":\"I am visiting Istanbul for 5 days and I love history and culture.\"}\n4. Receive streamed {type:'token'} frames then {type:'final'}\n5. Send Turn 2 (same connection):\n   {\"type\":\"chat\",\"conversation_id\":\"demo-1\",\"message\":\"I am vegetarian \u2014 which sites have good vegetarian food nearby?\"}\n   The model will remember turn 1 context.\n6. Send Turn 3:\n   {\"type\":\"chat\",\"conversation_id\":\"demo-1\",\"message\":\"What should I pack for this trip?\"}"
+      }
+    },
+    {
+      "name": "WS \u2014 Tokyo solo traveller",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "ws://localhost:8000/ws/chat",
+          "protocol": "ws",
+          "host": [
+            "localhost"
+          ],
+          "port": "8000",
+          "path": [
+            "ws",
+            "chat"
+          ]
+        },
+        "description": "Send:\n{\"type\":\"chat\",\"city\":\"tokyo\",\"message\":\"I want to visit Tokyo for 4 days, solo traveller who loves food and anime.\"}"
+      }
+    },
+    {
+      "name": "WS \u2014 No city (policy guard test)",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "ws://localhost:8000/ws/chat",
+          "protocol": "ws",
+          "host": [
+            "localhost"
+          ],
+          "port": "8000",
+          "path": [
+            "ws",
+            "chat"
+          ]
+        },
+        "description": "Send without a city to verify the model asks for one:\n{\"type\":\"chat\",\"message\":\"I want to travel somewhere nice next month.\"}"
+      }
+    }
+  ]
+}
