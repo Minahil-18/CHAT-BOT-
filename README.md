@@ -329,5 +329,12 @@ The container exposes port 8000 and serves both the REST endpoints and the web U
 Set `OLLAMA_BASE_URL` to point to your Ollama instance (use `host.docker.internal` on Windows/Mac Docker Desktop).
 
 ---
+## Interface
+
+<img width="1919" height="916" alt="image" src="https://github.com/user-attachments/assets/55b0f022-5204-4067-9dbc-1eca1deb0ba7" />
+
+<img width="1918" height="911" alt="image" src="https://github.com/user-attachments/assets/27fd383d-b119-4ca0-ada2-155f299e9203" />
+
+
 
 *Built for NUCES NLP Assignment 2 — Spring 2026*
