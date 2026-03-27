@@ -1,0 +1,11 @@
+fastapi
+uvicorn
+httpx
+python-multipart
+numpy
+scipy
+useful-moonshine
+tokenizers
+keras
+tensorflow
+piper-tts
