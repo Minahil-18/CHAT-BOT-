@@ -1,6 +1,7 @@
 # Voice Travel Chatbot - Quick Start Guide
 
-## 🚀 How to Run (After a Month)
+## 🚀 How to Run 
+
 
 ### Option 1: Double-click (Easiest)
 Just double-click: **`START_CHATBOT.bat`**
