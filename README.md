@@ -69,7 +69,8 @@ flowchart LR
 
 **TTS (Piper `en_US-lessac-medium`):** Synthesises assistant replies to WAV audio using an ONNX voice model that runs locally with no external API dependency.
 
-![Architecture Diagram](architecture.png)
+<img width="1393" height="667" alt="architectural" src="https://github.com/user-attachments/assets/2f6452b9-6dae-4731-a0b6-5e52ed637960" />
+
 
 ---
 
