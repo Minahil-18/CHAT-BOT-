@@ -171,7 +171,7 @@
     <div class="header-logo">✈️</div>
     <div class="header-text">
       <div class="header-title">Travel Buddy — Voice AI</div>
-      <div class="header-tagline">Voice-powered travel guide — Moonshine ASR · Qwen 2.5 · Kokoro TTS</div>
+      <div class="header-tagline">Voice-powered travel guide — Moonshine ASR · Qwen 2.5 · Piper TTS</div>
     </div>
     <div class="status-badge">
       <div class="status-dot connecting" id="statusDot"></div>
@@ -190,6 +190,13 @@
     <span class="chip" data-city="lahore"    data-flag="🕌">Lahore</span>
     <span class="chip" data-city="singapore" data-flag="🌴">Singapore</span>
     <span class="chip" data-city="islamabad" data-flag="⛰️">Islamabad</span>
+    <span class="chip" data-city="newyork"   data-flag="🗽">New York</span>
+    <span class="chip" data-city="hongkong"  data-flag="🏙️">Hong Kong</span>
+    <span class="chip" data-city="seoul"     data-flag="🇰🇷">Seoul</span>
+    <span class="chip" data-city="andros"    data-flag="🏖️">Andros</span>
+    <span class="chip" data-city="srilanka"  data-flag="🌴">Sri Lanka</span>
+    <span class="chip" data-city="fraser"    data-flag="🏝️">Fraser Island</span>
+    <span class="chip" data-city="rio"       data-flag="🎭">Rio</span>
   </div>
 
   <div class="messages" id="messages">
@@ -241,6 +248,8 @@
   let isStreaming = false, streamBubble = null, lastBotText = '';
   let voiceEnabled = true;
   let isRecording = false, mediaRec = null, audioChunks = [], micStream = null;
+  let userId = localStorage.getItem('travelUserId') || `user_${Math.random().toString(36).slice(2, 10)}`;
+  localStorage.setItem('travelUserId', userId);
 
   const messagesEl = document.getElementById('messages');
   const welcomeEl  = document.getElementById('welcome');
@@ -296,7 +305,7 @@
     appendUserBubble(text);
     inputEl.value = ''; inputEl.style.height = 'auto';
     charCount.textContent = '0 / 2000';
-    const payload = { type:'chat', conversation_id:convId, message:text };
+    const payload = { type:'chat', conversation_id:convId, message:text, user_id:userId };
     if (selectedCity) payload.city = selectedCity;
     ws.send(JSON.stringify(payload));
     isStreaming = true; setSendState(false);

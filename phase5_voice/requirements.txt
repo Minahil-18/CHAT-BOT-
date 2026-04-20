@@ -9,3 +9,5 @@ tokenizers
 keras
 tensorflow
 piper-tts
+sentence-transformers
+websockets

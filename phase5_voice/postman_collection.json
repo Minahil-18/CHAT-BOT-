@@ -1,0 +1,120 @@
+{
+  "info": {
+    "name": "Phase5 Voice Travel Bot",
+    "_postman_id": "f00f8a95-2b27-4a7a-9497-a4b8427f91f0",
+    "description": "Core endpoint checks for RAG + tools + voice APIs",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Health",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/healthz",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "healthz"
+          ]
+        }
+      }
+    },
+    {
+      "name": "RAG Status",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/api/rag/status",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "rag",
+            "status"
+          ]
+        }
+      }
+    },
+    {
+      "name": "Tools Status",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/api/tools/status",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "tools",
+            "status"
+          ]
+        }
+      }
+    },
+    {
+      "name": "Retrieve Documents",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"query\": \"best food in lahore\",\n  \"city\": \"lahore\",\n  \"top_k\": 3\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/retrieve",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "retrieve"
+          ]
+        }
+      }
+    },
+    {
+      "name": "Synthesize Voice",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "formdata",
+          "formdata": [
+            {
+              "key": "text",
+              "value": "Hello from postman voice test",
+              "type": "text"
+            }
+          ]
+        },
+        "url": {
+          "raw": "{{baseUrl}}/api/synthesize",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "synthesize"
+          ]
+        }
+      }
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:8000"
+    }
+  ]
+}

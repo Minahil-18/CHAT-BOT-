@@ -1,0 +1,21 @@
+services:
+  voice-travel-bot:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: voice-travel-bot
+    ports:
+      - "8000:8000"
+    environment:
+      - OLLAMA_BASE_URL=http://host.docker.internal:11434
+      - MODEL_NAME=qwen2.5:1.5b
+      - RAG_ENABLED=true
+      - TOOLS_ENABLED=true
+      - RAG_TOP_K=3
+      - MAX_HISTORY=4
+      - MAX_TOKENS=350
+      - TOOL_TIMEOUT_SECONDS=2.0
+    volumes:
+      - ./data:/app/data
+      - ./rag/index:/app/rag/index
+    restart: unless-stopped
