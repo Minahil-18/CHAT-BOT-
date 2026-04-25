@@ -4,6 +4,7 @@ httpx
 python-multipart
 numpy
 scipy
+librosa
 useful-moonshine
 tokenizers
 keras

@@ -353,7 +353,7 @@ class ToolOrchestrator:
             prompt += f"Description: {tool['description']}\n"
             prompt += f"Input schema: {json.dumps(tool['input_schema'], indent=2)}\n"
             prompt += f"To use this tool, format your response as:\n"
-            prompt += f"[TOOL_CALL: {tool['name']} {{'arg1': 'value1', 'arg2': 'value2'}}]\n\n"
+            prompt += f'[TOOL_CALL: {tool["name"]} {{"arg1": "value1", "arg2": "value2"}}]\n\n'
         
         prompt += "\nWhen you need to use a tool:\n"
         prompt += "1. Identify which tool is needed\n"

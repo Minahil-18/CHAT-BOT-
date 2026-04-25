@@ -1,0 +1,65 @@
+# Evaluation Configuration
+# Person A: Correctness & RAG Evaluation
+
+# LLM Configuration
+llm:
+  base_url: "http://localhost:11434"
+  model: "qwen2.5:1.5b"
+  temperature: 0.1  # Low temp for consistent judge scoring
+  max_tokens: 500
+
+# RAG Configuration
+rag:
+  enabled: true
+  top_k: 5
+  similarity_threshold: 0.3  # Consider relevant if similarity > threshold
+  use_ragas: true  # Use RAGAS library for metrics if available
+
+# Evaluation Configuration
+evaluation:
+  # Conversational metrics
+  conversational:
+    judge_temperature: 0.1  # Deterministic judging
+    coherence_scale: 5  # Scale for coherence scoring (1-5)
+    required_trials: 1  # Run judge once (can increase for stability)
+
+  # RAG metrics
+  rag:
+    precision_k: [2, 5]  # Calculate precision@2 and precision@5
+    recall_k: [2, 5]     # Calculate recall@2 and recall@5
+    compute_mrr: true
+    compute_faithfulness: true
+    
+  # Human validation
+  human_validation:
+    min_evaluators: 3
+    min_eval_agreement: 0.70  # Must be >70% agreement with judge
+
+# Thresholds for "Good" Performance
+thresholds:
+  task_completion_rate: 0.80      # >80% tasks completed
+  policy_adherence_rate: 0.95     # >95% out-of-scope refused
+  coherence_mean: 3.5              # Average coherence > 3.5/5
+  consistency_rate: 0.90           # >90% consistent
+  rag_precision_at_5: 0.60         # >60% top-5 relevant
+  rag_recall_at_5: 0.60            # >60% relevant docs retrieved
+  faithfulness_rate: 0.75          # >75% faithful to context
+
+# Test Data Paths
+test_data:
+  dialogues_path: "./test_data/dialogues.json"
+  rag_ground_truth_path: "./test_data/rag_ground_truth.json"
+  rubrics_path: "./test_data/rubrics.json"
+  human_evaluation_path: "./test_data/human_evaluation.csv"
+
+# Output Configuration
+output:
+  report_path: "./outputs/correctness_report.json"
+  report_markdown_path: "./outputs/correctness_report.md"
+  rag_metrics_path: "./outputs/rag_metrics.json"
+  human_validation_summary_path: "./outputs/human_validation_summary.txt"
+
+# Logging
+logging:
+  level: "INFO"
+  format: "%(asctime)s - %(name)s - %(levelname)s - %(message)s"

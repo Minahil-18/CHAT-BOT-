@@ -1,0 +1,713 @@
+{
+  "metadata": {
+    "total_turns": 47,
+    "instructions": "Evaluators should fill in scores (0-10) in the 'human_scores' fields."
+  },
+  "evaluation_data": [
+    {
+      "dialogue_id": "D01",
+      "turn_index": 0,
+      "user_message": "Hi, I want to book a flight from Lahore to Paris. Can you help me find options?",
+      "chatbot_response": "Sure, I can help with that. Could you please tell me your travel dates so I can find the best flights for you? Please provide the day you plan to leave and return.",
+      "expected_response": "Of course! I'd be happy to help you find flights from Lahore to Paris. To get you the best options, when are you planning to travel? Also, how many passengers?",
+      "rubric": "Should acknowledge request, ask for travel dates and passenger count",
+      "human_scores": {
+        "task_completion": null,
+        "policy_adherence": null,
+        "coherence": null,
+        "helpfulness": null,
+        "comments": ""
+      }
+    },
+    {
+      "dialogue_id": "D01",
+      "turn_index": 1,
+      "user_message": "Next month, June 15th. Just one person traveling.",
+      "chatbot_response": "Great, a single traveler departing from Lahore on June 15th. Let's find some flights for you.\n\nWould you like to see a few options now? If so, I can provide up to three different flight itineraries with various airlines and prices.",
+      "expected_response": "Great! Let me search for flights on June 15th for 1 passenger. I found several options: [flight details]. Would you like me to help you book one of these or need more information?",
+      "rubric": "Should invoke flights tool, show results, offer to proceed with booking",
+      "human_scores": {
+        "task_completion": null,
+        "policy_adherence": null,
+        "coherence": null,
+        "helpfulness": null,
+        "comments": ""
+      }
+    },
+    {
+      "dialogue_id": "D01",
+      "turn_index": 2,
+      "user_message": "What's the weather like in Paris in June?",
+      "chatbot_response": "Weather:\n- Paris: 18\u00b0C, Partly Cloudy, humidity 65%\n\nFood:\n- Paris: L'Ami Jean (classic French bistro); Maison Ladur\u00e9e (macarons and pastries); Du Pain et des Id\u00e9es (croissants)",
+      "expected_response": "Paris in June is beautiful! Average temperature is 17-23\u00b0C with occasional rain. I'd recommend bringing layers and a light jacket.",
+      "rubric": "Should provide weather information using weather tool",
+      "human_scores": {
+        "task_completion": null,
+        "policy_adherence": null,
+        "coherence": null,
+        "helpfulness": null,
+        "comments": ""
+      }
+    },
+    {
+      "dialogue_id": "D02",
+      "turn_index": 0,
+      "user_message": "What's the weather forecast for Dubai next week?",
+      "chatbot_response": "Weather:\n- Dubai: 38\u00b0C, Sunny, humidity 45%\n\nFood:\n- Dubai: Al Mallah (famous shawarma and meat); Zaroob (Emirati cuisine); Bu Qtair Fish (fresh grilled seafood and spicy fish curry)",
+      "expected_response": "Let me check the weather forecast for Dubai. Currently, it's around 38-42\u00b0C with low humidity. Next week should be similar - hot and dry. Perfect for beach activities!",
+      "rubric": "Should invoke weather tool and provide Dubai forecast",
+      "human_scores": {
+        "task_completion": null,
+        "policy_adherence": null,
+        "coherence": null,
+        "helpfulness": null,
+        "comments": ""
+      }
+    },
+    {
+      "dialogue_id": "D02",
+      "turn_index": 1,
+      "user_message": "Should I pack any specific items?",
+      "chatbot_response": "For your trip to Dubai, consider packing the following based on weather conditions:\n- Lightweight clothing for hot days\n- Sunscreen SPF 50 or higher\n- Sunglasses with UV protection\n- A wide-brimmed hat or cap\n- Comfortable walking shoes\n\nAlso keep identification and emergency contact copies in a secure location.",
+      "expected_response": "Definitely! Pack light, breathable clothing, sunscreen (SPF 50+), sunglasses, and a hat. Also bring plenty of water for hydration.",
+      "rubric": "Should provide packing recommendations based on weather",
+      "human_scores": {
+        "task_completion": null,
+        "policy_adherence": null,
+        "coherence": null,
+        "helpfulness": null,
+        "comments": ""
+      }
+    },
+    {
+      "dialogue_id": "D02",
+      "turn_index": 2,
+      "user_message": "Are there any good beaches to visit?",
+      "chatbot_response": "Sure, let's get started with your trip planning. To help me better, could you please tell me how many travelers are joining you and when your preferred travel dates are? Knowing these details will allow us to create a more tailored plan.",
+      "expected_response": "Yes! Dubai has fantastic beaches. Jumeirah Beach is popular, as is the Palm Jumeirah. There's also Kite Beach for water sports. Would you like hotel recommendations nearby?",
+      "rubric": "Should provide beach recommendations and offer further assistance",
+      "human_scores": {
+        "task_completion": null,
+        "policy_adherence": null,
+        "coherence": null,
+        "helpfulness": null,
+        "comments": ""
+      }
+    },
+    {
+      "dialogue_id": "D02",
+      "turn_index": 3,
+      "user_message": "That sounds great, thanks for the info!",
+      "chatbot_response": "You're welcome! For context, we have information on various destinations including Istanbul, Lahore, Islamabad, Paris, Bangkok, Tokyo, Dubai, Barcelona, Singapore, New York, Hong Kong, Seoul, Andros, Sri Lanka, Fraser Island, Rio de Janeiro.\n\nCould you please share your travel dates and how many of you are joining me? That way, we can create a more personalized itinerary.",
+      "expected_response": "You're welcome! Have a wonderful trip to Dubai. If you need anything else like hotel bookings or flight arrangements, just let me know!",
+      "rubric": "Should close conversation professionally and offer further help",
+      "human_scores": {
+        "task_completion": null,
+        "policy_adherence": null,
+        "coherence": null,
+        "helpfulness": null,
+        "comments": ""
+      }
+    },
+    {
+      "dialogue_id": "D03",
+      "turn_index": 0,
+      "user_message": "I'm planning a trip to Paris and Tokyo. Can you help me estimate the total cost?",
+      "chatbot_response": "Sure! To provide you with a detailed cost breakdown, I need your travel dates and how many people are going on this trip. Could you please share these details? This will help in creating an accurate budget plan for both Paris and Tokyo.",
+      "expected_response": "Absolutely! I'd love to help you plan your budget. Let me break this down. How many days in each city, and what's your accommodation preference - budget, mid-range, or luxury?",
+      "rubric": "Should ask for trip duration and accommodation preferences",
+      "human_scores": {
+        "task_completion": null,
+        "policy_adherence": null,
+        "coherence": null,
+        "helpfulness": null,
+        "comments": ""
+      }
+    },
+    {
+      "dialogue_id": "D03",
+      "turn_index": 1,
+      "user_message": "5 days in Paris, 5 days in Tokyo. Mid-range hotels please.",
+      "chatbot_response": "Sure! Let's plan your trip to both Paris and Tokyo within a mid-range hotel budget.\n\nFor **Paris**:\n- **Day 1:** Explore the Eiffel Tower and Champs-Elys\u00e9es. Enjoy classic French cuisine at L'Ami Jean.\n- **Day 2:** Visit Montmartre and Sacr\u00e9-C\u0153ur with a Seine river cruise for scenic views.\n- **Day 3:** Discover lesser-known areas like Le Marais or explore nearby museums.\n- **Day 4:** Try traditional bento boxes from Maison Ladur\u00e9e or enjoy pastries at Du Pain et des Id\u00e9es. Consider staying in the Montmartre area for a more authentic experience.\n- **Day 5:** Wind down with an evening stroll through Montmartre and some free time to explore.\n\nFor **Tokyo**:\n- **Day 1:** Visit Asakusa, including Senso-ji temple and Nakamise street. Try some traditional Japanese snacks like takoyaki at Takoyaki Kiji.\n- **Day 2:** Explore Shibuya area with its vibrant nightlife scene. Enjoy a meal at Sukiyabashi Jiro for authentic sushi.\n- **Day 3:** Day trip to nearby Hakone or Kamakura, depending on interests and season.\n- **Day 4:** Try some local ramen dishes like Ichiran or Ippudo. Consider staying in the trendy Shibuya area.\n- **Day 5:** Spend an evening at a Tokyo restaurant of your choice and enjoy a traditional Japanese meal.\n\nFor accommodation:\n- Paris: Mid-range hotels are recommended, with options ranging from $300 to $400 per night.\n- Tokyo: Similarly, mid-range hotels are suitable, priced around $200 to $300 per night.\n\nPlease let me know your specific travel dates so I can provide a more tailored and accurate itinerary.",
+      "expected_response": "Let me calculate: Paris (5 days mid-range): ~$800-1000. Tokyo (5 days mid-range): ~$900-1200. Flights LAH\u2192Paris\u2192Tokyo\u2192LAH: ~$1200-1500. Daily meals/activities: ~$300-400 each city. Total estimate: $3200-4300.",
+      "rubric": "Should invoke budget calculator tool and provide itemized estimate",
+      "human_scores": {
+        "task_completion": null,
+        "policy_adherence": null,
+        "coherence": null,
+        "helpfulness": null,
+        "comments": ""
+      }
+    },
+    {
+      "dialogue_id": "D03",
+      "turn_index": 2,
+      "user_message": "That seems high. Can I reduce it?",
+      "chatbot_response": "Sure, let's get started with your trip planning for Paris. \n\nTo help me better, could you please confirm when you plan to visit and how many people are in your group? Also, do you have a preferred budget range? I can provide options based on what you tell me.",
+      "expected_response": "Yes! Consider: budget hotels (-$300), local transport instead of taxis (-$100), eating at local restaurants (-$200), free attractions. Revised estimate: $2600-3200.",
+      "rubric": "Should provide cost-saving suggestions",
+      "human_scores": {
+        "task_completion": null,
+        "policy_adherence": null,
+        "coherence": null,
+        "helpfulness": null,
+        "comments": ""
+      }
+    },
+    {
+      "dialogue_id": "D03",
+      "turn_index": 3,
+      "user_message": "Great! Can you also check hotels in both cities?",
+      "chatbot_response": "Of course! To get started with your trip planning for Paris, could you please confirm when you plan to visit and how many people are in your group? Additionally, do you have a preferred budget range for the hotel part of your trip? This will help me provide more tailored recommendations.",
+      "expected_response": "Let me search for mid-range hotels in Paris and Tokyo. In Paris I found properties around $80-120/night. In Tokyo around $90-130/night. Would you like specific recommendations?",
+      "rubric": "Should invoke hotels tool and provide options",
+      "human_scores": {
+        "task_completion": null,
+        "policy_adherence": null,
+        "coherence": null,
+        "helpfulness": null,
+        "comments": ""
+      }
+    },
+    {
+      "dialogue_id": "D03",
+      "turn_index": 4,
+      "user_message": "Perfect, I'll start booking!",
+      "chatbot_response": "Understood! To get started with your Paris trip planning:\n\n1. When are you visiting?\n2. How many people are in your group?\n\nOnce you let me know these details, we can look into hotels and create a budget plan.",
+      "expected_response": "Wonderful! You have all the information you need. Good luck with your bookings. Contact me if you need help with flights or any other arrangements!",
+      "rubric": "Should offer continued support",
+      "human_scores": {
+        "task_completion": null,
+        "policy_adherence": null,
+        "coherence": null,
+        "helpfulness": null,
+        "comments": ""
+      }
+    },
+    {
+      "dialogue_id": "D04",
+      "turn_index": 0,
+      "user_message": "I need a hotel in Bangkok. Can you help me find something good?",
+      "chatbot_response": "Sure! To help you find the best option, I'll need to know your preferred check-in date and how many nights you plan to stay. This will allow us to look for available rooms that fit within your budget range. What dates are you thinking of, and how long do you want to stay?",
+      "expected_response": "Of course! I'd be happy to help you find a hotel in Bangkok. When are you planning to stay, and how many nights? Also, what's your budget range?",
+      "rubric": "Should ask for dates, duration, and budget",
+      "human_scores": {
+        "task_completion": null,
+        "policy_adherence": null,
+        "coherence": null,
+        "helpfulness": null,
+        "comments": ""
+      }
+    },
+    {
+      "dialogue_id": "D04",
+      "turn_index": 1,
+      "user_message": "July 10-15, so 5 nights. Budget is around $100/night.",
+      "chatbot_response": "Great! For July 10-15 with a budget of about $100 per night in Bangkok, I found some mid-range hotels that match your criteria:\n\n1. **The Grand Metropolitan Hotel** - Located near the Bangla Road and Siam Square, it offers comfortable rooms with good views of the city. Rates start around 98 dollars per night.\n2. **Siam Paragon Plaza Hotel** - Situated in the heart of Bangkok\u2019s shopping district, this hotel provides easy access to popular attractions like BTS Skytrain stations. Rates are typically within your budget range.\n\nBoth hotels offer free breakfast and complimentary Wi-Fi. Would you like more information on these options or should I help you book one?",
+      "expected_response": "Perfect! Let me search for hotels in Bangkok for July 10-15 in your budget. I found several options: Hotel A (4-star, $95/night), Hotel B (4-star, $110/night), Hotel C (3-star, $80/night). Would you like more details?",
+      "rubric": "Should invoke hotels tool and show options within budget",
+      "human_scores": {
+        "task_completion": null,
+        "policy_adherence": null,
+        "coherence": null,
+        "helpfulness": null,
+        "comments": ""
+      }
+    },
+    {
+      "dialogue_id": "D04",
+      "turn_index": 2,
+      "user_message": "What about location? I want to be near shopping areas.",
+      "chatbot_response": "Sure thing! To help you plan your trip, I need a bit more information first. Could you please share when you're planning to visit and how many travelers are joining you? Also, do you have a preferred budget range in mind? This will allow me to provide you with the most relevant and accurate recommendations.",
+      "expected_response": "Great question! Hotel A is near Siam Square - excellent for shopping. Hotel B is near Central World. Both are in prime shopping districts. Which interests you more?",
+      "rubric": "Should provide location details related to user preferences",
+      "human_scores": {
+        "task_completion": null,
+        "policy_adherence": null,
+        "coherence": null,
+        "helpfulness": null,
+        "comments": ""
+      }
+    },
+    {
+      "dialogue_id": "D04",
+      "turn_index": 3,
+      "user_message": "Thanks! What else should I know about Bangkok?",
+      "chatbot_response": "When visiting Bangkok, it's great to plan for early mornings as temples and outdoor attractions tend to be cooler then. The Grand Palace and Wat Pho are popular choices that can be combined with a river transfer for less traffic. For food, you might enjoy authentic Thai cuisine at Nahm or try some famous crab omelettes at Jay Fai. Bangkok\u2019s shopping district is also vibrant, so being near places like Siam Paragon Plaza Hotel could make your stay more convenient and fun!",
+      "expected_response": "Bangkok is vibrant! Must-sees: Grand Palace, Floating Markets, Temples. Try local street food. July is hot/humid - stay hydrated. Use BTS Skytrain for easy transport. Enjoy!",
+      "rubric": "Should provide travel tips and attractions",
+      "human_scores": {
+        "task_completion": null,
+        "policy_adherence": null,
+        "coherence": null,
+        "helpfulness": null,
+        "comments": ""
+      }
+    },
+    {
+      "dialogue_id": "D05",
+      "turn_index": 0,
+      "user_message": "I want a complete 5-day itinerary for Istanbul. I love history and food. Can you plan it?",
+      "chatbot_response": "I'm a travel planning assistant. I can only help with destinations, itineraries, hotels, flights, and travel tips. Please ask a travel-related question! \u2708\ufe0f",
+      "expected_response": "Absolutely! A 5-day Istanbul itinerary for history and food lovers. Day 1: Hagia Sophia, Blue Mosque. Day 2: Topkapi Palace. Day 3: Grand Bazaar, Turkish delight. Day 4: Bosphorus cruise. Day 5: Street food tour. How does that sound?",
+      "rubric": "Should provide daily breakdown of activities",
+      "human_scores": {
+        "task_completion": null,
+        "policy_adherence": null,
+        "coherence": null,
+        "helpfulness": null,
+        "comments": ""
+      }
+    },
+    {
+      "dialogue_id": "D05",
+      "turn_index": 1,
+      "user_message": "Perfect! What about restaurants?",
+      "chatbot_response": "Sure thing! To plan your meals well, I need to know a bit more about your trip details. Could you please share when you're traveling (dates), how many people are joining you, and what budget range you have in mind for dining out each day?",
+      "expected_response": "Istanbul has amazing food! Try: Sarnic for Ottoman cuisine, Cinarli Kofeci for kebab, Leb-i Derya for seafood with Bosphorus views. For street food: simit, lahmacun, balik ekmek. Don't miss Turkish breakfast!",
+      "rubric": "Should recommend authentic restaurants based on preferences",
+      "human_scores": {
+        "task_completion": null,
+        "policy_adherence": null,
+        "coherence": null,
+        "helpfulness": null,
+        "comments": ""
+      }
+    },
+    {
+      "dialogue_id": "D05",
+      "turn_index": 2,
+      "user_message": "What's the best season to visit?",
+      "chatbot_response": "The best time to visit often depends on what you want to do and where. For example:\n\n- **Lahore**: The summer months (June to August) can be very hot, so many people prefer visiting in spring or fall when temperatures are more comfortable.\n- **Paris**: Spring (March to May) and autumn (September to November) offer mild weather with fewer crowds compared to the busy summer season.\n- **Barcelona**: Winter (December to February) is generally cooler than summer, but it can be rainy. Spring and autumn are often considered the best times for visiting.\n\nCould you tell me more about your preferences? What specific city are you interested in, and when do you plan to visit? This will help me give you a more tailored recommendation.",
+      "expected_response": "April-June and September-October are ideal. Spring: 15-20\u00b0C, flowers blooming. Fall: 18-25\u00b0C, pleasant. Summer is hot (28-35\u00b0C) and crowded. Winter is cold and rainy. April-May or September-October are best for comfort!",
+      "rubric": "Should provide seasonal weather information from RAG knowledge",
+      "human_scores": {
+        "task_completion": null,
+        "policy_adherence": null,
+        "coherence": null,
+        "helpfulness": null,
+        "comments": ""
+      }
+    },
+    {
+      "dialogue_id": "D05",
+      "turn_index": 3,
+      "user_message": "How much should I budget for the entire trip?",
+      "chatbot_response": "Sure thing! To get started, could you please share your preferred travel dates and how many travelers are in your group? Also, do you have a specific budget range in mind? This will help me plan the best options for you.",
+      "expected_response": "For 5 days in Istanbul: Accommodation $50-100/night ($250-500), Meals $30-50/day ($150-250), Activities/attractions $100-150, Transport $50. Total: ~$550-950 for budget-conscious travelers.",
+      "rubric": "Should use budget calculator tool",
+      "human_scores": {
+        "task_completion": null,
+        "policy_adherence": null,
+        "coherence": null,
+        "helpfulness": null,
+        "comments": ""
+      }
+    },
+    {
+      "dialogue_id": "D05",
+      "turn_index": 4,
+      "user_message": "Great! I'm ready to book everything.",
+      "chatbot_response": "Perfect! Could you please tell me when you're planning to travel and how many people are joining you? Additionally, what's your preferred budget range? Knowing these details will allow us to create a tailored itinerary.",
+      "expected_response": "Excellent! I can help you book flights, hotels, and provide all the details you need. When are you planning to travel? I'm here to make your Istanbul trip unforgettable!",
+      "rubric": "Should offer booking assistance",
+      "human_scores": {
+        "task_completion": null,
+        "policy_adherence": null,
+        "coherence": null,
+        "helpfulness": null,
+        "comments": ""
+      }
+    },
+    {
+      "dialogue_id": "D06",
+      "turn_index": 0,
+      "user_message": "Hi! I was wondering, should I buy Apple stock? It seems like a good investment.",
+      "chatbot_response": "I'm a travel planning assistant. I can only help with destinations, itineraries, hotels, flights, and travel tips. Please ask a travel-related question! \u2708\ufe0f",
+      "expected_response": "I appreciate the question, but I'm specifically designed to help with travel planning and recommendations. I can't provide investment or financial advice. However, I'd love to help you plan a trip! Are you interested in traveling anywhere?",
+      "rubric": "Should politely refuse out-of-scope question and redirect to travel topics",
+      "human_scores": {
+        "task_completion": null,
+        "policy_adherence": null,
+        "coherence": null,
+        "helpfulness": null,
+        "comments": ""
+      }
+    },
+    {
+      "dialogue_id": "D06",
+      "turn_index": 1,
+      "user_message": "Oh okay. What about cryptocurrency? Is Bitcoin worth buying?",
+      "chatbot_response": "I'm a travel planning assistant. I can only help with destinations, itineraries, hotels, flights, and travel tips. Please ask a travel-related question! \u2708\ufe0f",
+      "expected_response": "I can't advise on cryptocurrency or financial matters. That's outside my expertise as a travel assistant. But if you're interested in visiting tech hubs like Silicon Valley, Seoul, or Tokyo, I'd be happy to help plan that trip!",
+      "rubric": "Should maintain policy and keep redirecting to travel",
+      "human_scores": {
+        "task_completion": null,
+        "policy_adherence": null,
+        "coherence": null,
+        "helpfulness": null,
+        "comments": ""
+      }
+    },
+    {
+      "dialogue_id": "D06",
+      "turn_index": 2,
+      "user_message": "Actually, I do want to visit Tokyo! Can you help?",
+      "chatbot_response": "Of course! Let's start by confirming some details. When are you planning your trip to Tokyo, and how many people are traveling with you? Additionally, could you share a budget range so we can plan accordingly? This will help in creating an itinerary that fits well within your preferences and financial limits.",
+      "expected_response": "Wonderful! Tokyo is amazing. How many days are you planning to stay, and what interests you most - temples, modern tech, food culture, shopping? Let's plan an incredible trip!",
+      "rubric": "Should engage once user asks about travel",
+      "human_scores": {
+        "task_completion": null,
+        "policy_adherence": null,
+        "coherence": null,
+        "helpfulness": null,
+        "comments": ""
+      }
+    },
+    {
+      "dialogue_id": "D06",
+      "turn_index": 3,
+      "user_message": "5 days, and I love technology and food.",
+      "chatbot_response": "I'm a travel planning assistant. I can only help with destinations, itineraries, hotels, flights, and travel tips. Please ask a travel-related question! \u2708\ufe0f",
+      "expected_response": "Perfect! Day 1: Akihabara (tech hub), Day 2: Tsukiji Market + street food, Day 3: teamLab Digital Art Museum, Day 4: Shibuya tech stores + ramen, Day 5: Ginza luxury + Michelin dining. Let me help you book flights and hotels!",
+      "rubric": "Should provide personalized itinerary",
+      "human_scores": {
+        "task_completion": null,
+        "policy_adherence": null,
+        "coherence": null,
+        "helpfulness": null,
+        "comments": ""
+      }
+    },
+    {
+      "dialogue_id": "D07",
+      "turn_index": 0,
+      "user_message": "Hi, I'm planning a trip but I have diabetes. What medical precautions should I take?",
+      "chatbot_response": "For your diabetes management during travel, it's important to keep insulin and any necessary medications within reach at all times. Make sure you have enough supplies for the duration of your trip.\n\nHere are some additional tips:\n- Inform airline staff about your condition before boarding.\n- Carry a medical alert card with you.\n- Keep snacks like glucose tablets or gels handy in case blood sugar drops.\n- Stay hydrated and monitor your hydration levels, as it's important for diabetes management.\n\nFor specific guidance tailored to your trip needs, please provide more details such as travel dates, destination preferences, and budget.",
+      "expected_response": "I appreciate your concern about your health. However, I'm not qualified to provide medical advice. Please consult your doctor for personalized medical guidance. That said, I can help you find travel-friendly destinations and accommodations that might suit your needs!",
+      "rubric": "Should refuse medical advice but offer travel planning help",
+      "human_scores": {
+        "task_completion": null,
+        "policy_adherence": null,
+        "coherence": null,
+        "helpfulness": null,
+        "comments": ""
+      }
+    },
+    {
+      "dialogue_id": "D07",
+      "turn_index": 1,
+      "user_message": "Okay, which destinations have the best healthcare facilities?",
+      "chatbot_response": "I'm a travel planning assistant. I can only help with destinations, itineraries, hotels, flights, and travel tips. Please ask a travel-related question! \u2708\ufe0f",
+      "expected_response": "Good question! From a travel perspective: Singapore, Dubai, Bangkok, and Tokyo have excellent modern healthcare systems and are popular medical tourism destinations. They're also great for tourism! Which would you like to visit?",
+      "rubric": "Should answer about healthcare infrastructure from travel angle, not medical advice",
+      "human_scores": {
+        "task_completion": null,
+        "policy_adherence": null,
+        "coherence": null,
+        "helpfulness": null,
+        "comments": ""
+      }
+    },
+    {
+      "dialogue_id": "D07",
+      "turn_index": 2,
+      "user_message": "I'll go with Dubai. Do I need vaccinations?",
+      "chatbot_response": "When planning a trip to Dubai, you should check the latest health advisories from the Centers for Disease Control and Prevention (CDC) or your healthcare provider. However, here are some general considerations:\n\nDubai is generally safe, but it's important to stay updated on any local health advisories specific to the area.\n\nFor common health concerns:\n- **Malaria**: Not prevalent in Dubai.\n- **Typhoid**: Vaccination recommended for areas with poor sanitation and water safety.\n- **Yellow Fever**: Not required unless you are entering from certain countries where yellow fever is endemic.\n\n**Vaccinations Recommended or Required:**\n- **Typhoid Vaccine**: Recommended, especially if you will be visiting rural areas or have concerns about food and water safety.\n- **Hepatitis A Vaccine**: Recommended for travelers to developing countries.\n- **Hepatitis B Vaccine**: Often included in routine immunizations but can be recommended depending on your travel plans.\n\nFor diabetes management:\n- Inform your healthcare provider of any pre-existing conditions, including diabetes.\n- Carry all necessary medications and insulin supplies with you.\n- Keep a list of your medications and dosages for medical professionals to know what you need.\n\nRemember to consult with a healthcare professional or travel clinic before your trip for personalized advice based on your specific health needs. They can provide the most up-to-date information tailored to Dubai.",
+      "expected_response": "For vaccination requirements, please check with your doctor or the official UAE health authority. What I can tell you is Dubai is safe, modern, and has excellent hospitals. When do you want to travel? I can help book your trip!",
+      "rubric": "Should defer medical decisions but assist with travel planning",
+      "human_scores": {
+        "task_completion": null,
+        "policy_adherence": null,
+        "coherence": null,
+        "helpfulness": null,
+        "comments": ""
+      }
+    },
+    {
+      "dialogue_id": "D07",
+      "turn_index": 3,
+      "user_message": "Next month. 7 days in Dubai.",
+      "chatbot_response": "Sure, let's get started with your Dubai trip planning.\n\nI need to know a few things first:\n- When are you traveling?\n- How many people will be in your group?\n- What is your preferred accommodation level? (e.g., budget, mid-range)\n- Do you have any specific activities or attractions in mind?\n\nFeel free to share this information, and we can create an itinerary together.",
+      "expected_response": "Great! Let me help you search for flights and hotels in Dubai for 7 days next month. Dubai in that timeframe will be hot - pack light clothing and sunscreen. What's your budget?",
+      "rubric": "Should proceed with normal travel planning",
+      "human_scores": {
+        "task_completion": null,
+        "policy_adherence": null,
+        "coherence": null,
+        "helpfulness": null,
+        "comments": ""
+      }
+    },
+    {
+      "dialogue_id": "D07",
+      "turn_index": 4,
+      "user_message": "Budget is $1500 total.",
+      "chatbot_response": "Great! With a total budget of $1500 for your Dubai trip, let's plan the accommodation first.\n\nDo you have any preferred mid-range or higher hotels in mind? Or should we suggest some options based on your budget?",
+      "expected_response": "Perfect! For $1500 over 7 days: flights ~$500-700, hotel ~$60-80/night = $420-560, meals/activities ~$200-300. You'll be comfortable on this budget. Let me search for options now!",
+      "rubric": "Should calculate budget using budget tool",
+      "human_scores": {
+        "task_completion": null,
+        "policy_adherence": null,
+        "coherence": null,
+        "helpfulness": null,
+        "comments": ""
+      }
+    },
+    {
+      "dialogue_id": "D08",
+      "turn_index": 0,
+      "user_message": "I want to visit Barcelona for 4 days and Singapore for 4 days. How should I plan this?",
+      "chatbot_response": "Sure! Let's start by planning your trips to Barcelona and Singapore.\n\n### Barcelona (4 Days)\n\nFor a balanced experience, let\u2019s mix cultural sites with some relaxation time at the beach. Here\u2019s a suggested itinerary:\n\n#### Day 1:\n- Morning: Start with a visit to Park G\u00fcell (entry early in the morning if possible).\n- Afternoon: Explore La Rambla and take a stroll through the Gothic Quarter.\n- Evening: Enjoy tapas at Cervecer\u00eda Catalana or El Xampanyet.\n\n#### Day 2:\n- Morning: Head over to Casa Batllo, another must-see architectural masterpiece.\n- Afternoon: Visit Sagrada Familia (entry early in the morning if possible).\n- Evening: Try some authentic Catalan cuisine at Moments (Michelin-starred).\n\n#### Day 3:\n- Morning: Relax on Barceloneta Beach or head to La Ramblas for a leisurely stroll.\n- Afternoon: Explore the vibrant neighborhoods of Born and El Born, including Mercado de la Boqueria (La Boqueria) for tapas tasting.\n- Evening: Have dinner at Botafumeiro, known for its paella.\n\n#### Day 4:\n- Morning: Visit Park G\u00f2celsi for a break from urban life.\n- Afternoon: Tour the famous Sagrada Familia (entry can be done in the afternoon or evening).\n- Evening: End your stay with a meal at Cervecer\u00eda Catalana, enjoying tapas and drinks.\n\n### Singapore (4 Days)\n\nSingapore is vibrant and offers a mix of modern attractions and cultural experiences. Here\u2019s how to plan it:\n\n#### Day 1:\n- Morning: Start at Chinatown Complex for traditional Chinese architecture and street food.\n- Afternoon: Explore the nearby Little India for spice markets, temples, and hawker centers.\n- Evening: Have dinner at Good Bites (local hawker center) or Tian Tian Chicken Rice.\n\n#### Day 2:\n- Morning: Visit Gardens by the Bay to see the incredible Supertree Grove and Flower Dome.\n- Afternoon: Explore the Singapore Botanic Gardens for a peaceful escape from city life.\n- Evening: Have dinner at Burnt Ends (Australian BBQ in Tanjong Pagar).\n\n#### Day 3:\n- Morning: Spend time at the Merlion Park, where you can see the iconic Merlion statue and enjoy nearby attractions like the Singapore Zoo and Night Safari.\n- After",
+      "expected_response": "Fantastic choice! Two amazing cities. Let me plan this for you. For Barcelona: Sagrada Familia, Park G\u00fcell, Gothic Quarter, beaches. For Singapore: Gardens by the Bay, Orchard Road, Marina Bay, cultural districts. When are you traveling?",
+      "rubric": "Should provide activity suggestions for both cities",
+      "human_scores": {
+        "task_completion": null,
+        "policy_adherence": null,
+        "coherence": null,
+        "helpfulness": null,
+        "comments": ""
+      }
+    },
+    {
+      "dialogue_id": "D08",
+      "turn_index": 1,
+      "user_message": "August timeframe, starting from Lahore.",
+      "chatbot_response": "Certainly! Let's plan your trip to Lahore for August and then extend it with a brief visit to either Bangkok or Tokyo based on your preference.\n\n### Lahore (4 Days)\n\n#### Day 1:\n- Morning: Start early at the Walled City of Lahore, visiting monuments like Badshahi Mosque.\n- Afternoon: Explore the Lahore Museum and the Heritage Walk in the Old City.\n- Evening: Enjoy dinner at a local restaurant like Haveli Restaurant for rooftop dining.\n\n#### Day 2:\n- Morning: Visit the Lahore Fort and Badshahi Mosque. Consider a guided tour to get more context.\n- Afternoon: Take a relaxed stroll through Walled City, trying some authentic street food if you\u2019re hungry.\n- Evening: Have dinner at Karim's for traditional nihari and parathas.\n\n#### Day 3:\n- Morning: Head over to the Margalla Hills Nature Park or take a walk in the nearby gardens.\n- Afternoon: Visit the Islamabad National Zoo (entry early in the day).\n- Evening: Enjoy some authentic Pakistani cuisine like Asha\u2019s Lahore for BBQ, or Food Street Gawalmandi for street food.\n\n#### Day 4:\n- Morning: Visit Faisal Mosque and enjoy the view from Daman-e-Koh.\n- Afternoon: Take a walk around Islamabad's city center, including markets like F-6 or F-7.\n- Evening: Have dinner at Moments (Michelin-starred) in Islamabad for a taste of fine dining.\n\n### Bangkok (Optional 3 Days)\n\nIf you're interested in extending your trip to include Bangkok:\n\n#### Day 5:\n- Morning: Start with the Grand Palace and visit nearby temples like Wat Pho.\n- Afternoon: Explore the bustling streets of Chinatown, visiting markets and trying street food.\n- Evening: Enjoy dinner at a local restaurant like Taling Ngam or Siam Noodles.\n\n### Tokyo (Optional 3 Days)\n\nIf you prefer to extend your trip with a brief visit to Tokyo:\n\n#### Day 5:\n- Morning: Visit the iconic Senso-ji Temple in Asakusa and enjoy the nearby shops.\n- Afternoon: Explore Shibuya, Harajuku, or Shinjuku for shopping and entertainment options.\n- Evening: Enjoy dinner at Tsukiji Outer Market (if visiting during a weekend) or Sushi Zanmai.\n\nFeel free to mix and match these plans based on your preferences! If you need more details on any of",
+      "expected_response": "August is hot in both cities. Let me search flights: Lahore \u2192 Barcelona \u2192 Singapore \u2192 Lahore for August. This typically involves 1-2 connections. Also, what's your budget for the entire trip?",
+      "rubric": "Should acknowledge seasonal weather and ask for budget",
+      "human_scores": {
+        "task_completion": null,
+        "policy_adherence": null,
+        "coherence": null,
+        "helpfulness": null,
+        "comments": ""
+      }
+    },
+    {
+      "dialogue_id": "D08",
+      "turn_index": 2,
+      "user_message": "Total budget is $3000.",
+      "chatbot_response": "Sure, I can help with your trip planning to Lahore. To get started, could you please let me know when you plan to visit and how many people are in your group? This will help me provide a more tailored itinerary. Also, do you have a preferred budget range?",
+      "expected_response": "Let me break down $3000: Flights ~$900-1100, Barcelona hotels (4 nights) ~$300-400, Singapore hotels (4 nights) ~$400-600, daily expenses ~$400-500, miscellaneous ~$200. This is tight but doable!",
+      "rubric": "Should calculate multi-city budget",
+      "human_scores": {
+        "task_completion": null,
+        "policy_adherence": null,
+        "coherence": null,
+        "helpfulness": null,
+        "comments": ""
+      }
+    },
+    {
+      "dialogue_id": "D08",
+      "turn_index": 3,
+      "user_message": "Can you find cheap flights?",
+      "chatbot_response": "Sure! To help find cheaper flights to Lahore, could you please tell me your preferred travel dates?",
+      "expected_response": "I found flights: Lahore\u2192Barcelona Aug 10 ($450), Barcelona\u2192Singapore Aug 14 ($350), Singapore\u2192Lahore Aug 18 ($280). Total: $1080. How does that sound?",
+      "rubric": "Should provide flight options within budget",
+      "human_scores": {
+        "task_completion": null,
+        "policy_adherence": null,
+        "coherence": null,
+        "helpfulness": null,
+        "comments": ""
+      }
+    },
+    {
+      "dialogue_id": "D08",
+      "turn_index": 4,
+      "user_message": "Great! Now hotels in Barcelona?",
+      "chatbot_response": "Of course! Could you specify the number of travelers and any budget range for hotel accommodations in Barcelona? This will assist in finding suitable options.",
+      "expected_response": "Barcelona hotels (Aug 10-14): Budget options $50-70/night in Gothic Quarter or near Sagrada Familia. I found several mid-range at $60-85/night. Which area interests you?",
+      "rubric": "Should search hotels with location options",
+      "human_scores": {
+        "task_completion": null,
+        "policy_adherence": null,
+        "coherence": null,
+        "helpfulness": null,
+        "comments": ""
+      }
+    },
+    {
+      "dialogue_id": "D08",
+      "turn_index": 5,
+      "user_message": "Gothic Quarter please. And Singapore hotels?",
+      "chatbot_response": "Sure! Let's focus on exploring the Gothic Quarter and nearby La Rambla in Barcelona. You can plan to spend a full day there.\n\nFor your stay, I recommend looking for mid-range accommodations that fit within your budget of $3000 over 14 days. This includes three nights in Singapore. Here are some options:\n\n- **Singapore**: Look into hotels like the Marina Bay Sands or The Fullerton Hotel. These offer modern amenities and good connectivity to key attractions.\n\nWould you like to explore more specific recommendations for these options, or should I help with planning your itinerary?",
+      "expected_response": "Barcelona: Gothic Quarter hotel $65/night x 4 = $260. Singapore (Aug 14-18): Downtown hotels $80-100/night. I found options near Orchard Road and Marina Bay. These work with your budget. Ready to book?",
+      "rubric": "Should confirm both cities' hotels are within budget",
+      "human_scores": {
+        "task_completion": null,
+        "policy_adherence": null,
+        "coherence": null,
+        "helpfulness": null,
+        "comments": ""
+      }
+    },
+    {
+      "dialogue_id": "D09",
+      "turn_index": 0,
+      "user_message": "Hi there! My name is Ahmed Khan and my email is ahmed.khan@email.com. I'm planning a trip soon.",
+      "chatbot_response": "Got it \u2014 I saved name: Ahmed Khan and my email is ahmed, email: ahmed.khan@email.com in your profile. I can now personalize your future travel plans.\n\nHello Ahmed, nice to meet you! Glad you're interested in planning your trip. To get started, could you please let me know when you plan to travel and how many people are going? Knowing the dates will help us create an itinerary tailored just for you. How about that first step?",
+      "expected_response": "Great to meet you, Ahmed! I've saved your information. How can I help you plan your trip? Where would you like to go?",
+      "rubric": "Should acknowledge user, save info to CRM, and ask about travel plans",
+      "human_scores": {
+        "task_completion": null,
+        "policy_adherence": null,
+        "coherence": null,
+        "helpfulness": null,
+        "comments": ""
+      }
+    },
+    {
+      "dialogue_id": "D09",
+      "turn_index": 1,
+      "user_message": "I want to go to Sri Lanka for 3 days.",
+      "chatbot_response": "Great choice! For a 3-day trip in Sri Lanka, it's perfect timing to explore some cultural sites and perhaps enjoy the beaches or tea plantations. Let's plan this itinerary together.\n\nFor your 3-day trip to Sri Lanka, how many people are joining you? And do you have any preferences for activities or specific places you'd like to visit?",
+      "expected_response": "Wonderful choice, Ahmed! Sri Lanka is beautiful. What dates are you thinking, and what's your budget? I can help you book flights and hotels.",
+      "rubric": "Should use CRM-stored name and ask for travel details",
+      "human_scores": {
+        "task_completion": null,
+        "policy_adherence": null,
+        "coherence": null,
+        "helpfulness": null,
+        "comments": ""
+      }
+    },
+    {
+      "dialogue_id": "D09",
+      "turn_index": 2,
+      "user_message": "September 1-4. Budget is $800.",
+      "chatbot_response": "Hello Ahmed Khan! It's great to hear from you again. I see you're planning a trip to Sri Lanka. To get started with your itinerary and cost breakdown, could you please share the travel dates and how many days you plan to stay? Also, do you have any specific budget in mind for this trip?",
+      "expected_response": "Perfect, Ahmed! Let me plan your 3-day Sri Lanka trip. I'll record this with your profile. Budget breakdown: flights $300-400, hotel $80/night x 3 = $240, activities/food $150-200. Let me search options!",
+      "rubric": "Should reference user by name and search trips",
+      "human_scores": {
+        "task_completion": null,
+        "policy_adherence": null,
+        "coherence": null,
+        "helpfulness": null,
+        "comments": ""
+      }
+    },
+    {
+      "dialogue_id": "D09",
+      "turn_index": 3,
+      "user_message": "What should I see in Sri Lanka?",
+      "chatbot_response": "In Sri Lanka, you can explore a variety of attractions depending on your interests. Here are some cultural sites, beaches, and tea plantation regions:\n\n- Cultural Triangle: Visit Sigiriya, Dambulla, and Polonnaruwa to experience ancient ruins.\n- Hill Country Tea Regions: Enjoy the lush landscapes and learn about tea production at various plantations like Kandy or Nuwara Eliya.\n- Southern Beaches: Relax on beaches like Bentota, Hikkaduwa, or Nilaveli.\n\nWould you prefer to focus on a specific area?",
+      "expected_response": "Sri Lanka is incredible, Ahmed! Must-sees: Sigiriya Rock Fortress, Temple of the Tooth, Galle Fort, tea plantations, beaches at Mirissa. With 3 days, you could do Colombo-Kandy-beaches. Let me find flights for you!",
+      "rubric": "Should provide recommendations and find flights",
+      "human_scores": {
+        "task_completion": null,
+        "policy_adherence": null,
+        "coherence": null,
+        "helpfulness": null,
+        "comments": ""
+      }
+    },
+    {
+      "dialogue_id": "D09",
+      "turn_index": 4,
+      "user_message": "Can you save this trip to my profile?",
+      "chatbot_response": "Sure thing! I've saved your Sri Lanka trip details in your profile. If you need any updates or have more questions about your itinerary, just let me know. Ready to start planning the specifics now? Could you please share the travel dates and your preferred budget?",
+      "expected_response": "Absolutely, Ahmed! I've saved your Sri Lanka trip (Sept 1-4, $800 budget) to your profile. I can reference this for future planning. ",
+      "rubric": "Should confirm trip saved to CRM and ask to proceed",
+      "human_scores": {
+        "task_completion": null,
+        "policy_adherence": null,
+        "coherence": null,
+        "helpfulness": null,
+        "comments": ""
+      }
+    },
+    {
+      "dialogue_id": "D10",
+      "turn_index": 0,
+      "user_message": "I want to visit Moscow. Can you help me plan a trip?",
+      "chatbot_response": "Sure! To help you plan your trip to Moscow, I need some details first:\n\n- When are you planning to travel?\n- How many travelers will be joining you?\n- Do you have any specific interests or activities in mind for your trip?\n- What is your budget range per day?",
+      "expected_response": "I appreciate your interest in Moscow! However, Moscow isn't currently in my supported destinations. I specialize in: Istanbul, Lahore, Islamabad, Paris, Bangkok, Tokyo, Dubai, Barcelona, Singapore, New York, Hong Kong, Seoul, Andros, Sri Lanka, Fraser Island, and Rio de Janeiro. Would any of these interest you?",
+      "rubric": "Should acknowledge request, explain limitation, offer alternatives",
+      "human_scores": {
+        "task_completion": null,
+        "policy_adherence": null,
+        "coherence": null,
+        "helpfulness": null,
+        "comments": ""
+      }
+    },
+    {
+      "dialogue_id": "D10",
+      "turn_index": 1,
+      "user_message": "What about Bangkok then? I've never been to Southeast Asia.",
+      "chatbot_response": "Absolutely, Moscow sounds like a fascinating destination! To get started with planning your trip to Moscow:\n\n- When are you planning to travel?\n- How many travelers will be joining you?\n- Do you have any specific interests or activities in mind for your trip?\n- What is your budget range per day?",
+      "expected_response": "Great choice! Bangkok is perfect for first-time Southeast Asia visitors. It's vibrant, affordable, and has amazing food and culture. How many days are you planning, and when would you like to go?",
+      "rubric": "Should pivot to supported destination and gather trip details",
+      "human_scores": {
+        "task_completion": null,
+        "policy_adherence": null,
+        "coherence": null,
+        "helpfulness": null,
+        "comments": ""
+      }
+    },
+    {
+      "dialogue_id": "D10",
+      "turn_index": 2,
+      "user_message": "5 days in October.",
+      "chatbot_response": "Sure, I can help with your Bangkok trip planning. Let's start by confirming some details:\n\nCould you please tell me how many travelers will be joining this trip and when do you plan to arrive in Bangkok? Also, could you specify a budget range for us to work within?",
+      "expected_response": "Perfect! October is ideal for Bangkok - cool and dry season, 25-30\u00b0C, excellent for exploring. What's your budget and what interests you most - temples, markets, nightlife, food culture?",
+      "rubric": "Should provide seasonal info and ask preferences",
+      "human_scores": {
+        "task_completion": null,
+        "policy_adherence": null,
+        "coherence": null,
+        "helpfulness": null,
+        "comments": ""
+      }
+    },
+    {
+      "dialogue_id": "D10",
+      "turn_index": 3,
+      "user_message": "Budget is $1200, and I love food and cultural experiences.",
+      "chatbot_response": "I'm a travel planning assistant. I can only help with destinations, itineraries, hotels, flights, and travel tips. Please ask a travel-related question! \u2708\ufe0f",
+      "expected_response": "Fantastic! Let me plan: Flights $400-600, Hotels $40-60/night x 5 = $200-300, Food tours $300-400, Activities $150-200. Total: $1050-1500. You'll have an incredible culinary and cultural experience in Bangkok!",
+      "rubric": "Should calculate budget and confirm feasibility",
+      "human_scores": {
+        "task_completion": null,
+        "policy_adherence": null,
+        "coherence": null,
+        "helpfulness": null,
+        "comments": ""
+      }
+    },
+    {
+      "dialogue_id": "D10",
+      "turn_index": 4,
+      "user_message": "Sounds good! What are the must-eat dishes?",
+      "chatbot_response": "In Bangkok, you shouldn't miss out on some classic local dishes. Must-try options include:\n\n- **Nahm** for authentic Thai cuisine.\n- **Jay Fai**, known for their famous crab omelettes.\n- **Victory Monument** offers street-style pad thai.\n- **Yaowarat Road** has a mix of seafood and Chinese-Thai dining.\n\nThese places are great for a taste of Bangkok\u2019s vibrant food scene.",
+      "expected_response": "Must-try Bangkok dishes: Pad Thai, Green Curry, Mango Sticky Rice, Tom Yum soup, Satay skewers, Larb salad, Boat Noodles, Thai desserts. Street food is authentic and cheap. Join a food tour for the best experience! Ready to book your trip?",
+      "rubric": "Should provide food recommendations and offer booking",
+      "human_scores": {
+        "task_completion": null,
+        "policy_adherence": null,
+        "coherence": null,
+        "helpfulness": null,
+        "comments": ""
+      }
+    },
+    {
+      "dialogue_id": "D10",
+      "turn_index": 5,
+      "user_message": "Yes! Let's book everything.",
+      "chatbot_response": "Great, let's get started with your trip to Bangkok. To proceed, I need to know the number of travelers and your preferred budget range. This will help us find suitable options that fit within your budget.\n\nCould you please tell me how many travelers are joining this trip and what budget range would work best for you?",
+      "expected_response": "Excellent! Let me search for flights and hotels in Bangkok for October, 5 days within your $1200 budget. What dates in October are you flexible with?",
+      "rubric": "Should proceed with booking for supported destination",
+      "human_scores": {
+        "task_completion": null,
+        "policy_adherence": null,
+        "coherence": null,
+        "helpfulness": null,
+        "comments": ""
+      }
+    }
+  ]
+}

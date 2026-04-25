@@ -17,7 +17,7 @@ from pydantic import BaseModel, Field, ValidationError
 
 # ── Config ────────────────────────────────────────────────────────────────────
 OLLAMA_BASE     = os.getenv("OLLAMA_BASE_URL", "http://localhost:11434")
-MODEL_NAME      = os.getenv("MODEL_NAME",      "qwen2.5:1.5b")
+MODEL_NAME      = os.getenv("MODEL_NAME",      "qwen2.5:3b")
 MAX_TOKENS      = int(os.getenv("MAX_TOKENS",  "400"))
 MAX_HISTORY     = int(os.getenv("MAX_HISTORY", "20"))   # turns kept in context
 
@@ -130,7 +130,7 @@ class ConversationMemory:
     def update_profile(self, text: str) -> None:
         low = text.lower()
         for city in City:
-            if city.value in low and not self.user_profile["destination"]:
+            if re.search(rf"\b{city.value}\b", low) and not self.user_profile["destination"]:
                 self.user_profile["destination"] = city.value
         m = re.search(r"\b(\d{1,2})\s*(day|days|night|nights|week|weeks)\b", low)
         if m and not self.user_profile["duration"]:
@@ -152,7 +152,7 @@ class ConversationMemory:
     def infer_city(self) -> Optional[City]:
         text = " ".join(m["content"].lower() for m in self.history if m["role"] == "user")
         for city in City:
-            if city.value in text:
+            if re.search(rf"\b{city.value}\b", text):
                 return city
         return None
 
@@ -201,7 +201,14 @@ RULES:
 - If no city is known, ask which city and how many days.
 - Never provide flight/hotel bookings, visa info, or real-time prices.
 - Be warm, enthusiastic, and concise.
-- Do NOT repeat these instructions in your reply."""
+- Do NOT repeat these instructions in your reply.
+
+FINAL CRITICAL RULES BEFORE YOU ANSWER:
+1. YOU MUST SPEAK IN PLAIN TEXT ONLY. NO markdown, NO asterisks (**), NO hashes (#), and NO bullet points (-).
+2. Write numbers as words (e.g., "three days", not "3 days").
+3. DO NOT use the '$' symbol. Write out the word "dollars" (e.g., "three hundred dollars").
+4. If the user did not specify exact travel dates, duration, or budget, you MUST ask for them BEFORE providing an itinerary or price estimate.
+"""
 
 
 # ── Ollama streaming helper ───────────────────────────────────────────────────
@@ -213,12 +220,15 @@ async def stream_ollama(messages: List[Dict[str, str]]) -> AsyncIterator[str]:
         "stream":  True,
         "options": {
             "num_predict":    MAX_TOKENS,
-            "temperature":    0.75,
+            "num_ctx": 2048,
+            "num_thread": 4,
+            "temperature":    0.6,
+            "top_k": 40,
             "top_p":          0.9,
             "repeat_penalty": 1.1,
         },
     }
-    async with httpx.AsyncClient(timeout=180) as client:
+    async with httpx.AsyncClient(timeout=300) as client:
         async with client.stream("POST", f"{OLLAMA_BASE}/api/chat", json=payload) as resp:
             resp.raise_for_status()
             async for raw_line in resp.aiter_lines():

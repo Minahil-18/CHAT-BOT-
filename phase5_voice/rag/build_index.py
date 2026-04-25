@@ -93,8 +93,9 @@ def build_index(input_path: str, output_path: str, model_name: str, chunk_size: 
 
 def main():
     parser = argparse.ArgumentParser(description="Build local travel RAG index")
-    parser.add_argument("--input", default=os.path.join("rag", "documents", "travel_docs.jsonl"))
-    parser.add_argument("--output", default=os.path.join("rag", "index", "travel_index.json"))
+    base_dir = os.path.dirname(os.path.abspath(__file__))
+    parser.add_argument("--input", default=os.path.join(base_dir, "documents", "travel_docs.jsonl"))
+    parser.add_argument("--output", default=os.path.join(base_dir, "index", "travel_index.json"))
     parser.add_argument("--model", default="sentence-transformers/all-MiniLM-L6-v2")
     parser.add_argument("--chunk-size", type=int, default=512)
     parser.add_argument("--overlap", type=int, default=80)

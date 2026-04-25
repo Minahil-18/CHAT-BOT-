@@ -1,0 +1,444 @@
+[
+  {
+    "query_id": "Q01",
+    "query": "What is the best time of year to visit Istanbul for sightseeing?",
+    "city": "Istanbul",
+    "relevant_doc_types": [
+      "seasonal_guide"
+    ],
+    "expected_answer_contains": [
+      "spring",
+      "autumn"
+    ],
+    "difficulty": "medium"
+  },
+  {
+    "query_id": "Q02",
+    "query": "Where can I find the best street food in Istanbul?",
+    "city": "Istanbul",
+    "relevant_doc_types": [
+      "food_guide"
+    ],
+    "expected_answer_contains": [
+      "kebabs",
+      "simit",
+      "grand bazaar",
+      "street food"
+    ],
+    "difficulty": "easy"
+  },
+  {
+    "query_id": "Q03",
+    "query": "I have 3 days in Istanbul, what top historical sites should I visit?",
+    "city": "Istanbul",
+    "relevant_doc_types": [
+      "activities_guide",
+      "overview"
+    ],
+    "expected_answer_contains": [
+      "Hagia Sophia",
+      "Blue Mosque",
+      "Topkapi Palace"
+    ],
+    "difficulty": "medium"
+  },
+  {
+    "query_id": "Q04",
+    "query": "Can you give me an overview of Paris food and attractions?",
+    "city": "Paris",
+    "relevant_doc_types": [
+      "overview",
+      "food_guide",
+      "activities_guide"
+    ],
+    "expected_answer_contains": [
+      "Eiffel Tower",
+      "croissant",
+      "Louvre"
+    ],
+    "difficulty": "easy"
+  },
+  {
+    "query_id": "Q05",
+    "query": "What are the must-try pastries in Paris and when is the best season to go?",
+    "city": "Paris",
+    "relevant_doc_types": [
+      "food_guide",
+      "seasonal_guide"
+    ],
+    "expected_answer_contains": [
+      "croissant",
+      "macaron",
+      "spring",
+      "summer"
+    ],
+    "difficulty": "medium"
+  },
+  {
+    "query_id": "Q06",
+    "query": "Can you give me an overview of Paris attractions?",
+    "city": "Paris",
+    "relevant_doc_types": [
+      "overview",
+      "activities_guide"
+    ],
+    "expected_answer_contains": [
+      "Eiffel Tower",
+      "Louvre",
+      "Seine"
+    ],
+    "difficulty": "easy"
+  },
+  {
+    "query_id": "Q07",
+    "query": "When do cherry blossoms bloom in Tokyo?",
+    "city": "Tokyo",
+    "relevant_doc_types": [
+      "seasonal_guide"
+    ],
+    "expected_answer_contains": [
+      "spring",
+      "sakura",
+      "march",
+      "april"
+    ],
+    "difficulty": "easy"
+  },
+  {
+    "query_id": "Q08",
+    "query": "What are the top sushi spots and what visa do I need for Japan?",
+    "city": "Tokyo",
+    "relevant_doc_types": [
+      "food_guide",
+      "visa_requirements"
+    ],
+    "expected_answer_contains": [
+      "sushi",
+      "Tsukiji",
+      "tourist visa",
+      "exemption"
+    ],
+    "difficulty": "medium"
+  },
+  {
+    "query_id": "Q09",
+    "query": "Is Tokyo or Paris better for exploring ancient temples and history?",
+    "city": "Tokyo",
+    "relevant_doc_types": [
+      "overview",
+      "activities_guide"
+    ],
+    "expected_answer_contains": [
+      "temples",
+      "Senso-ji",
+      "Meiji"
+    ],
+    "difficulty": "hard"
+  },
+  {
+    "query_id": "Q10",
+    "query": "Is it too hot to visit Dubai in July?",
+    "city": "Dubai",
+    "relevant_doc_types": [
+      "seasonal_guide"
+    ],
+    "expected_answer_contains": [
+      "hot",
+      "summer",
+      "indoor",
+      "november"
+    ],
+    "difficulty": "easy"
+  },
+  {
+    "query_id": "Q11",
+    "query": "What are the visa requirements for a short tourist stay in Dubai, and what should I eat?",
+    "city": "Dubai",
+    "relevant_doc_types": [
+      "visa_requirements",
+      "food_guide"
+    ],
+    "expected_answer_contains": [
+      "visa on arrival",
+      "shawarma",
+      "dates",
+      "emirates"
+    ],
+    "difficulty": "medium"
+  },
+  {
+    "query_id": "Q12",
+    "query": "What is the best street food to try in Bangkok?",
+    "city": "Bangkok",
+    "relevant_doc_types": [
+      "food_guide"
+    ],
+    "expected_answer_contains": [
+      "pad thai",
+      "street food",
+      "mango sticky rice",
+      "night market"
+    ],
+    "difficulty": "easy"
+  },
+  {
+    "query_id": "Q13",
+    "query": "Can you recommend activities in Bangkok during the rainy season?",
+    "city": "Bangkok",
+    "relevant_doc_types": [
+      "activities_guide",
+      "seasonal_guide"
+    ],
+    "expected_answer_contains": [
+      "temples",
+      "shopping malls",
+      "monsoon",
+      "indoor"
+    ],
+    "difficulty": "medium"
+  },
+  {
+    "query_id": "Q14",
+    "query": "What architecture should I see in Barcelona and when is the weather nicest?",
+    "city": "Barcelona",
+    "relevant_doc_types": [
+      "activities_guide",
+      "seasonal_guide"
+    ],
+    "expected_answer_contains": [
+      "Gaudi",
+      "Sagrada Familia",
+      "spring",
+      "autumn"
+    ],
+    "difficulty": "medium"
+  },
+  {
+    "query_id": "Q15",
+    "query": "Do I need a visa to eat tapas in Barcelona?",
+    "city": "Barcelona",
+    "relevant_doc_types": [
+      "visa_requirements",
+      "food_guide"
+    ],
+    "expected_answer_contains": [
+      "Schengen",
+      "tapas",
+      "paella"
+    ],
+    "difficulty": "hard"
+  },
+  {
+    "query_id": "Q16",
+    "query": "What are the top historical places to visit in Lahore?",
+    "city": "Lahore",
+    "relevant_doc_types": [
+      "activities_guide",
+      "overview"
+    ],
+    "expected_answer_contains": [
+      "Badshahi Mosque",
+      "Lahore Fort",
+      "Walled City"
+    ],
+    "difficulty": "easy"
+  },
+  {
+    "query_id": "Q17",
+    "query": "I'm visiting Lahore in December. What food should I try and what is the weather like?",
+    "city": "Lahore",
+    "relevant_doc_types": [
+      "food_guide",
+      "seasonal_guide"
+    ],
+    "expected_answer_contains": [
+      "winter",
+      "fog",
+      "nihari",
+      "karahi"
+    ],
+    "difficulty": "medium"
+  },
+  {
+    "query_id": "Q18",
+    "query": "Tell me about Singapore's hawker food culture.",
+    "city": "Singapore",
+    "relevant_doc_types": [
+      "food_guide"
+    ],
+    "expected_answer_contains": [
+      "hawker",
+      "food",
+      "Maxwell"
+    ],
+    "difficulty": "easy"
+  },
+  {
+    "query_id": "Q19",
+    "query": "Where can I eat cheap but amazing food in Singapore?",
+    "city": "Singapore",
+    "relevant_doc_types": [
+      "food_guide"
+    ],
+    "expected_answer_contains": [
+      "hawker centres",
+      "chili crab",
+      "chicken rice"
+    ],
+    "difficulty": "easy"
+  },
+  {
+    "query_id": "Q20",
+    "query": "What is the best time to visit Seoul to see the autumn leaves?",
+    "city": "Seoul",
+    "relevant_doc_types": [
+      "seasonal_guide"
+    ],
+    "expected_answer_contains": [
+      "autumn",
+      "october",
+      "november",
+      "leaves"
+    ],
+    "difficulty": "easy"
+  },
+  {
+    "query_id": "Q21",
+    "query": "Can you give me an overview of Seoul and its top activities?",
+    "city": "Seoul",
+    "relevant_doc_types": [
+      "overview",
+      "activities_guide"
+    ],
+    "expected_answer_contains": [
+      "palaces",
+      "Gyeongbokgung",
+      "shopping",
+      "K-pop"
+    ],
+    "difficulty": "medium"
+  },
+  {
+    "query_id": "Q22",
+    "query": "What outdoor activities are available in Islamabad?",
+    "city": "Islamabad",
+    "relevant_doc_types": [
+      "activities_guide"
+    ],
+    "expected_answer_contains": [
+      "Margalla",
+      "hiking",
+      "Daman-e-Koh"
+    ],
+    "difficulty": "easy"
+  },
+  {
+    "query_id": "Q23",
+    "query": "What outdoor activities are best in Islamabad during spring?",
+    "city": "Islamabad",
+    "relevant_doc_types": [
+      "activities_guide",
+      "seasonal_guide"
+    ],
+    "expected_answer_contains": [
+      "Margalla Hills",
+      "hiking",
+      "spring",
+      "Faisal Mosque"
+    ],
+    "difficulty": "medium"
+  },
+  {
+    "query_id": "Q24",
+    "query": "Tell me about dim sum in Hong Kong.",
+    "city": "Hong Kong",
+    "relevant_doc_types": [
+      "food_guide"
+    ],
+    "expected_answer_contains": [
+      "dim sum",
+      "tea",
+      "dumplings",
+      "restaurants"
+    ],
+    "difficulty": "easy"
+  },
+  {
+    "query_id": "Q25",
+    "query": "Is Hong Kong easy to navigate for tourists and what are the visa rules?",
+    "city": "Hong Kong",
+    "relevant_doc_types": [
+      "overview",
+      "visa_requirements"
+    ],
+    "expected_answer_contains": [
+      "MTR",
+      "visa-free",
+      "transport"
+    ],
+    "difficulty": "medium"
+  },
+  {
+    "query_id": "Q26",
+    "query": "What's the best season to catch a Broadway show in New York?",
+    "city": "New York",
+    "relevant_doc_types": [
+      "activities_guide",
+      "seasonal_guide"
+    ],
+    "expected_answer_contains": [
+      "Broadway",
+      "Times Square",
+      "autumn",
+      "spring"
+    ],
+    "difficulty": "medium"
+  },
+  {
+    "query_id": "Q27",
+    "query": "What kind of food is Greek famous for?",
+    "city": "Greek",
+    "relevant_doc_types": [
+      "food_guide"
+    ],
+    "expected_answer_contains": [
+      "seafood",
+      "conch",
+      "bahamian",
+      "fresh"
+    ],
+    "difficulty": "easy"
+  },
+  {
+    "query_id": "Q28",
+    "query": "What are the best beaches and wildlife activities to explore in Sri Lanka?",
+    "city": "Sri Lanka",
+    "relevant_doc_types": [
+      "activities_guide",
+      "overview"
+    ],
+    "expected_answer_contains": [
+      "beaches",
+      "safari",
+      "Yala"
+    ],
+    "difficulty": "medium"
+  },
+  {
+    "query_id": "Q29",
+    "query": "What is Fraser Island known for and when should I visit?",
+    "city": "Fraser Island",
+    "relevant_doc_types": [
+      "overview",
+      "seasonal_guide"
+    ],
+    "expected_answer_contains": [
+      "sand island",
+      "dingoes",
+      "spring",
+      "australia"
+    ],
+    "difficulty": "medium"
+  }
+
+]

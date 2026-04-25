@@ -1,0 +1,212 @@
+[
+  {
+    "query_id": "F01",
+    "query": "When should I buy museum tickets in Istanbul to avoid long queues?",
+    "city": "Istanbul",
+    "source_doc_id": "istanbul_guide_1",
+    "expected_fact": "Buy museum tickets early in the morning."
+  },
+  {
+    "query_id": "F02",
+    "query": "What are the most scenic and practical ferry routes in Istanbul?",
+    "city": "Istanbul",
+    "source_doc_id": "istanbul_guide_2",
+    "expected_fact": "Ferries between Eminonu, Kadikoy, and Besiktas."
+  },
+  {
+    "query_id": "F03",
+    "query": "Is it recommended to make restaurant reservations in Istanbul for the weekend?",
+    "city": "Istanbul",
+    "source_doc_id": "istanbul_guide_3",
+    "expected_fact": "Friday and Saturday evenings are busy, so restaurant reservations are recommended."
+  },
+  {
+    "query_id": "F04",
+    "query": "Can I visit Lahore Fort and Badshahi Mosque together?",
+    "city": "Lahore",
+    "source_doc_id": "lahore_guide_1",
+    "expected_fact": "Lahore Fort and Badshahi Mosque can be paired in a half-day plan."
+  },
+  {
+    "query_id": "F05",
+    "query": "Where do families often prefer to eat in Lahore for evening views?",
+    "city": "Lahore",
+    "source_doc_id": "lahore_guide_2",
+    "expected_fact": "Families often prefer rooftop seating near Badshahi Mosque for evening views."
+  },
+  {
+    "query_id": "F06",
+    "query": "What should I pack for Islamabad in the winter?",
+    "city": "Islamabad",
+    "source_doc_id": "islamabad_guide_2",
+    "expected_fact": "Winter evenings can get cold and require an extra layer in packing lists."
+  },
+  {
+    "query_id": "F07",
+    "query": "How should I plan my Louvre visit in Paris?",
+    "city": "Paris",
+    "source_doc_id": "paris_guide_1",
+    "expected_fact": "Louvre visits should be pre-booked with timed entry."
+  },
+  {
+    "query_id": "F08",
+    "query": "Are there any free attractions in Paris for a budget trip?",
+    "city": "Paris",
+    "source_doc_id": "paris_guide_3",
+    "expected_fact": "Sacre-Coeur exterior areas, public gardens, and riverside walks."
+  },
+  {
+    "query_id": "F09",
+    "query": "What is the clothing requirement for temples in Bangkok?",
+    "city": "Bangkok",
+    "source_doc_id": "bangkok_guide_1",
+    "expected_fact": "Modest clothing is required and shoulder coverage is important."
+  },
+  {
+    "query_id": "F10",
+    "query": "What is the fastest way to move around Bangkok and avoid traffic?",
+    "city": "Bangkok",
+    "source_doc_id": "bangkok_guide_3",
+    "expected_fact": "BTS and MRT are the fastest ways to avoid road congestion."
+  },
+  {
+    "query_id": "F11",
+    "query": "How should I group districts in Tokyo for a visit?",
+    "city": "Tokyo",
+    "source_doc_id": "tokyo_guide_1",
+    "expected_fact": "Asakusa and Ueno together, Shibuya and Harajuku together, and Shinjuku with nearby parks."
+  },
+  {
+    "query_id": "F12",
+    "query": "What cards help with smooth transport in Tokyo?",
+    "city": "Tokyo",
+    "source_doc_id": "tokyo_guide_4",
+    "expected_fact": "Suica or Pasmo cards help keep transport smooth."
+  },
+  {
+    "query_id": "F13",
+    "query": "Can I visit the Burj Khalifa and Dubai Mall on the same day?",
+    "city": "Dubai",
+    "source_doc_id": "dubai_guide_1",
+    "expected_fact": "Burj Khalifa and Dubai Mall are usually planned together because they share the same area."
+  },
+  {
+    "query_id": "F14",
+    "query": "Is the Dubai metro useful for saving money?",
+    "city": "Dubai",
+    "source_doc_id": "dubai_guide_2",
+    "expected_fact": "Dubai metro is useful for major corridors and can lower transport costs."
+  },
+  {
+    "query_id": "F15",
+    "query": "Do I need to book architecture highlights in Barcelona in advance?",
+    "city": "Barcelona",
+    "source_doc_id": "barcelona_guide_1",
+    "expected_fact": "Sagrada Familia, Park Guell, and Casa Batllo should be pre-booked."
+  },
+  {
+    "query_id": "F16",
+    "query": "What time is dinner typically served in Barcelona?",
+    "city": "Barcelona",
+    "source_doc_id": "barcelona_guide_2",
+    "expected_fact": "Meal timing can be later than many travelers expect, especially dinner."
+  },
+  {
+    "query_id": "F17",
+    "query": "Which hawker centers in Singapore are recommended for local dishes?",
+    "city": "Singapore",
+    "source_doc_id": "singapore_guide_2",
+    "expected_fact": "Maxwell, Lau Pa Sat, and Newton."
+  },
+  {
+    "query_id": "F18",
+    "query": "What should I carry for payments in Singapore hawker centers?",
+    "city": "Singapore",
+    "source_doc_id": "singapore_guide_2",
+    "expected_fact": "Travelers should carry small cashless payment options."
+  },
+  {
+    "query_id": "F19",
+    "query": "How should I plan a visit to the Statue of Liberty in New York?",
+    "city": "New York",
+    "source_doc_id": "newyork_guide_1",
+    "expected_fact": "Statue of Liberty visits require advance ferry timing choices."
+  },
+  {
+    "query_id": "F20",
+    "query": "How should I group borough visits in New York to avoid fatigue?",
+    "city": "New York",
+    "source_doc_id": "newyork_guide_4",
+    "expected_fact": "Assigning one borough focus per day reduces transit fatigue."
+  },
+  {
+    "query_id": "F21",
+    "query": "What card is used for public transport in Hong Kong?",
+    "city": "Hong Kong",
+    "source_doc_id": "hongkong_guide_1",
+    "expected_fact": "Octopus card simplifies public transport."
+  },
+  {
+    "query_id": "F22",
+    "query": "When is the best time for dim sum in Hong Kong?",
+    "city": "Hong Kong",
+    "source_doc_id": "hongkong_guide_2",
+    "expected_fact": "Dim sum timing is easiest at brunch and early lunch."
+  },
+  {
+    "query_id": "F23",
+    "query": "How should I plan a DMZ tour from Seoul?",
+    "city": "Seoul",
+    "source_doc_id": "seoul_guide_3",
+    "expected_fact": "DMZ tours require scheduling and document checks in advance."
+  },
+  {
+    "query_id": "F24",
+    "query": "What are the common street food markets in Seoul?",
+    "city": "Seoul",
+    "source_doc_id": "seoul_guide_2",
+    "expected_fact": "Myeongdong and Gwangjang Market."
+  },
+  {
+    "query_id": "F25",
+    "query": "What should I wear for hiking in Andros?",
+    "city": "Andros",
+    "source_doc_id": "andros_guide_2",
+    "expected_fact": "Sturdy shoes and water are required because terrain can be uneven."
+  },
+  {
+    "query_id": "F26",
+    "query": "Are intercity transfers in Sri Lanka fast?",
+    "city": "Sri Lanka",
+    "source_doc_id": "srilanka_guide_1",
+    "expected_fact": "Intercity transfers can be longer than map estimates."
+  },
+  {
+    "query_id": "F27",
+    "query": "When is the best time for safari in Sri Lanka?",
+    "city": "Sri Lanka",
+    "source_doc_id": "srilanka_guide_2",
+    "expected_fact": "Early morning or late afternoon windows."
+  },
+  {
+    "query_id": "F28",
+    "query": "What safety rules should be followed on Fraser Island regarding wildlife?",
+    "city": "Fraser Island",
+    "source_doc_id": "fraser_guide_3",
+    "expected_fact": "Dingo safety instructions should be followed strictly and food handling should be controlled."
+  },
+  {
+    "query_id": "F29",
+    "query": "Should landmarks in Rio be visited in the morning or evening?",
+    "city": "Rio",
+    "source_doc_id": "rio_guide_3",
+    "expected_fact": "Morning slots are often better for major landmarks due to queue and weather behavior."
+  },
+  {
+    "query_id": "F30",
+    "query": "What is the recommended emergency buffer for a travel budget?",
+    "city": "General",
+    "source_doc_id": "general_doc_2",
+    "expected_fact": "A common guideline is to keep 10 to 15 percent as emergency buffer."
+  }
+]
