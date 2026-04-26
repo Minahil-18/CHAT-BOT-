@@ -1,0 +1,110 @@
+{
+  "title": "Person B - Tool & CRM Testing Report",
+  "timestamp": "2026-04-26T15:21:21.577915",
+  "summary": {
+    "total_test_suites": 5,
+    "passed": 5,
+    "failed": 0,
+    "success_rate": "100.0%"
+  },
+  "test_suites": [
+    {
+      "file": "D:\\6th-Semester\\NLP\\Assignment 05\\i230114_i230073_i230139\\phase5_voice\\tests\\test_crm_crud.py",
+      "description": "CRM CRUD Operations",
+      "status": "PASSED",
+      "returncode": 0
+    },
+    {
+      "file": "D:\\6th-Semester\\NLP\\Assignment 05\\i230114_i230073_i230139\\phase5_voice\\tests\\test_weather_tool.py",
+      "description": "Weather Tool Functional",
+      "status": "PASSED",
+      "returncode": 0
+    },
+    {
+      "file": "D:\\6th-Semester\\NLP\\Assignment 05\\i230114_i230073_i230139\\phase5_voice\\tests\\test_budget_tool.py",
+      "description": "Budget Calculator Tool",
+      "status": "PASSED",
+      "returncode": 0
+    },
+    {
+      "file": "D:\\6th-Semester\\NLP\\Assignment 05\\i230114_i230073_i230139\\phase5_voice\\tests\\test_flights_hotels.py",
+      "description": "Flights & Hotels Tools",
+      "status": "PASSED",
+      "returncode": 0
+    },
+    {
+      "file": "D:\\6th-Semester\\NLP\\Assignment 05\\i230114_i230073_i230139\\phase5_voice\\tests\\test_tool_orchestrator.py",
+      "description": "Tool Orchestrator",
+      "status": "PASSED",
+      "returncode": 0
+    }
+  ],
+  "deliverables": {
+    "unit_tests": {
+      "crm_crud.py": "Complete - Tests CREATE, READ, UPDATE, DELETE operations",
+      "weather_tool.py": "Complete - Functional tests for weather retrieval",
+      "budget_tool.py": "Complete - Budget calculation tests",
+      "flights_hotels.py": "Complete - Flight and hotel search tests",
+      "tool_orchestrator.py": "Complete - Integration tests for tool orchestration"
+    },
+    "test_data": {
+      "tool_invocation_test_utterances.json": "Complete - 28+ test cases for LLM tool invocation",
+      "description": "Test data covers CRM, Weather, Budget, Flights, Hotels, and false positives"
+    },
+    "coverage": {
+      "CRM": [
+        "create_user",
+        "get_user",
+        "update_user",
+        "add_trip",
+        "get_user_trips"
+      ],
+      "Weather": [
+        "Valid cities",
+        "Case insensitivity",
+        "Invalid cities",
+        "Multi-word cities"
+      ],
+      "Budget": [
+        "Travel styles",
+        "Destinations",
+        "Breakdown",
+        "Edge cases"
+      ],
+      "Flights": [
+        "Valid destinations",
+        "Multiple options",
+        "Price variation"
+      ],
+      "Hotels": [
+        "Valid destinations",
+        "Rating ranges",
+        "Price ranges"
+      ]
+    }
+  },
+  "metrics": {
+    "crm_crud": {
+      "description": "CRUD operation correctness",
+      "target": "100% pass rate",
+      "tests": "27 individual tests covering all operations and edge cases"
+    },
+    "tool_functional": {
+      "description": "Tool functional correctness",
+      "target": ">95% valid inputs work correctly",
+      "tests": "30+ tests per tool covering edge cases"
+    },
+    "tool_invocation": {
+      "description": "LLM tool invocation accuracy",
+      "target": ">80% correct tool selection and arguments",
+      "tests": "28+ utterances with expected tool calls"
+    }
+  },
+  "recommendations": [
+    "All test suites passing! Tool and CRM implementations are solid.",
+    "Ensure LLM prompt includes clear tool definitions and examples",
+    "Test false positive tool calls manually with different phrasings",
+    "Monitor tool invocation accuracy in production",
+    "Consider adding request validation before tool execution"
+  ]
+}

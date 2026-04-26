@@ -1,0 +1,398 @@
+{
+  "metadata": {
+    "version": "1.0",
+    "created": "2026-04-25",
+    "purpose": "Test data for measuring LLM tool invocation accuracy",
+    "instructions": "For each user utterance, the LLM should detect and call the appropriate tool with correct arguments"
+  },
+  "crm_tool_utterances": [
+    {
+      "utterance_id": "CRM_01",
+      "category": "user_creation",
+      "user_message": "My name is Alice Johnson and my email is alice.johnson@example.com",
+      "expected_tool": "create_user",
+      "expected_arguments": {
+        "name": "Alice Johnson",
+        "email": "alice.johnson@example.com"
+      },
+      "criteria": "Should extract name and email, call create_user with both fields"
+    },
+    {
+      "utterance_id": "CRM_02",
+      "category": "user_creation",
+      "user_message": "I'm Bob Smith, call me at +1-234-567-8900",
+      "expected_tool": "create_user",
+      "expected_arguments": {
+        "name": "Bob Smith",
+        "phone": "+1-234-567-8900"
+      },
+      "criteria": "Should extract name and phone number"
+    },
+    {
+      "utterance_id": "CRM_03",
+      "category": "user_update",
+      "user_message": "My email address has changed to newemail@example.com",
+      "expected_tool": "update_user",
+      "expected_arguments": {
+        "email": "newemail@example.com"
+      },
+      "criteria": "Should update email field with new address"
+    },
+    {
+      "utterance_id": "CRM_04",
+      "category": "user_update",
+      "user_message": "Please change my phone number to +91-9876-543-210",
+      "expected_tool": "update_user",
+      "expected_arguments": {
+        "phone": "+91-9876-543-210"
+      },
+      "criteria": "Should update phone field"
+    },
+    {
+      "utterance_id": "CRM_05",
+      "category": "user_info_retrieval",
+      "user_message": "Can you show me my profile information?",
+      "expected_tool": "get_user",
+      "expected_arguments": {
+        "user_id": "from_context"
+      },
+      "criteria": "Should retrieve current user's profile using context user_id"
+    },
+    {
+      "utterance_id": "CRM_06",
+      "category": "trip_creation",
+      "user_message": "I'm planning a trip to Paris from June 1st to June 10th with a budget of $3000",
+      "expected_tool": "add_trip",
+      "expected_arguments": {
+        "destination": "Paris",
+        "start_date": "2024-06-01",
+        "end_date": "2024-06-10",
+        "budget": 3000
+      },
+      "criteria": "Should extract destination, dates, and budget"
+    },
+    {
+      "utterance_id": "CRM_07",
+      "category": "trip_creation",
+      "user_message": "I want to go to Tokyo for 2 weeks starting July 15",
+      "expected_tool": "add_trip",
+      "expected_arguments": {
+        "destination": "Tokyo",
+        "start_date": "2024-07-15",
+        "end_date": "2024-07-29"
+      },
+      "criteria": "Should handle relative dates and duration interpretation"
+    },
+    {
+      "utterance_id": "CRM_08",
+      "category": "trip_retrieval",
+      "user_message": "What trips have I booked?",
+      "expected_tool": "get_user_trips",
+      "expected_arguments": {
+        "user_id": "from_context"
+      },
+      "criteria": "Should retrieve trips for current user"
+    }
+  ],
+  "weather_tool_utterances": [
+    {
+      "utterance_id": "W_01",
+      "category": "basic_weather",
+      "user_message": "What's the weather like in Paris?",
+      "expected_tool": "get_weather",
+      "expected_arguments": {
+        "city": "Paris"
+      },
+      "criteria": "Should extract city name correctly"
+    },
+    {
+      "utterance_id": "W_02",
+      "category": "basic_weather",
+      "user_message": "Tell me the weather for Istanbul",
+      "expected_tool": "get_weather",
+      "expected_arguments": {
+        "city": "Istanbul"
+      },
+      "criteria": "Should identify weather request and city"
+    },
+    {
+      "utterance_id": "W_03",
+      "category": "weather_decision",
+      "user_message": "Is Tokyo hot in summer?",
+      "expected_tool": "get_weather",
+      "expected_arguments": {
+        "city": "Tokyo"
+      },
+      "criteria": "Should recognize weather-related decision question"
+    },
+    {
+      "utterance_id": "W_04",
+      "category": "weather_packing",
+      "user_message": "What should I pack for Dubai? What's the weather?",
+      "expected_tool": "get_weather",
+      "expected_arguments": {
+        "city": "Dubai"
+      },
+      "criteria": "Should identify weather request within longer message"
+    },
+    {
+      "utterance_id": "W_05",
+      "category": "weather_multiword",
+      "user_message": "How's the weather in Hong Kong?",
+      "expected_tool": "get_weather",
+      "expected_arguments": {
+        "city": "Hong Kong"
+      },
+      "criteria": "Should handle multi-word city names"
+    },
+    {
+      "utterance_id": "W_06",
+      "category": "seasonal_weather",
+      "user_message": "What's the weather like in Barcelona in October?",
+      "expected_tool": "get_weather",
+      "expected_arguments": {
+        "city": "Barcelona"
+      },
+      "criteria": "Should extract city despite seasonal qualifier"
+    }
+  ],
+  "budget_tool_utterances": [
+    {
+      "utterance_id": "B_01",
+      "category": "basic_budget",
+      "user_message": "How much will a 5-day trip to Paris cost?",
+      "expected_tool": "calculate_trip_budget",
+      "expected_arguments": {
+        "destination": "Paris",
+        "duration_days": 5
+      },
+      "criteria": "Should extract destination and duration"
+    },
+    {
+      "utterance_id": "B_02",
+      "category": "budget_with_style",
+      "user_message": "What's the budget for a luxury trip to Tokyo for 7 days?",
+      "expected_tool": "calculate_trip_budget",
+      "expected_arguments": {
+        "destination": "Tokyo",
+        "duration_days": 7,
+        "budget_level": "luxury"
+      },
+      "criteria": "Should identify luxury travel style"
+    },
+    {
+      "utterance_id": "B_03",
+      "category": "budget_with_style",
+      "user_message": "I'm a budget traveler. How much for 10 days in Bangkok?",
+      "expected_tool": "calculate_trip_budget",
+      "expected_arguments": {
+        "destination": "Bangkok",
+        "duration_days": 10,
+        "budget_level": "budget"
+      },
+      "criteria": "Should infer budget travel style from context"
+    },
+    {
+      "utterance_id": "B_04",
+      "category": "budget_with_style",
+      "user_message": "I want moderate spending for a 3-day trip to London",
+      "expected_tool": "calculate_trip_budget",
+      "expected_arguments": {
+        "destination": "London",
+        "duration_days": 3,
+        "budget_level": "moderate"
+      },
+      "criteria": "Should recognize moderate travel style"
+    },
+    {
+      "utterance_id": "B_05",
+      "category": "budget_affordability",
+      "user_message": "Can I afford a 2-week trip to Dubai with $5000?",
+      "expected_tool": "calculate_trip_budget",
+      "expected_arguments": {
+        "destination": "Dubai",
+        "duration_days": 14
+      },
+      "criteria": "Should extract destination and duration from affordability question"
+    },
+    {
+      "utterance_id": "B_06",
+      "category": "budget_comparison",
+      "user_message": "Which is cheaper for a week: Barcelona or Istanbul?",
+      "expected_tool": "calculate_trip_budget",
+      "expected_arguments": {
+        "destination": "Barcelona",
+        "duration_days": 7
+      },
+      "criteria": "Should identify first city in comparison question"
+    }
+  ],
+  "flights_tool_utterances": [
+    {
+      "utterance_id": "F_01",
+      "category": "flight_search",
+      "user_message": "Show me flights to Paris",
+      "expected_tool": "search_flights",
+      "expected_arguments": {
+        "to_city": "Paris"
+      },
+      "criteria": "Should identify flight search request"
+    },
+    {
+      "utterance_id": "F_02",
+      "category": "flight_search",
+      "user_message": "I need to find a flight to Tokyo",
+      "expected_tool": "search_flights",
+      "expected_arguments": {
+        "to_city": "Tokyo"
+      },
+      "criteria": "Should recognize flight booking intent"
+    },
+    {
+      "utterance_id": "F_03",
+      "category": "flight_comparison",
+      "user_message": "What are the flight options to Istanbul?",
+      "expected_tool": "search_flights",
+      "expected_arguments": {
+        "to_city": "Istanbul"
+      },
+      "criteria": "Should handle comparison language"
+    },
+    {
+      "utterance_id": "F_04",
+      "category": "flight_with_dates",
+      "user_message": "Search for flights to Dubai departing June 15",
+      "expected_tool": "search_flights",
+      "expected_arguments": {
+        "to_city": "Dubai"
+      },
+      "criteria": "Should focus on destination despite additional date info"
+    },
+    {
+      "utterance_id": "F_05",
+      "category": "flight_budget_mention",
+      "user_message": "Find me cheap flights to Bangkok",
+      "expected_tool": "search_flights",
+      "expected_arguments": {
+        "to_city": "Bangkok"
+      },
+      "criteria": "Should ignore budget qualifier and focus on destination"
+    },
+    {
+      "utterance_id": "F_06",
+      "category": "flight_multiword",
+      "user_message": "Can you search for flights to New York?",
+      "expected_tool": "search_flights",
+      "expected_arguments": {
+        "to_city": "New York"
+      },
+      "criteria": "Should handle multi-word city names"
+    }
+  ],
+  "hotels_tool_utterances": [
+    {
+      "utterance_id": "H_01",
+      "category": "hotel_search",
+      "user_message": "I need to find a hotel in Paris",
+      "expected_tool": "search_hotels",
+      "expected_arguments": {
+        "city": "Paris"
+      },
+      "criteria": "Should identify hotel search"
+    },
+    {
+      "utterance_id": "H_02",
+      "category": "hotel_search",
+      "user_message": "Show me available hotels in Tokyo",
+      "expected_tool": "search_hotels",
+      "expected_arguments": {
+        "city": "Tokyo"
+      },
+      "criteria": "Should recognize hotel availability search"
+    },
+    {
+      "utterance_id": "H_03",
+      "category": "hotel_budget",
+      "user_message": "What are the cheapest hotels in Istanbul?",
+      "expected_tool": "search_hotels",
+      "expected_arguments": {
+        "city": "Istanbul"
+      },
+      "criteria": "Should handle budget-focused query"
+    },
+    {
+      "utterance_id": "H_04",
+      "category": "hotel_luxury",
+      "user_message": "I'm looking for luxury hotels in Dubai",
+      "expected_tool": "search_hotels",
+      "expected_arguments": {
+        "city": "Dubai"
+      },
+      "criteria": "Should handle luxury hotel request"
+    },
+    {
+      "utterance_id": "H_05",
+      "category": "hotel_ratings",
+      "user_message": "Find me 5-star hotels in Barcelona",
+      "expected_tool": "search_hotels",
+      "expected_arguments": {
+        "city": "Barcelona"
+      },
+      "criteria": "Should focus on destination despite rating filter"
+    },
+    {
+      "utterance_id": "H_06",
+      "category": "hotel_with_dates",
+      "user_message": "Search for hotels in Bangkok from July 1 to July 10",
+      "expected_tool": "search_hotels",
+      "expected_arguments": {
+        "city": "Bangkok"
+      },
+      "criteria": "Should extract destination despite date information"
+    }
+  ],
+  "false_positive_tests": [
+    {
+      "utterance_id": "FP_01",
+      "user_message": "Can you tell me about Paris in general?",
+      "should_call_tool": false,
+      "incorrect_tool": "get_weather",
+      "criteria": "General city question should NOT trigger weather tool"
+    },
+    {
+      "utterance_id": "FP_02",
+      "user_message": "I like packing light for trips",
+      "should_call_tool": false,
+      "incorrect_tool": "get_weather",
+      "criteria": "Packing discussion without specific destination should NOT call weather"
+    },
+    {
+      "utterance_id": "FP_03",
+      "user_message": "My flight was canceled",
+      "should_call_tool": false,
+      "incorrect_tool": "search_flights",
+      "criteria": "Past tense flight discussion should NOT trigger flight search"
+    },
+    {
+      "utterance_id": "FP_04",
+      "user_message": "I already booked my hotel",
+      "should_call_tool": false,
+      "incorrect_tool": "search_hotels",
+      "criteria": "Completed booking should NOT trigger hotel search"
+    },
+    {
+      "utterance_id": "FP_05",
+      "user_message": "Travel is expensive these days",
+      "should_call_tool": false,
+      "incorrect_tool": "calculate_trip_budget",
+      "criteria": "General travel cost discussion should NOT trigger budget calculation"
+    },
+    {
+      "utterance_id": "FP_06",
+      "user_message": "I know many people named John",
+      "should_call_tool": false,
+      "incorrect_tool": "create_user",
+      "criteria": "Name mention should NOT trigger user creation"
+    }
+  ]
+}
