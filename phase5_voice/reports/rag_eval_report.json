@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-04-25T09:49:09Z",
+  "timestamp": "2026-05-03T10:37:47Z",
   "summary_by_difficulty": {
     "medium": {
       "count": 14,
@@ -7,23 +7,23 @@
       "avg_recall_at_3": 0.6428571428571429,
       "avg_mrr": 0.7976190476190477,
       "avg_keyword_hit_rate": 0.27976190476190477,
-      "avg_latency_ms": 19.27903720310756
+      "avg_latency_ms": 19.815598215375626
     },
     "easy": {
       "count": 13,
-      "avg_precision_at_3": 0.46153846153846145,
-      "avg_recall_at_3": 0.9358974358974359,
-      "avg_mrr": 0.782051282051282,
+      "avg_precision_at_3": 0.4102564102564102,
+      "avg_recall_at_3": 0.8589743589743589,
+      "avg_mrr": 0.7435897435897435,
       "avg_keyword_hit_rate": 0.4487179487179487,
-      "avg_latency_ms": 17.490845460158127
+      "avg_latency_ms": 19.24907244168795
     },
     "hard": {
-      "count": 2,
-      "avg_precision_at_3": 0.3333333333333333,
-      "avg_recall_at_3": 0.5,
-      "avg_mrr": 1.0,
-      "avg_keyword_hit_rate": 0.16666666666666666,
-      "avg_latency_ms": 19.465088844299316
+      "count": 6,
+      "avg_precision_at_3": 0.4444444444444444,
+      "avg_recall_at_3": 0.5555555555555555,
+      "avg_mrr": 0.8055555555555555,
+      "avg_keyword_hit_rate": 0.2722222222222222,
+      "avg_latency_ms": 19.890189170837402
     }
   },
   "query_results": [
@@ -35,7 +35,7 @@
       "recall_at_3": 0.0,
       "mrr": 0.0,
       "keyword_hit_rate": 0.0,
-      "latency_ms": 19.977331161499023
+      "latency_ms": 16.015052795410156
     },
     {
       "query_id": "Q02",
@@ -45,7 +45,7 @@
       "recall_at_3": 1.0,
       "mrr": 0.3333333333333333,
       "keyword_hit_rate": 0.25,
-      "latency_ms": 19.32358741760254
+      "latency_ms": 29.081106185913086
     },
     {
       "query_id": "Q03",
@@ -55,7 +55,7 @@
       "recall_at_3": 1.0,
       "mrr": 1.0,
       "keyword_hit_rate": 1.0,
-      "latency_ms": 20.9348201751709
+      "latency_ms": 15.833616256713867
     },
     {
       "query_id": "Q04",
@@ -65,7 +65,7 @@
       "recall_at_3": 0.6666666666666666,
       "mrr": 1.0,
       "keyword_hit_rate": 0.6666666666666666,
-      "latency_ms": 21.561622619628906
+      "latency_ms": 20.933866500854492
     },
     {
       "query_id": "Q05",
@@ -75,7 +75,7 @@
       "recall_at_3": 0.5,
       "mrr": 1.0,
       "keyword_hit_rate": 0.0,
-      "latency_ms": 10.444402694702148
+      "latency_ms": 23.09560775756836
     },
     {
       "query_id": "Q06",
@@ -85,7 +85,7 @@
       "recall_at_3": 1.0,
       "mrr": 1.0,
       "keyword_hit_rate": 1.0,
-      "latency_ms": 17.373323440551758
+      "latency_ms": 18.177509307861328
     },
     {
       "query_id": "Q07",
@@ -95,7 +95,7 @@
       "recall_at_3": 1.0,
       "mrr": 1.0,
       "keyword_hit_rate": 0.0,
-      "latency_ms": 16.24894142150879
+      "latency_ms": 21.21281623840332
     },
     {
       "query_id": "Q08",
@@ -105,7 +105,7 @@
       "recall_at_3": 0.5,
       "mrr": 1.0,
       "keyword_hit_rate": 0.25,
-      "latency_ms": 19.586801528930664
+      "latency_ms": 21.5761661529541
     },
     {
       "query_id": "Q09",
@@ -115,7 +115,7 @@
       "recall_at_3": 0.5,
       "mrr": 1.0,
       "keyword_hit_rate": 0.0,
-      "latency_ms": 21.942138671875
+      "latency_ms": 19.02914047241211
     },
     {
       "query_id": "Q10",
@@ -125,7 +125,7 @@
       "recall_at_3": 1.0,
       "mrr": 0.3333333333333333,
       "keyword_hit_rate": 0.75,
-      "latency_ms": 18.851280212402344
+      "latency_ms": 19.61374282836914
     },
     {
       "query_id": "Q11",
@@ -135,7 +135,7 @@
       "recall_at_3": 0.5,
       "mrr": 0.3333333333333333,
       "keyword_hit_rate": 0.0,
-      "latency_ms": 21.881818771362305
+      "latency_ms": 26.484012603759766
     },
     {
       "query_id": "Q12",
@@ -145,7 +145,7 @@
       "recall_at_3": 1.0,
       "mrr": 1.0,
       "keyword_hit_rate": 0.0,
-      "latency_ms": 18.859148025512695
+      "latency_ms": 19.344091415405273
     },
     {
       "query_id": "Q13",
@@ -155,7 +155,7 @@
       "recall_at_3": 0.5,
       "mrr": 0.3333333333333333,
       "keyword_hit_rate": 0.5,
-      "latency_ms": 13.370990753173828
+      "latency_ms": 21.065235137939453
     },
     {
       "query_id": "Q14",
@@ -165,7 +165,7 @@
       "recall_at_3": 1.0,
       "mrr": 1.0,
       "keyword_hit_rate": 0.0,
-      "latency_ms": 24.535655975341797
+      "latency_ms": 22.19247817993164
     },
     {
       "query_id": "Q15",
@@ -175,7 +175,7 @@
       "recall_at_3": 0.5,
       "mrr": 1.0,
       "keyword_hit_rate": 0.3333333333333333,
-      "latency_ms": 16.988039016723633
+      "latency_ms": 16.03245735168457
     },
     {
       "query_id": "Q16",
@@ -185,7 +185,7 @@
       "recall_at_3": 0.5,
       "mrr": 0.5,
       "keyword_hit_rate": 1.0,
-      "latency_ms": 15.79594612121582
+      "latency_ms": 15.055656433105469
     },
     {
       "query_id": "Q17",
@@ -195,7 +195,7 @@
       "recall_at_3": 1.0,
       "mrr": 1.0,
       "keyword_hit_rate": 0.25,
-      "latency_ms": 25.13432502746582
+      "latency_ms": 20.006179809570312
     },
     {
       "query_id": "Q18",
@@ -205,7 +205,7 @@
       "recall_at_3": 1.0,
       "mrr": 1.0,
       "keyword_hit_rate": 1.0,
-      "latency_ms": 17.233848571777344
+      "latency_ms": 17.862319946289062
     },
     {
       "query_id": "Q19",
@@ -215,7 +215,7 @@
       "recall_at_3": 1.0,
       "mrr": 1.0,
       "keyword_hit_rate": 0.0,
-      "latency_ms": 17.04120635986328
+      "latency_ms": 17.110347747802734
     },
     {
       "query_id": "Q20",
@@ -225,7 +225,7 @@
       "recall_at_3": 1.0,
       "mrr": 1.0,
       "keyword_hit_rate": 0.25,
-      "latency_ms": 16.300201416015625
+      "latency_ms": 19.353389739990234
     },
     {
       "query_id": "Q21",
@@ -235,7 +235,7 @@
       "recall_at_3": 1.0,
       "mrr": 1.0,
       "keyword_hit_rate": 0.25,
-      "latency_ms": 25.14934539794922
+      "latency_ms": 20.775318145751953
     },
     {
       "query_id": "Q22",
@@ -245,7 +245,7 @@
       "recall_at_3": 1.0,
       "mrr": 0.5,
       "keyword_hit_rate": 0.6666666666666666,
-      "latency_ms": 17.548561096191406
+      "latency_ms": 17.203330993652344
     },
     {
       "query_id": "Q23",
@@ -255,7 +255,7 @@
       "recall_at_3": 1.0,
       "mrr": 0.5,
       "keyword_hit_rate": 0.5,
-      "latency_ms": 20.025968551635742
+      "latency_ms": 14.2822265625
     },
     {
       "query_id": "Q24",
@@ -265,7 +265,7 @@
       "recall_at_3": 1.0,
       "mrr": 1.0,
       "keyword_hit_rate": 0.25,
-      "latency_ms": 12.884378433227539
+      "latency_ms": 16.019344329833984
     },
     {
       "query_id": "Q25",
@@ -275,7 +275,7 @@
       "recall_at_3": 0.5,
       "mrr": 1.0,
       "keyword_hit_rate": 0.3333333333333333,
-      "latency_ms": 17.94147491455078
+      "latency_ms": 16.213178634643555
     },
     {
       "query_id": "Q26",
@@ -285,17 +285,17 @@
       "recall_at_3": 0.5,
       "mrr": 1.0,
       "keyword_hit_rate": 0.5,
-      "latency_ms": 19.82569694519043
+      "latency_ms": 19.29640769958496
     },
     {
       "query_id": "Q27",
       "query": "What kind of food is Greek famous for?",
       "difficulty": "easy",
-      "precision_at_3": 0.6666666666666666,
-      "recall_at_3": 1.0,
-      "mrr": 0.5,
+      "precision_at_3": 0.0,
+      "recall_at_3": 0.0,
+      "mrr": 0.0,
       "keyword_hit_rate": 0.0,
-      "latency_ms": 18.358945846557617
+      "latency_ms": 19.27042007446289
     },
     {
       "query_id": "Q28",
@@ -305,7 +305,7 @@
       "recall_at_3": 0.5,
       "mrr": 1.0,
       "keyword_hit_rate": 0.3333333333333333,
-      "latency_ms": 16.44754409790039
+      "latency_ms": 22.773027420043945
     },
     {
       "query_id": "Q29",
@@ -315,7 +315,47 @@
       "recall_at_3": 0.5,
       "mrr": 1.0,
       "keyword_hit_rate": 0.0,
-      "latency_ms": 14.650344848632812
+      "latency_ms": 17.80986785888672
+    },
+    {
+      "query_id": "Q30",
+      "query": "Compare the visa requirements and best seasons for visiting both Tokyo and Paris.",
+      "difficulty": "hard",
+      "precision_at_3": 0.3333333333333333,
+      "recall_at_3": 0.5,
+      "mrr": 1.0,
+      "keyword_hit_rate": 0.0,
+      "latency_ms": 16.902685165405273
+    },
+    {
+      "query_id": "Q31",
+      "query": "I want a trip that combines historical mosques in Lahore with the modern hawker culture of Singapore. What should I prioritize?",
+      "difficulty": "hard",
+      "precision_at_3": 0.6666666666666666,
+      "recall_at_3": 0.3333333333333333,
+      "mrr": 0.5,
+      "keyword_hit_rate": 0.5,
+      "latency_ms": 23.20075035095215
+    },
+    {
+      "query_id": "Q32",
+      "query": "Is it better to visit Dubai or Rio de Janeiro if I'm interested in both beach activities and high safety ratings?",
+      "difficulty": "hard",
+      "precision_at_3": 0.6666666666666666,
+      "recall_at_3": 1.0,
+      "mrr": 1.0,
+      "keyword_hit_rate": 0.6,
+      "latency_ms": 21.076202392578125
+    },
+    {
+      "query_id": "Q33",
+      "query": "What are the entry requirements for Sri Lanka and how does the monsoon affect travel there vs Thailand?",
+      "difficulty": "hard",
+      "precision_at_3": 0.3333333333333333,
+      "recall_at_3": 0.5,
+      "mrr": 0.3333333333333333,
+      "keyword_hit_rate": 0.2,
+      "latency_ms": 23.099899291992188
     }
   ]
 }

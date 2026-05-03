@@ -1,142 +1,142 @@
 {
   "summary": {
     "total_queries": 30,
-    "faithful_answers": 14,
-    "faithfulness_score_percent": 46.67
+    "faithful_answers": 19,
+    "faithfulness_score_percent": 63.33
   },
   "details": [
     {
       "query_id": "F01",
       "query": "When should I buy museum tickets in Istanbul to avoid long queues?",
       "expected_fact": "Buy museum tickets early in the morning.",
-      "bot_response": "You should buy museum tickets early in the morning to avoid long queues. Most first-time travelers spend one full day visiting attractions like Hagia Sophia, Blue Mosque, Basilica Cistern, and Topkapi Palace in Sultanahmet. Wear comfortable shoes as these sites are close but require significant walking.",
+      "bot_response": "I should buy museum tickets early in the morning to avoid long queues. This advice is specifically provided for the Sultanahmet area of Istanbul, which includes attractions like Hagia Sophia, Blue Mosque, Basilica Cistern, and Topkapi Palace.",
       "is_faithful": true
     },
     {
       "query_id": "F02",
       "query": "What are the most scenic and practical ferry routes in Istanbul?",
       "expected_fact": "Ferries between Eminonu, Kadikoy, and Besiktas.",
-      "bot_response": "In Istanbul, ferries between Eminonu, Kadikoy, and Besiktas are both scenic and practical for your itinerary. They offer a beautiful view of the Bosphorus and are often faster than driving during peak hours. These routes connect different neighborhoods and can be great for exploring areas you might not reach by other means.",
-      "is_faithful": false
+      "bot_response": "The most scenic and practical ferry routes in Istanbul include those between Eminonu, Kadikoy, and Besiktas. These ferries offer a scenic journey while being a practical mode of transportation for itinerary planning within these areas.",
+      "is_faithful": true
     },
     {
       "query_id": "F03",
       "query": "Is it recommended to make restaurant reservations in Istanbul for the weekend?",
       "expected_fact": "Friday and Saturday evenings are busy, so restaurant reservations are recommended.",
-      "bot_response": "Yes, it's a good idea to make restaurant reservations in Istanbul during weekends, especially for popular spots like Nusr-Et and Balikci Sabahattin. Fridays and Saturdays are typically very busy, so securing tables ahead of time can help avoid long waits or disappointment.",
+      "bot_response": "Yes, it is recommended to make restaurant reservations in Istanbul for Friday and Saturday evenings as these times tend to be busy.",
       "is_faithful": true
     },
     {
       "query_id": "F04",
       "query": "Can I visit Lahore Fort and Badshahi Mosque together?",
       "expected_fact": "Lahore Fort and Badshahi Mosque can be paired in a half-day plan.",
-      "bot_response": "Yes, you can visit Lahore Fort and Badshahi Mosque together in a half-day plan. They are central to Lahore's cultural highlights. Here\u2019s how you might structure your day:\n\n- Morning: Start with Lahore Fort, which is centrally located.\n- Afternoon: Head over to Badshahi Mosque for its impressive architecture and to enjoy views.\n\nFor lunch, consider dining at Haveli Restaurant in the Walled City for rooftop seating or Karim's for authentic nihari. Evening can be spent exploring nearby areas like Gawalmandi Food Street for dinner. Remember to check local traffic and schedule outdoor activities before noon if you\u2019re visiting during summer.",
+      "bot_response": "Yes, you can visit Lahore Fort and Badshahi Mosque together as part of a half-day plan.",
       "is_faithful": true
     },
     {
       "query_id": "F05",
       "query": "Where do families often prefer to eat in Lahore for evening views?",
       "expected_fact": "Families often prefer rooftop seating near Badshahi Mosque for evening views.",
-      "bot_response": "Families often prefer rooftop seating near Badshahi Mosque for evening views. They can enjoy local specialties like nihari and seekh kebab from high-turnover restaurants at Haveli Restaurant or Karim's.",
-      "is_faithful": false
+      "bot_response": "Families often prefer rooftop seating near Badshahi Mosque for evening views.",
+      "is_faithful": true
     },
     {
       "query_id": "F06",
       "query": "What should I pack for Islamabad in the winter?",
       "expected_fact": "Winter evenings can get cold and require an extra layer in packing lists.",
-      "bot_response": "In Islamabad during winter, it's important to pack layers as temperatures can drop significantly. You'll want to bring a warm coat, gloves, and thermal wear for evenings when it gets chilly. A scarf and hat are also necessary. Don't forget your sunglasses or goggles if driving in colder conditions. For footwear, sturdy boots would be ideal for walking on uneven surfaces. Remember to pack a raincoat as well since winter can bring occasional showers.",
+      "bot_response": "In the winter in Islamabad, you should pack an extra layer to stay warm. This includes a jacket or sweater suitable for cold temperatures.",
       "is_faithful": true
     },
     {
       "query_id": "F07",
       "query": "How should I plan my Louvre visit in Paris?",
       "expected_fact": "Louvre visits should be pre-booked with timed entry.",
-      "bot_response": "To optimize your Louvre visit in Paris, consider booking timed entry tickets ahead of time. This can save a lot of time and avoid long queues. For a single day, you might also include some free attractions nearby like the Sacr\u00e9-C\u0153ur for an interesting contrast. Here\u2019s how you could structure your visit:\n\n- Morning: Arrive at Louvre around 10am to start your tour with timed entry.\n- Afternoon: Explore the museum and its collections, focusing on areas that interest you most.\n- Evening: Visit nearby Montmartre area for a different experience.\n\nRemember to balance this with other activities like lunch or dinner in Paris. Keep an eye on current weather conditions and plan accordingly.",
-      "is_faithful": false
+      "bot_response": "Louvre visits should be pre-booked with timed entry to avoid long queues, as provided in the context.",
+      "is_faithful": true
     },
     {
       "query_id": "F08",
       "query": "Are there any free attractions in Paris for a budget trip?",
       "expected_fact": "Sacre-Coeur exterior areas, public gardens, and riverside walks.",
-      "bot_response": "Yes, in Paris, you can enjoy many free attractions like the exterior areas of the Sacr\u00e9-C\u0153ur and public gardens. For food, try some local bakeries to get croissants and pastries. It\u2019s also good to explore the Seine riverbanks without spending extra on boat cruises.",
-      "is_faithful": false
+      "bot_response": "Yes, there are several free attractions in Paris for a budget trip. These include the exterior areas of Sacr\u00e9-C\u0153ur, public gardens such as Luxembourg Gardens or Montmartre's small cobbled streets, and riverside walks along the Seine.",
+      "is_faithful": true
     },
     {
       "query_id": "F09",
       "query": "What is the clothing requirement for temples in Bangkok?",
       "expected_fact": "Modest clothing is required and shoulder coverage is important.",
-      "bot_response": "In Bangkok, modest clothing is required in temple zones and shoulder coverage is important to show respect. It's best to wear long-sleeved shirts and skirts or pants when visiting temples.",
+      "bot_response": "Modest clothing is required in temple zones, and shoulder coverage is important.",
       "is_faithful": true
     },
     {
       "query_id": "F10",
       "query": "What is the fastest way to move around Bangkok and avoid traffic?",
       "expected_fact": "BTS and MRT are the fastest ways to avoid road congestion.",
-      "bot_response": "BTS and MRT are the fastest ways to avoid road congestion in Bangkok. Tuk-tuk rides are best used as short experience segments rather than primary transit.",
-      "is_faithful": false
+      "bot_response": "The fastest ways to move around Bangkok and avoid traffic congestion are BTS (Subway) and MRT (Light Rail).",
+      "is_faithful": true
     },
     {
       "query_id": "F11",
       "query": "How should I group districts in Tokyo for a visit?",
       "expected_fact": "Asakusa and Ueno together, Shibuya and Harajuku together, and Shinjuku with nearby parks.",
-      "bot_response": "Tokyo planning works best by grouping districts: Asakusa and Ueno together, Shibuya and Harajuku together, and Shinjuku with nearby parks. Train punctuality is excellent but station size can add walking time. Include buffer time between district moves to reduce stress. This approach helps manage your visit efficiently.",
+      "bot_response": "Tokyo planning works best by district grouping: Asakusa and Ueno together, Shibuya and Harajuku together, and Shinjuku with nearby parks.",
       "is_faithful": false
     },
     {
       "query_id": "F12",
       "query": "What cards help with smooth transport in Tokyo?",
       "expected_fact": "Suica or Pasmo cards help keep transport smooth.",
-      "bot_response": "Suica and Pasmo cards can help keep your transport smooth in Tokyo, especially if you're making multiple stops. They are convenient for transferring between trains and buses.",
-      "is_faithful": true
+      "bot_response": "Suica or Pasmo cards help keep transport smooth for dense multi-stop itineraries in Tokyo.",
+      "is_faithful": false
     },
     {
       "query_id": "F13",
       "query": "Can I visit the Burj Khalifa and Dubai Mall on the same day?",
       "expected_fact": "Burj Khalifa and Dubai Mall are usually planned together because they share the same area.",
-      "bot_response": "Yes, you can visit the Burj Khalifa and Dubai Mall on the same day. However, it's recommended to plan a desert safari on a separate day as it typically involves an evening transfer. Enjoy your sightseeing!",
+      "bot_response": "Based on the provided context, Burj Khalifa and Dubai Mall are usually planned together because they share the same area. Therefore, you can visit both of them on the same day. However, it's important to note that desert safari is better scheduled on a separate day due to transfer and evening duration considerations.",
       "is_faithful": false
     },
     {
       "query_id": "F14",
       "query": "Is the Dubai metro useful for saving money?",
       "expected_fact": "Dubai metro is useful for major corridors and can lower transport costs.",
-      "bot_response": "Yes, the Dubai metro can be very helpful in saving money by reducing the need for multiple taxi rides. It's especially useful for traveling between major areas like Burj Khalifa and Dubai Mall where it connects seamlessly with attractions.",
+      "bot_response": "Yes, the Dubai Metro is useful for saving money compared to repeated taxi rides on major corridors.",
       "is_faithful": true
     },
     {
       "query_id": "F15",
       "query": "Do I need to book architecture highlights in Barcelona in advance?",
       "expected_fact": "Sagrada Familia, Park Guell, and Casa Batllo should be pre-booked.",
-      "bot_response": "Yes, it's a good idea to pre-book tickets and tours for popular architecture highlights like the Sagrada Familia and Park G\u00fcell, especially during peak travel months. This can save you time and avoid long queues. Morning slots are often available if booked ahead of time. Would you like to plan around this?",
+      "bot_response": "I don't have that information.",
       "is_faithful": false
     },
     {
       "query_id": "F16",
       "query": "What time is dinner typically served in Barcelona?",
       "expected_fact": "Meal timing can be later than many travelers expect, especially dinner.",
-      "bot_response": "Dinner in Barcelona can be later than expected by many travelers, often around 9 PM. It's best to plan tapas meals and dining experiences for the evenings after midday activities.",
+      "bot_response": "Dinner is typically served later than many travelers expect in Barcelona.",
       "is_faithful": true
     },
     {
       "query_id": "F17",
       "query": "Which hawker centers in Singapore are recommended for local dishes?",
       "expected_fact": "Maxwell, Lau Pa Sat, and Newton.",
-      "bot_response": "Hawker centers like Maxwell, Lau Pa Sat, and Newton are great for trying local dishes at moderate cost. They offer a variety of street food and snacks. For the best experience, try them during late lunch hours when crowds might be smaller. Remember to carry small cashless payment options since some places don't accept cards.",
-      "is_faithful": false
+      "bot_response": "The recommended hawker centers in Singapore for trying local dishes are Maxwell, Lau Pa Sat, and Newton.",
+      "is_faithful": true
     },
     {
       "query_id": "F18",
       "query": "What should I carry for payments in Singapore hawker centers?",
       "expected_fact": "Travelers should carry small cashless payment options.",
-      "bot_response": "In Singapore hawker centers like Maxwell and Lau Pa Sat, it's common to use small denominations of cash. You might want to bring smaller bills (like $50 or less) along with your wallet for convenience. Most vendors accept credit cards but may require a small tip. Keep an eye on the amount you have as they often give change in large notes.",
+      "bot_response": "You should carry small cashless payment options for convenience at Singapore hawker centers.",
       "is_faithful": false
     },
     {
       "query_id": "F19",
       "query": "How should I plan a visit to the Statue of Liberty in New York?",
       "expected_fact": "Statue of Liberty visits require advance ferry timing choices.",
-      "bot_response": "To plan your visit to the Statue of Liberty in New York, it's best to start with advanced ferry reservations. The statue is located on Liberty Island and can only be accessed via the Liberty Tours ferry service, which runs daily from Manhattan. \n\nHere\u2019s a simple itinerary you could follow:\n\n1. **Check Ferry Reservations**: Book your ferry tickets well in advance as they often sell out quickly. You can book through the official New York Harbor Service website or app.\n\n2. **Arrive Early**: Plan to arrive at least 30 minutes before your ferry departs from Liberty State Park. This ensures you have enough time for security checks and getting ready to board the ferry.\n\n3. **Ferry Journey**: The ferry ride takes approximately 20-25 minutes each way. Enjoy the scenic views of New York Harbor during the journey.\n\n4. **Arrive at Statue of Liberty**: Upon arrival, there\u2019s a short walk from the ferry terminal to the statue itself. You\u2019ll need to pay an entrance fee and take a guided tour through the museum inside the statue.\n\n5. **Explore Inside**: The museum offers exhibits on American history and culture. Don\u2019t miss the stunning views from the crown of the Statue of Liberty!\n\n6. **Return Journey**: After your visit, you can return via the same ferry route or choose to walk back to Manhattan if you prefer. \n\nRemember to check current opening hours and any necessary pre-arranged reservations as they may change based on weather conditions or other factors. Enjoy your trip!",
-      "is_faithful": false
+      "bot_response": "To visit the Statue of Liberty, you need to consider taking an advanced ferry trip as it is not accessible by subway or walking. The provided context does not specify detailed times for the ferry trips, so it's advisable to check the official website of the Statue of Liberty and Ellis Island for specific schedules and advance booking requirements. This ensures a smooth experience without missing your chance due to time constraints.",
+      "is_faithful": true
     },
     {
       "query_id": "F20",
@@ -149,70 +149,70 @@
       "query_id": "F21",
       "query": "What card is used for public transport in Hong Kong?",
       "expected_fact": "Octopus card simplifies public transport.",
-      "bot_response": "In Hong Kong, Octopus cards are commonly used for public transport across metro, bus, and ferry. Pasmo cards can also be used on some lines, but Octopus is more widely accepted.",
-      "is_faithful": false
+      "bot_response": "The Octopus card is used for public transport in Hong Kong.",
+      "is_faithful": true
     },
     {
       "query_id": "F22",
       "query": "When is the best time for dim sum in Hong Kong?",
       "expected_fact": "Dim sum timing is easiest at brunch and early lunch.",
-      "bot_response": "The best time to enjoy dim sum in Hong Kong is either at brunch or early lunch. This timing allows you to experience a variety of delightful and freshly steamed dishes without waiting too long. It's usually served from about 10:30 AM until around 2:00 PM.",
+      "bot_response": "The best time for dim sum in Hong Kong is at brunch and early lunch.",
       "is_faithful": true
     },
     {
       "query_id": "F23",
       "query": "How should I plan a DMZ tour from Seoul?",
       "expected_fact": "DMZ tours require scheduling and document checks in advance.",
-      "bot_response": "To plan a DMZ (Demilitarized Zone) tour from Seoul, it's important to note that tours require advance scheduling and sometimes document checks. Here\u2019s how you can structure your trip:\n\n1. **Travel Arrangements**: Since you're planning for Seoul, let me know if you have specific travel dates in mind so I can find suitable flights.\n\n2. **Tour Booking**: DMZ tours typically offer options like guided visits to the DMZ fence and observation points. These usually require prior booking due to security measures. Let's find some tour packages that fit your schedule.\n\n3. **Accommodation**: Consider staying near Seoul for easier access to transportation and sightseeing. There are several hotels in close proximity to Seoul, which can be convenient for a day trip.\n\n4. **Food and Activities**: DMZ tours often include meals at local restaurants as part of the tour package. For activities outside the tour, you might want to explore Gangnam or Hongdae districts for modern entertainment options.\n\n5. **Transportation**: Use subway access for efficient movement around Seoul. The DMZ is a bit further from central areas, so plan accordingly with public transportation.\n\n6. **Packing**: Since it\u2019s mid-summer (as per the weather conditions), pack light layers and comfortable walking shoes as you'll be doing some sightseeing on foot.\n\nOnce we have your travel dates confirmed, I can help you find specific tour packages and accommodation options that align with your preferences and budget.",
-      "is_faithful": false
+      "bot_response": "To plan a DMZ (Demilitarized Zone) tour from Seoul, you should ensure that you schedule the trip in advance as it requires document checks. Keep your travel documents ready for any necessary security screenings or inspections before the tour. Additionally, keep flexible morning windows to accommodate meeting points and potential changes due to commute times.",
+      "is_faithful": true
     },
     {
       "query_id": "F24",
       "query": "What are the common street food markets in Seoul?",
       "expected_fact": "Myeongdong and Gwangjang Market.",
-      "bot_response": "Seoul has several popular street food markets where you can find a variety of delicious dishes. Two well-known ones are Myeongdong and Gwangjang Market. Myeongdong is ideal for quick meals and snack varieties, while Gwangjang Market offers tasty options like tteokbokki (spicy rice cakes) and bindaetteok (bean cake). Both offer a casual dining experience with vibrant street vendors.",
-      "is_faithful": true
+      "bot_response": "Myeongdong and Gwangjang Market are common for street food and quick meal variety in Seoul.",
+      "is_faithful": false
     },
     {
       "query_id": "F25",
       "query": "What should I wear for hiking in Andros?",
       "expected_fact": "Sturdy shoes and water are required because terrain can be uneven.",
-      "bot_response": "For hiking in Andros, it's important to be prepared for varying weather conditions. Wear sturdy shoes suitable for uneven terrain and bring water. Layers are useful as the climate can change quickly throughout the day. Don't forget a hat and sunscreen to protect yourself from strong summer sun exposure.",
+      "bot_response": "For hiking in Andros, sturdy shoes and water are required as the terrain can be uneven. No specific clothing details are provided in the given context.",
       "is_faithful": false
     },
     {
       "query_id": "F26",
       "query": "Are intercity transfers in Sri Lanka fast?",
       "expected_fact": "Intercity transfers can be longer than map estimates.",
-      "bot_response": "Intercity transfers in Sri Lanka can sometimes take longer than expected due to terrain and traffic variability. It's best to plan with realistic travel buffers between regions to ensure your trip runs smoothly.",
+      "bot_response": "I don't have that information.",
       "is_faithful": false
     },
     {
       "query_id": "F27",
       "query": "When is the best time for safari in Sri Lanka?",
       "expected_fact": "Early morning or late afternoon windows.",
-      "bot_response": "The best time for wildlife safaris in Sri Lanka is early morning or late afternoon. This period offers cooler temperatures and better visibility of animals moving around.",
+      "bot_response": "The best time for safari in Sri Lanka is during early morning or late afternoon windows, as stated in the RAG Context provided.",
       "is_faithful": true
     },
     {
       "query_id": "F28",
       "query": "What safety rules should be followed on Fraser Island regarding wildlife?",
       "expected_fact": "Dingo safety instructions should be followed strictly and food handling should be controlled.",
-      "bot_response": "Dingo safety guidance is crucial on Fraser Island. Operators and visitors must follow strict instructions to handle dingoes safely. Keep food away from dingoes as they may become accustomed to human food, which can lead to habituation. Always carry a dingo deterrent like a spray or whistle in case of encounters.",
-      "is_faithful": true
+      "bot_response": "I don't have that information.",
+      "is_faithful": false
     },
     {
       "query_id": "F29",
       "query": "Should landmarks in Rio be visited in the morning or evening?",
       "expected_fact": "Morning slots are often better for major landmarks due to queue and weather behavior.",
-      "bot_response": "Major landmarks like Christ the Redeemer and Sugarloaf Mountain are often smoother to visit in the morning. Visibility is better, queues tend to be shorter, and it's easier to navigate without the crowds that can build up later in the day. If you prefer an evening visit, make sure to check for any special lighting or nighttime activities planned at those landmarks.",
-      "is_faithful": true
+      "bot_response": "Major landmarks in Rio should be visited during the morning slots, as they are smoother and less crowded at that time. However, it is also important to consider weather conditions and visibility issues which might affect the choice of visiting landmarks either in the morning or evening.",
+      "is_faithful": false
     },
     {
       "query_id": "F30",
       "query": "What is the recommended emergency buffer for a travel budget?",
       "expected_fact": "A common guideline is to keep 10 to 15 percent as emergency buffer.",
-      "bot_response": "A common guideline for keeping an emergency buffer in your travel budget is to keep 10 to 15 percent. This helps cover unexpected expenses like emergencies, lost luggage, or last-minute changes.",
+      "bot_response": "The recommended emergency buffer for a travel budget is between 10 to 15 percent.",
       "is_faithful": true
     }
   ]

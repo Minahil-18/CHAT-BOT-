@@ -397,15 +397,15 @@
   {
     "query_id": "Q27",
     "query": "What kind of food is Greek famous for?",
-    "city": "Greek",
+    "city": "Andros",
     "relevant_doc_types": [
       "food_guide"
     ],
     "expected_answer_contains": [
-      "seafood",
-      "conch",
-      "bahamian",
-      "fresh"
+      "moussaka",
+      "souvlaki",
+      "feta",
+      "greek"
     ],
     "difficulty": "easy"
   },
@@ -439,6 +439,73 @@
       "australia"
     ],
     "difficulty": "medium"
+  },
+  {
+    "query_id": "Q30",
+    "query": "Compare the visa requirements and best seasons for visiting both Tokyo and Paris.",
+    "city": "Tokyo",
+    "relevant_doc_types": [
+      "visa_requirements",
+      "seasonal_guide"
+    ],
+    "expected_answer_contains": [
+      "tourist visa",
+      "spring",
+      "autumn",
+      "exemption",
+      "schengen"
+    ],
+    "difficulty": "hard"
+  },
+  {
+    "query_id": "Q31",
+    "query": "I want a trip that combines historical mosques in Lahore with the modern hawker culture of Singapore. What should I prioritize?",
+    "city": "Lahore",
+    "relevant_doc_types": [
+      "activities_guide",
+      "food_guide",
+      "overview"
+    ],
+    "expected_answer_contains": [
+      "Badshahi Mosque",
+      "hawker",
+      "Lahore Fort",
+      "Singapore"
+    ],
+    "difficulty": "hard"
+  },
+  {
+    "query_id": "Q32",
+    "query": "Is it better to visit Dubai or Rio de Janeiro if I'm interested in both beach activities and high safety ratings?",
+    "city": "Dubai",
+    "relevant_doc_types": [
+      "overview",
+      "activities_guide"
+    ],
+    "expected_answer_contains": [
+      "very high",
+      "safety",
+      "beach",
+      "safari",
+      "rio"
+    ],
+    "difficulty": "hard"
+  },
+  {
+    "query_id": "Q33",
+    "query": "What are the entry requirements for Sri Lanka and how does the monsoon affect travel there vs Thailand?",
+    "city": "Sri Lanka",
+    "relevant_doc_types": [
+      "visa_requirements",
+      "seasonal_guide"
+    ],
+    "expected_answer_contains": [
+      "ETA",
+      "monsoon",
+      "rainy",
+      "thailand",
+      "december"
+    ],
+    "difficulty": "hard"
   }
-
 ]

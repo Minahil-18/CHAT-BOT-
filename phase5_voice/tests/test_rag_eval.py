@@ -128,9 +128,9 @@ def main():
         dm["latency_sum"] += latency_ms
         dm["count"] += 1
 
-        # Determine pass/fail emoji (heuristic: at least 1 relevant doc found)
-        emoji = "✅" if relevant_chunks > 0 else "❌"
-        print(f"[{q_id}] {emoji} | Prec: {precision:.2f} | Rec: {recall:.2f} | MRR: {mrr:.2f} | KHR: {khr:.2f} | Latency: {latency_ms:.1f}ms")
+        # Determine pass/fail status (heuristic: at least 1 relevant doc found)
+        status = "PASS" if relevant_chunks > 0 else "FAIL"
+        print(f"[{q_id}] {status} | Prec: {precision:.2f} | Rec: {recall:.2f} | MRR: {mrr:.2f} | KHR: {khr:.2f} | Latency: {latency_ms:.1f}ms")
 
     # 5. Print Summary Grouped by Difficulty
     print("\n--- Summary by Difficulty ---")

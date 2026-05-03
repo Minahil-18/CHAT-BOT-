@@ -28,10 +28,12 @@ from tool_orchestrator import ToolOrchestrator
 
 # ── Config ─────────────────────────────────────────────────────────────────
 OLLAMA_BASE    = os.getenv("OLLAMA_BASE_URL", "http://localhost:11434")
+OLLAMA_ENABLED = True
 MODEL_NAME     = os.getenv("MODEL_NAME",      "qwen2.5:3b")
 MAX_TOKENS     = int(os.getenv("MAX_TOKENS",  "500"))
 MAX_HISTORY    = int(os.getenv("MAX_HISTORY", "4"))
 MAX_CONCURRENT = 4
+EVAL_MODE      = False  # SET TO TRUE FOR FASTER/STRICTER EVALUATIONS
 
 # ── Audio Optimization Config ──────────────────────────────────────────────
 VAD_ENABLED            = True  # FIXED: Now using fast energy-based VAD (removed librosa)
@@ -418,6 +420,20 @@ def build_system_prompt(
     # (tool_context is handled by tool_section below)
 
     user_context = f"\nUser Info: {mem.user_name} (use their name naturally in responses)" if mem.user_name else ""
+    
+    # ── Strict Grounding for EVAL_MODE ───────────────────────────
+    if EVAL_MODE:
+        return f"""You are a strict evaluation bot. 
+        CRITICAL RULES:
+        1. USE ONLY the provided RAG Context.
+        2. DO NOT use internal knowledge or assumptions.
+        3. If the fact is not in the context, say "I don't have that information."
+        4. No pleasantries, no markdown, no symbols.
+        
+        CONTEXT:
+        {rag_context}
+        """
+    
     tool_section = f"\n\nACTUAL DATA PROVIDED:\n{tool_context}" if tool_context else ""
 
     return f"""You are Travel Buddy, a friendly and knowledgeable travel planning assistant.
@@ -434,6 +450,11 @@ Help users plan trips by providing accurate travel information, booking options,
 CORE RULES (STRICT ENFORCEMENT):
 ═══════════════════════════════════════════════════════════════════════════════
 
+0. TEMPORAL & BUDGET CONSTRAINTS (HIGHEST PRIORITY):
+   • If the user specifies a duration (e.g., "2 hours", "short visit"), you MUST NOT suggest a full-day plan or overnight stay.
+   • If the user specifies a budget, all recommendations must fit within it.
+   • Do not invent costs if the budget tool is not used.
+
 1. GROUNDING IN PROVIDED DATA:
    • Use ONLY information from: tool results (flights, weather, hotels, budget) + knowledge base + user preferences
    • FORBIDDEN: Inventing prices, flight times, hotel names, or details
@@ -444,10 +465,11 @@ CORE RULES (STRICT ENFORCEMENT):
    • REFUSE: Medical advice, coding, math, politics, personal advice
    • Polite refusal: "I'm a travel specialist—I can only help with destinations, flights, hotels, and trip planning."
 
-3. INFORMATION COLLECTION (BEFORE RECOMMENDING):
-   • Confirm: Number of travelers, travel dates, accommodation tier, budget range
-   • Ask ONE question at a time (not multiple)
-   • Build on previous answers—don't repeat
+3. INFORMATION COLLECTION (CONVERSATIONAL FLOW):
+   • If the user asks a specific question (weather, food, beaches), ANSWER IT FIRST.
+   • After answering, you may ask for missing info (travelers, dates, budget) if needed for an itinerary.
+   • Ask ONE question at a time (not multiple).
+   • Don't block the conversation with repeated requests for dates if the user is asking about activities.
 
 4. TOOL & CRM INTEGRATION:
    • Reference user's name if shared
@@ -513,7 +535,7 @@ FINAL CRITICAL RULES BEFORE YOU ANSWER:
 1. YOU MUST SPEAK IN PLAIN TEXT ONLY. NO markdown, NO asterisks (**), NO hashes (#), and NO bullet points (-).
 2. Write numbers as words (e.g., "three days", not "3 days").
 3. DO NOT use the '$' symbol. Write out the word "dollars" (e.g., "three hundred dollars").
-4. If the user did not specify exact travel dates, duration, or budget, you MUST ask for them BEFORE providing an itinerary or price estimate.
+4. If the user asks for a price estimate or full itinerary, you MUST have dates and budget. However, if they ask a general question, answer it immediately using your tools or knowledge. Don't withhold information to wait for dates.
 """
 
 
@@ -559,6 +581,34 @@ def is_travel_related(question: str) -> tuple[bool, str]:
 def _contains_travel_keyword(text: str) -> bool:
     t = text.lower()
     return any(kw in t for kw in _TRAVEL_KEYWORDS)
+
+
+_MARKDOWN_STRIP = re.compile(r'[*#`_~|\\]')
+_MULTI_SPACE    = re.compile(r'  +')
+_MULTI_NEWLINE  = re.compile(r'\n{3,}')
+_MAX_WORDS      = 120   # soft cap — truncate at sentence boundary
+
+def sanitize_response(text: str) -> str:
+    """Remove markdown symbols, collapse whitespace, enforce word-count cap."""
+    # 1. Strip known markdown / special symbols
+    text = _MARKDOWN_STRIP.sub('', text)
+    # 2. Remove leftover $ signs (voice rule: already replaced by LLM ideally, belt-and-suspenders)
+    text = text.replace('$', ' dollars ')
+    # 3. Collapse multiple spaces / newlines
+    text = _MULTI_SPACE.sub(' ', text)
+    text = _MULTI_NEWLINE.sub('\n\n', text)
+    text = text.strip()
+    # 4. Soft word-count cap — cut at the last sentence-ending punctuation within limit
+    words = text.split()
+    if len(words) > _MAX_WORDS:
+        truncated = ' '.join(words[:_MAX_WORDS])
+        # Find last sentence boundary so we don't cut mid-sentence
+        last_end = max(truncated.rfind('.'), truncated.rfind('!'), truncated.rfind('?'))
+        if last_end > len(truncated) // 2:
+            text = truncated[:last_end + 1]
+        else:
+            text = truncated + '...'
+    return text
 
 
 # ── ASR (Moonshine) ─────────────────────────────────────────────────────────
@@ -1050,6 +1100,25 @@ async def cache_clear():
     return {"status": "caches cleared"}
 
 
+# ── LLM Warm-up ────────────────────────────────────────────────────────────
+async def _warmup_ollama():
+    """Pings Ollama on startup to ensure the model is loaded in VRAM."""
+    if not OLLAMA_ENABLED: return
+    try:
+        print(f"[WARMUP] Pre-loading LLM model '{MODEL_NAME}'...")
+        payload = {
+            "model": MODEL_NAME,
+            "prompt": "hi",
+            "stream": False,
+            "options": {"num_predict": 1}
+        }
+        async with httpx.AsyncClient(timeout=10.0) as client:
+            await client.post(f"{OLLAMA_BASE}/api/generate", json=payload)
+        print("[WARMUP] LLM is ready and in VRAM.")
+    except Exception as e:
+        print(f"[WARMUP WARNING] LLM pre-load failed: {e}")
+
+
 # ── Helper: run RAG concurrently ────────────────────────────────────────────
 async def _fetch_rag(msg: str, destination: Optional[str]) -> tuple[str, List[str]]:
     """Returns (rag_context, rag_sources). Never raises — returns empty on error."""
@@ -1184,8 +1253,17 @@ def _predict_tools_from_message(msg: str, destination_hint: Optional[str] = None
 
     # ── budget detection ────────────────────────────────────────────────────
     if any(w in m for w in ["budget", "cost", "expense", "how much", "price"]) or _is_itinerary_request(m):
+        # Improved duration detection
         days_match = re.search(r"(\d+)\s*day", m)
-        days = int(days_match.group(1)) if days_match else 3
+        hours_match = re.search(r"(\d+)\s*hour", m)
+        
+        if days_match:
+            days = int(days_match.group(1))
+        elif hours_match or any(w in m for w in ["short", "quick", "layover", "hours"]):
+            days = 1 # Treat sub-day trips as 1 day for budget calculations
+        else:
+            days = 3 # Default
+            
         if mentioned_cities:
             for city in mentioned_cities[:MAX_CITIES_PER_QUERY]:
                 raw = f'[TOOL_CALL: calculate_trip_budget {{"destination": "{_city_for_tools(city)}", "duration_days": {days}}}]'
@@ -1206,7 +1284,7 @@ def _predict_tools_from_message(msg: str, destination_hint: Optional[str] = None
 def _extract_profile_updates(text: str) -> Dict[str, str]:
     updates: Dict[str, str] = {}
     t = text.strip()
-    name_match = re.search(r"(?:my name is|name is)\s+([A-Za-z][A-Za-z\s]{1,40})", t, re.IGNORECASE)
+    name_match = re.search(r"(?:my name is|name is|i am|i'm|call me|hi[,!]?\s+i(?:'m| am))\s+([A-Za-z][A-Za-z\s]{1,40})", t, re.IGNORECASE)
     email_match = re.search(r"([A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,})", t)
     if name_match:
         updates["name"] = name_match.group(1).strip()
@@ -1408,241 +1486,157 @@ async def ws_chat(ws: WebSocket):
 
             if not mem.user_id:
                 mem.user_id = data.get("user_id") or conv_id
+            
+            # Update destination immediately so RAG/Tools use the latest context
+            if data.get("city"):
+                mem.destination = data["city"]
+            mem.detect_city(msg)
 
-            # ── CRM: profile updates work regardless of travel filter ────────
-            profile_updates: Dict[str, str] = _extract_profile_updates(msg)
-            if TOOLS_ENABLED and tool_orchestrator and mem.user_id:
-                loop = asyncio.get_event_loop()
-                t_crm_start = time.time()
-                try:
-                    user_profile = await asyncio.wait_for(
-                        loop.run_in_executor(None, lambda: tool_orchestrator.crm.get_user(mem.user_id)),
-                        timeout=TOOL_TIMEOUT_SECONDS,
-                    )
-                    crm_get_ms = (time.time() - t_crm_start) * 1000
-                    print(f"[CRM] get_user: {crm_get_ms:.1f}ms")
-                except Exception as exc:
-                    print(f"[CRM] get_user failed: {exc}")
-                    user_profile = None
-
-                if profile_updates:
+            # ── 1. Group Independent Tasks (Chained Parallel Execution) ──────
+            # We fire off CRM, RAG, and Tool Execution pipelines simultaneously.
+            
+            async def crm_pipeline():
+                u_prof = None
+                if EVAL_MODE: return None, None # Bypass in Eval mode
+                p_updates = _extract_profile_updates(msg)
+                if TOOLS_ENABLED and tool_orchestrator and mem.user_id:
                     try:
-                        t_profile_start = time.time()
-                        if user_profile:
-                            await asyncio.wait_for(
-                                loop.run_in_executor(
-                                    None, lambda: tool_orchestrator.crm.update_user(mem.user_id, **profile_updates)
-                                ),
-                                timeout=TOOL_TIMEOUT_SECONDS,
-                            )
-                            profile_ms = (time.time() - t_profile_start) * 1000
-                            print(f"[CRM] update_user: {profile_ms:.1f}ms")
-                        elif profile_updates.get("name"):
-                            await asyncio.wait_for(
-                                loop.run_in_executor(
-                                    None,
-                                    lambda: tool_orchestrator.crm.create_user(
-                                        name=profile_updates["name"],
-                                        email=profile_updates.get("email", ""),
-                                        user_id=mem.user_id,
-                                    ),
-                                ),
-                                timeout=TOOL_TIMEOUT_SECONDS,
-                            )
-                            create_ms = (time.time() - t_profile_start) * 1000
-                            print(f"[CRM] create_user: {create_ms:.1f}ms")
-                            
-                            t_get_after = time.time()
-                            user_profile = await asyncio.wait_for(
-                                loop.run_in_executor(None, lambda: tool_orchestrator.crm.get_user(mem.user_id)),
-                                timeout=TOOL_TIMEOUT_SECONDS,
-                            )
-                            get_after_ms = (time.time() - t_get_after) * 1000
-                            print(f"[CRM] get_user (after create): {get_after_ms:.1f}ms")
-                    except Exception as exc:
-                        print(f"[CRM] profile update failed: {exc}")
+                        loop = asyncio.get_event_loop()
+                        u_prof = await asyncio.wait_for(
+                            loop.run_in_executor(None, lambda: tool_orchestrator.crm.get_user(mem.user_id)),
+                            timeout=TOOL_TIMEOUT_SECONDS
+                        )
+                        if p_updates:
+                            if u_prof:
+                                await loop.run_in_executor(None, lambda: tool_orchestrator.crm.update_user(mem.user_id, **p_updates))
+                                u_prof = await loop.run_in_executor(None, lambda: tool_orchestrator.crm.get_user(mem.user_id))
+                            elif p_updates.get("name"):
+                                await loop.run_in_executor(None, lambda: tool_orchestrator.crm.create_user(name=p_updates["name"], email=p_updates.get("email",""), user_id=mem.user_id))
+                                u_prof = await loop.run_in_executor(None, lambda: tool_orchestrator.crm.get_user(mem.user_id))
+                    except Exception as e: print(f"[CRM ERROR] {e}")
+                return u_prof, p_updates
 
-                if user_profile and user_profile.get("name"):
-                    mem.user_name = user_profile["name"]
+            async def tools_pipeline():
+                """Predicts AND executes tools without waiting for RAG/CRM."""
+                if EVAL_MODE or not (TOOLS_ENABLED and tool_orchestrator): return [], "", []
+                try:
+                    loop = asyncio.get_event_loop()
+                    # 1. Predict
+                    detected_calls = await loop.run_in_executor(None, lambda: _predict_tools_from_message(msg, mem.destination))
+                    if not detected_calls: return [], "", []
 
-            # Profile-only messages get instant confirmation
+                    # 2. Execute (if itinerary or direct)
+                    # We always execute here to stay parallel; the main loop decides how to use the results.
+                    async def _run_one(d):
+                        try:
+                            res = await asyncio.wait_for(
+                                loop.run_in_executor(None, lambda dd=d: tool_orchestrator.execute_tool(dd)),
+                                timeout=TOOL_TIMEOUT_SECONDS
+                            )
+                            # Notify frontend immediately as they finish
+                            await ws.send_text(json.dumps({"type": "tool_result", "conversation_id": conv_id, "tool_name": d.tool_name, "result": res}))
+                            return d.tool_name, res
+                        except Exception as e: return d.tool_name, {"error": str(e), "success": False}
+
+                    results = await asyncio.gather(*[_run_one(d) for d in detected_calls])
+                    
+                    # 3. Format context for LLM
+                    tool_ctx = ""
+                    if _is_itinerary_request(msg):
+                        for t_name, res in results:
+                            if isinstance(res, dict) and res.get("success"):
+                                tool_ctx += f"\n[{t_name}]: {json.dumps(res.get('result', {}))}"
+                    
+                    return detected_calls, tool_ctx, results
+                except Exception as e:
+                    print(f"[TOOLS PIPELINE ERROR] {e}")
+                    return [], "", []
+
+            t_parallel_start = time.time()
+            
+            # Start all three main pipelines
+            crm_task   = asyncio.create_task(crm_pipeline())
+            rag_task   = asyncio.create_task(_fetch_rag(msg, mem.destination))
+            tools_task = asyncio.create_task(tools_pipeline())
+
+            # While they run, we can do the travel filter (very fast)
+            is_valid, refusal_msg = is_travel_related(msg)
+            if not is_valid:
+                # Cancel pending if it's an out-of-scope refusal
+                rag_task.cancel(); tools_task.cancel(); crm_task.cancel()
+                refusal_msg = sanitize_response(refusal_msg)
+                await ws.send_text(json.dumps({"type": "token", "conversation_id": conv_id, "token": refusal_msg, "index": 0}))
+                await ws.send_text(json.dumps({"type": "final", "conversation_id": conv_id, "message": refusal_msg}))
+                continue
+
+            # Wait for everything to converge
+            (user_profile, profile_updates), (rag_context, rag_sources), (tool_calls, tool_context, tool_results) = await asyncio.gather(
+                crm_task, rag_task, tools_task
+            )
+            
+            print(f"[LATENCY] All pipelines done in {(time.time() - t_parallel_start)*1000:.1f}ms")
+
+            if user_profile and user_profile.get("name"):
+                mem.user_name = user_profile["name"]
+
+            mem.add("user", msg)
+            
+            # ── 2. Handle Routing ───────────────────────────────────────────
+            # Profile shortcut
             if profile_updates and not _contains_travel_keyword(msg):
                 saved_msg = _build_profile_saved_message(profile_updates)
                 await ws.send_text(json.dumps({"type": "token", "conversation_id": conv_id, "token": saved_msg, "index": 0}))
                 await ws.send_text(json.dumps({"type": "final", "conversation_id": conv_id, "message": saved_msg}))
                 continue
 
-            # ── 1. Travel filter ────────────────────────────────────────────
-            is_valid, refusal_msg = is_travel_related(msg)
-            if not is_valid:
-                await ws.send_text(json.dumps({"type": "token", "conversation_id": conv_id, "token": refusal_msg, "index": 0}))
-                await ws.send_text(json.dumps({"type": "final", "conversation_id": conv_id, "message": refusal_msg}))
-                continue
-
-            if data.get("city"):
-                mem.destination = data["city"]
-            mem.detect_city(msg)
-            mem.add("user", msg)
-
-            # ── 2. RAG — run concurrently with tool detection ────────────────
-            rag_task = asyncio.create_task(_fetch_rag(msg, mem.destination))
-
-            # ── 3. Detect tools from user message (no LLM call needed) ──────
-            tool_calls_to_run: list = []
-            if TOOLS_ENABLED and tool_orchestrator:
-                try:
-                    loop = asyncio.get_event_loop()
-                    tool_calls_to_run = await loop.run_in_executor(
-                        None, lambda: _predict_tools_from_message(msg, mem.destination)
-                    )
-                    print(f"[TOOLS] Pre-detected {len(tool_calls_to_run)} tool(s) from message")
-                except Exception as e:
-                    print(f"[TOOLS PRE-DETECT ERROR] {e}")
-
-            # ── 4. Wait for RAG ──────────────────────────────────────────────
-            t_rag_start = time.time()
-            rag_context, rag_sources = await rag_task
-            rag_latency = round((time.time() - t_rag_start) * 1000, 1)
-
-          
-
-            # ── 5. Decide routing: itinerary vs structured tool reply ────────
+            # ── 3. Build Response ───────────────────────────────────────────
             is_itinerary = _is_itinerary_request(msg)
-
-            # For itinerary requests: run tools to collect live data, then feed
-            # everything to the LLM to write a proper narrative day-by-day plan.
-            # For direct data requests (weather/flights/budget alone): use the
-            # fast compact tool reply path without any LLM call.
-            pre_tool_context = ""
-            if tool_calls_to_run and is_itinerary:
-                print(f"[ITINERARY] Running {len(tool_calls_to_run)} tool(s) to enrich LLM context...")
-                t0_pre = time.time()
-                loop = asyncio.get_event_loop()
-
-                async def _run_one(d):
-                    try:
-                        return await asyncio.wait_for(
-                            loop.run_in_executor(None, lambda dd=d: tool_orchestrator.execute_tool(dd)),
-                            timeout=TOOL_TIMEOUT_SECONDS,
-                        )
-                    except Exception as exc:
-                        return {"error": str(exc), "tool": d.tool_name}
-
-                pre_results = await asyncio.gather(*[_run_one(d) for d in tool_calls_to_run])
-                print(f"[ITINERARY] Tools done in {time.time() - t0_pre:.3f}s")
-
-                for detected, result in zip(tool_calls_to_run, pre_results):
-                    # Notify frontend that tool ran
-                    await ws.send_text(json.dumps({
-                        "type": "tool_result",
-                        "conversation_id": conv_id,
-                        "tool_name": detected.tool_name,
-                        "result": result,
-                    }))
-                    if isinstance(result, dict) and result.get("success"):
-                        pre_tool_context += (
-                            f"\n[{detected.tool_name}]: {json.dumps(result.get('result', {}))}"
-                        )
-
-                # Tools already handled — clear so the compact path is skipped
-                tool_calls_to_run = []
-
-            # ── 6. Build system prompt (with optional live tool data) ────────
-            system_text = build_system_prompt(
-                mem,
-                rag_context=rag_context,
-                rag_sources=rag_sources,
-                tool_context=pre_tool_context,
-            )
-            if TOOLS_ENABLED and tool_orchestrator and TOOL_PROMPT_ENABLED:
-                system_text += f"\n\n{tool_orchestrator.format_tools_for_prompt()}"
-
-            # ── 7a. COMPACT TOOL PATH — structured data requests ─────────────
-            if tool_calls_to_run:
-                # Notify frontend of pending tool calls
-                for detected in tool_calls_to_run:
-                    await ws.send_text(json.dumps({
-                        "type": "tool_start",
-                        "conversation_id": conv_id,
-                        "tool_name": detected.tool_name,
-                        "tool_args": detected.arguments,
-                    }))
-
-                t0_tools = time.time()
-                loop = asyncio.get_event_loop()
-
-                async def run_tool_with_timeout(detected):
-                    try:
-                        out = await asyncio.wait_for(
-                            loop.run_in_executor(None, lambda d=detected: tool_orchestrator.execute_tool(d)),
-                            timeout=TOOL_TIMEOUT_SECONDS,
-                        )
-                        return out
-                    except asyncio.TimeoutError:
-                        return {"error": f"Tool timed out after {TOOL_TIMEOUT_SECONDS:.1f}s", "tool": detected.tool_name}
-                    except Exception as exc:
-                        return {"error": f"Tool failed: {exc}", "tool": detected.tool_name}
-
-                executed_results = await asyncio.gather(*[
-                    run_tool_with_timeout(d) for d in tool_calls_to_run
-                ])
-                print(f"[TOOLS] Executed {len(tool_calls_to_run)} tool(s) in {time.time() - t0_tools:.3f}s")
-
-                tool_results = []
-                for detected, result in zip(tool_calls_to_run, executed_results):
-                    await ws.send_text(json.dumps({
-                        "type": "tool_result",
-                        "conversation_id": conv_id,
-                        "tool_name": detected.tool_name,
-                        "result": result,
-                    }))
-                    tool_results.append((detected.tool_name, result))
-
-                reply = _build_compact_tool_reply(mem, tool_results, msg)
-                print(f"[STREAM] Sending compact tool reply ({len(tool_results)} tool(s))...")
+            
+            if tool_calls and not is_itinerary:
+                # Direct data request (Compact Path)
+                reply = sanitize_response(_build_compact_tool_reply(mem, tool_results, msg))
                 idx = 0
                 for chunk in reply.split("\n"):
-                    token = chunk + "\n"
-                    await ws.send_text(json.dumps({
-                        "type": "token", "conversation_id": conv_id,
-                        "token": token, "index": idx,
-                    }))
+                    await ws.send_text(json.dumps({"type": "token", "conversation_id": conv_id, "token": chunk + "\n", "index": idx}))
                     idx += 1
                 mem.add("assistant", reply)
-                if profile_updates:
-                    reply = f"{_build_profile_saved_message(profile_updates)}\n\n{reply}"
-
-            # ── 7b. LLM PATH — itinerary requests and plain dialogue ─────────
             else:
+                # Narrative / Itinerary Path
+                system_text = build_system_prompt(mem, rag_context=rag_context, rag_sources=rag_sources, tool_context=tool_context)
+                if TOOLS_ENABLED and tool_orchestrator and TOOL_PROMPT_ENABLED:
+                    system_text += f"\n\n{tool_orchestrator.format_tools_for_prompt()}"
+                
                 messages = [{"role": "system", "content": system_text}] + mem.history[-MAX_HISTORY:]
-                print("[STREAM] Streaming LLM response" + (" (itinerary + tool context)" if pre_tool_context else "") + "...")
                 reply = ""
-                idx   = 0
+                idx = 0
                 async for token in stream_ollama_tokens(messages):
-                    reply += token
-                    await ws.send_text(json.dumps({
-                        "type": "token", "conversation_id": conv_id,
-                        "token": token, "index": idx,
-                    }))
-                    idx += 1
+                    # Live token cleaning to prevent markdown flashing during stream
+                    clean_token = re.sub(r'[*#`_~|\\]', '', token)
+                    reply += token # We keep full reply for memory
+                    if clean_token:
+                        await ws.send_text(json.dumps({"type": "token", "conversation_id": conv_id, "token": clean_token, "index": idx}))
+                        idx += 1
+                
+                # Sanitize final for memory and final message
+                reply = sanitize_response(reply)
                 mem.add("assistant", reply)
-                if profile_updates:
-                    reply = f"{_build_profile_saved_message(profile_updates)}\n\n{reply}"
+
+            if profile_updates:
+                reply = f"{_build_profile_saved_message(profile_updates)}\n\n{reply}"
 
             await ws.send_text(json.dumps({
-                "type": "final",
-                "conversation_id": conv_id,
-                "message": reply,
-                "debug": {
-                    "rag_latency_ms": rag_latency,
-                    "rag_chunks": len(rag_sources),
-                    "tools_used": [d.tool_name for d in tool_calls_to_run],
-                }
+                "type": "final", "conversation_id": conv_id, "message": reply,
+                "debug": { "parallel_ms": round((time.time()-t_parallel_start)*1000,1), "rag_chunks": len(rag_sources) }
             }))
 
     except WebSocketDisconnect:
         conversations.pop(conv_id, None)
 
+
+@app.on_event("startup")
+async def startup_event():
+    # Pre-load LLM in background so the first call is fast
+    asyncio.create_task(_warmup_ollama())
 
 if __name__ == "__main__":
     import uvicorn
