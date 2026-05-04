@@ -63,9 +63,9 @@ flowchart LR
 
 **Tool Orchestrator (`tool_orchestrator.py`):** Maintains a registry of callable tools. Before the LLM generates a response, the orchestrator runs `_predict_tools_from_message` — a fast, rule-based keyword parser that decides which tools are needed without making an extra LLM call. Detected tools are executed asynchronously in parallel with a configurable timeout. Results are assembled into a compact, structured reply.
 
-**LLM Engine:** Ollama serves `qwen2.5:1.5b` locally and streams token output back to the server via its `/api/chat` endpoint. The server relays each token to the browser over WebSocket in real time.
+**LLM Engine:** Ollama serves `qwen2.5:3b` locally and streams token output back to the server via its `/api/chat` endpoint. The server relays each token to the browser over WebSocket in real time.
 
-**ASR (Moonshine Tiny):** Transcribes uploaded WAV audio to text entirely on CPU using a lightweight whisper-style model.
+**ASR (Faster-Whisper Tiny):** Transcribes uploaded WAV audio to text entirely on CPU using a quantized whisper model.
 
 **TTS (Piper `en_US-lessac-medium`):** Synthesises assistant replies to WAV audio using an ONNX voice model that runs locally with no external API dependency.
 
@@ -74,11 +74,11 @@ flowchart LR
 ---
 
 ## Model Selection
-- LLM: `qwen2.5:1.5b` via Ollama
+- LLM: `qwen2.5:3b` via Ollama
 - Embeddings: `sentence-transformers/all-MiniLM-L6-v2`
 - Rationale: lightweight CPU-friendly stack with acceptable response quality and latency.
 
-**Why this model:** At 1.5 billion parameters, Qwen 2.5 runs comfortably on CPU without GPU acceleration, which directly satisfies the assignment constraint. Despite its small size, Qwen 2.5 demonstrates strong instruction-following behaviour — it reliably adheres to the structured system prompt format (three-section travel answers: Flights, Weather, Food) and stays on topic without wandering. Its 32K context window comfortably accommodates the system prompt, RAG chunks, conversation history, and tool results simultaneously. The quantised version available through Ollama reduces RAM usage further.
+**Why this model:** At 3 billion parameters, Qwen 2.5 runs comfortably on CPU without GPU acceleration, providing superior reasoning and instruction-following compared to smaller variants. It reliably adheres to the structured system prompt format and stays on topic. Its 32K context window comfortably accommodates the system prompt, RAG chunks, conversation history, and tool results simultaneously.
 
 **Performance characteristics (measured on AMD Ryzen 7 5800H CPU, 16 GB RAM):**
 
@@ -323,7 +323,7 @@ pip install -r requirements.txt
 ### Step 3 — Pull the LLM model via Ollama
 
 ```bash
-ollama pull qwen2.5:1.5b
+ollama pull qwen2.5:3b
 ```
 
 Verify Ollama is running:
@@ -366,7 +366,7 @@ All variables can be set in `docker-compose.yml` or exported before running `app
 | Variable | Default | Description |
 |----------|---------|-------------|
 | `OLLAMA_BASE_URL` | `http://localhost:11434` | Ollama server address |
-| `MODEL_NAME` | `qwen2.5:1.5b` | Ollama model tag |
+| `MODEL_NAME` | `qwen2.5:3b` | Ollama model tag |
 | `MAX_TOKENS` | `400` | Max tokens per LLM reply |
 | `MAX_HISTORY` | `4` | Conversation turns kept in context |
 | `RAG_ENABLED` | `true` | Enable/disable RAG retrieval |
@@ -381,6 +381,54 @@ All variables can be set in `docker-compose.yml` or exported before running `app
 ### Postman collection
 
 Import `postman_collection.json` into Postman. Set the `baseUrl` variable to `http://localhost:8000`. The collection includes: Health Check, RAG Status, Tools Status, Retrieve Documents, and Synthesize Voice.
+
+---
+
+## Evaluation Suite (Assignment 3)
+
+The system includes a comprehensive, automated evaluation suite covering Correctness, Component-level performance, and System-wide latency/throughput.
+
+### 📊 Evaluation Metrics Summary
+
+| Area | Key Metric | Result | Status |
+| :--- | :--- | :---: | :--- |
+| **RAG Retrieval** | Mean Reciprocal Rank (MRR) | **0.78** | ✅ PASS |
+| **RAG Retrieval** | Context Relevance Score (CRS) | **0.44** | ✅ PASS |
+| **Faithfulness** | Groundedness Accuracy | **63.33%** | ⚠️ PARTIAL |
+| **Tools & CRM** | Unit Test Pass Rate | **100%** | ✅ PASS |
+| **Latency** | Time to First Token (TTFT) | **758ms** | ✅ GOOD |
+| **Throughput** | Max Sustainable Concurrency | **6 Users** | ✅ MEASURED |
+
+### 🧪 Running the Evaluations
+
+The evaluation suite is divided into three parts corresponding to the team roles:
+
+#### 1. RAG & Correctness (Person A)
+Evaluates retrieval relevance across 33 queries and faithfulness across 30 fact-checks.
+```bash
+python phase5_voice/tests/test_rag_eval.py
+python phase5_voice/tests/test_faithfulness.py
+```
+
+#### 2. Tools & CRM (Person B)
+Runs 121+ functional tests for the CRM and all integrated tools.
+```bash
+python phase5_voice/tests/run_person_b_tests.py
+```
+
+#### 3. Performance & Load Testing (Person C)
+Measures latency scenarios (Tool-only, RAG, Full Pipeline) and simulates concurrent load up to 8 users.
+```bash
+python EVALS/run_person_c.py
+```
+
+#### 🚀 Unified Orchestrator
+To run **all** evaluations at once and generate the final consolidated report:
+```bash
+python phase5_voice/tests/run_evals.py
+```
+
+The final report is generated at `FINAL_EVALUATION_REPORT.md`.
 
 ---
 

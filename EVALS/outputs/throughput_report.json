@@ -1,0 +1,163 @@
+{
+  "title": "Person C - Throughput Benchmark",
+  "timestamp": "2026-05-03T20:48:37Z",
+  "endpoints": {
+    "healthz": "http://localhost:8000/healthz",
+    "ws_url": "ws://localhost:8000/ws/chat"
+  },
+  "hardware": {
+    "os": "Windows",
+    "os_version": "10.0.26200",
+    "machine": "AMD64",
+    "processor": "AMD64 Family 25 Model 117 Stepping 2, AuthenticAMD",
+    "python_version": "3.11.9",
+    "cpu_count_logical": 12,
+    "cpu_count_physical": 6,
+    "ram_total_gb": 15.27,
+    "disk_total_gb": 330.39
+  },
+  "thresholds": {
+    "median_ttft_ms_lt": 2000.0,
+    "median_e2e_ms_lt": 10000.0,
+    "max_error_rate": 0.01
+  },
+  "levels": [
+    1,
+    2,
+    4,
+    6,
+    8
+  ],
+  "turns_per_user": 3,
+  "results": [
+    {
+      "concurrency": 1,
+      "turns_total": 3,
+      "duration_s": 11.431,
+      "turns_per_second": 0.262,
+      "errors": 0,
+      "ttft_ms": {
+        "n": 3,
+        "mean": 967.539,
+        "median": 919.764,
+        "p90": 1043.692,
+        "p99": 1071.576,
+        "min": 908.178,
+        "max": 1074.674
+      },
+      "e2e_ms": {
+        "n": 3,
+        "mean": 1701.402,
+        "median": 1651.387,
+        "p90": 1860.398,
+        "p99": 1907.426,
+        "min": 1540.168,
+        "max": 1912.651
+      }
+    },
+    {
+      "concurrency": 2,
+      "turns_total": 6,
+      "duration_s": 12.19,
+      "turns_per_second": 0.492,
+      "errors": 0,
+      "ttft_ms": {
+        "n": 6,
+        "mean": 1132.769,
+        "median": 1011.147,
+        "p90": 1442.898,
+        "p99": 1760.937,
+        "min": 935.392,
+        "max": 1796.275
+      },
+      "e2e_ms": {
+        "n": 6,
+        "mean": 1808.158,
+        "median": 1701.451,
+        "p90": 2165.746,
+        "p99": 2448.079,
+        "min": 1537.818,
+        "max": 2479.449
+      }
+    },
+    {
+      "concurrency": 4,
+      "turns_total": 12,
+      "duration_s": 14.179,
+      "turns_per_second": 0.846,
+      "errors": 0,
+      "ttft_ms": {
+        "n": 12,
+        "mean": 1613.403,
+        "median": 1199.293,
+        "p90": 3078.327,
+        "p99": 3842.928,
+        "min": 737.809,
+        "max": 3929.266
+      },
+      "e2e_ms": {
+        "n": 12,
+        "mean": 2299.58,
+        "median": 1875.88,
+        "p90": 3833.157,
+        "p99": 4782.114,
+        "min": 1221.541,
+        "max": 4889.727
+      }
+    },
+    {
+      "concurrency": 6,
+      "turns_total": 18,
+      "duration_s": 17.998,
+      "turns_per_second": 1.0,
+      "errors": 0,
+      "ttft_ms": {
+        "n": 18,
+        "mean": 2488.443,
+        "median": 1836.6,
+        "p90": 4999.135,
+        "p99": 5932.15,
+        "min": 903.911,
+        "max": 5999.682
+      },
+      "e2e_ms": {
+        "n": 18,
+        "mean": 3219.885,
+        "median": 2427.819,
+        "p90": 5720.176,
+        "p99": 6993.106,
+        "min": 1577.83,
+        "max": 7199.958
+      }
+    },
+    {
+      "concurrency": 8,
+      "turns_total": 24,
+      "duration_s": 22.674,
+      "turns_per_second": 1.058,
+      "errors": 0,
+      "ttft_ms": {
+        "n": 24,
+        "mean": 3858.443,
+        "median": 3155.734,
+        "p90": 6499.794,
+        "p99": 7948.509,
+        "min": 2442.28,
+        "max": 8120.017
+      },
+      "e2e_ms": {
+        "n": 24,
+        "mean": 4574.591,
+        "median": 3855.356,
+        "p90": 7209.067,
+        "p99": 8685.305,
+        "min": 3297.462,
+        "max": 8852.887
+      }
+    }
+  ],
+  "status": "ok",
+  "skip_reason": null,
+  "max_sustainable_concurrency": 6,
+  "breakpoint_concurrency": 8
+}

@@ -47,6 +47,7 @@ def main():
         "recall_sum": 0.0,
         "mrr_sum": 0.0,
         "khr_sum": 0.0,
+        "context_relevance_sum": 0.0,
         "latency_sum": 0.0,
         "count": 0
     })
@@ -99,6 +100,9 @@ def main():
         precision = relevant_chunks / 3.0
         recall = len(found_types) / len(relevant_doc_types) if relevant_doc_types else 0.0
         mrr = 1.0 / first_relevant_rank if first_relevant_rank > 0 else 0.0
+        
+        # Context Relevance: proportion of retrieved chunks that are useful
+        context_relevance = relevant_chunks / len(chunks) if chunks else 0.0
 
         # Keyword Hit Rate
         found_kws = 0
@@ -114,6 +118,7 @@ def main():
             "precision_at_3": precision,
             "recall_at_3": recall,
             "mrr": mrr,
+            "context_relevance": context_relevance,
             "keyword_hit_rate": khr,
             "latency_ms": latency_ms
         }
@@ -125,6 +130,7 @@ def main():
         dm["recall_sum"] += recall
         dm["mrr_sum"] += mrr
         dm["khr_sum"] += khr
+        dm["context_relevance_sum"] += context_relevance
         dm["latency_sum"] += latency_ms
         dm["count"] += 1
 
@@ -142,6 +148,7 @@ def main():
         avg_recall = dm["recall_sum"] / count
         avg_mrr = dm["mrr_sum"] / count
         avg_khr = dm["khr_sum"] / count
+        avg_cr = dm["context_relevance_sum"] / count
         avg_lat = dm["latency_sum"] / count
         
         summary[diff] = {
@@ -149,6 +156,7 @@ def main():
             "avg_precision_at_3": avg_prec,
             "avg_recall_at_3": avg_recall,
             "avg_mrr": avg_mrr,
+            "avg_context_relevance": avg_cr,
             "avg_keyword_hit_rate": avg_khr,
             "avg_latency_ms": avg_lat
         }

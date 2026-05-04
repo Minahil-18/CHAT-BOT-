@@ -1,0 +1,2026 @@
+{
+  "title": "Person C - Latency Benchmark",
+  "timestamp": "2026-05-03T20:37:47Z",
+  "targets": {
+    "median_ttft_ms_lt": 2000.0,
+    "median_e2e_ms_lt": 10000.0
+  },
+  "endpoints": {
+    "healthz": "http://localhost:8000/healthz",
+    "ws_url": "ws://localhost:8000/ws/chat",
+    "rag_status": "http://localhost:8000/api/rag/status"
+  },
+  "hardware": {
+    "os": "Windows",
+    "os_version": "10.0.26200",
+    "machine": "AMD64",
+    "processor": "AMD64 Family 25 Model 117 Stepping 2, AuthenticAMD",
+    "python_version": "3.11.9",
+    "cpu_count_logical": 12,
+    "cpu_count_physical": 6,
+    "ram_total_gb": 15.27,
+    "disk_total_gb": 330.39
+  },
+  "scenarios": [
+    {
+      "name": "tool_only",
+      "description": "Single tool call (weather) with structured response (no LLM).",
+      "message": "What is the weather in Paris right now?",
+      "city": "Paris",
+      "requires_ollama": false
+    },
+    {
+      "name": "rag_only",
+      "description": "Knowledge retrieval for travel tips using RAG documents.",
+      "message": "What are the essential items to pack for a winter trip to Islamabad?",
+      "city": "Islamabad",
+      "requires_ollama": true
+    },
+    {
+      "name": "rag_plus_tool",
+      "description": "Combined RAG retrieval + tool call (e.g. food recommendations + weather).",
+      "message": "Tell me about the food in Tokyo and what the weather is like today.",
+      "city": "Tokyo",
+      "requires_ollama": true
+    },
+    {
+      "name": "full_pipeline",
+      "description": "Full itinerary request triggering RAG, tools, and narrative LLM generation.",
+      "message": "Plan a detailed 3-day itinerary for Istanbul including flights, hotels, and budget.",
+      "city": "Istanbul",
+      "requires_ollama": true
+    }
+  ],
+  "results": [
+    {
+      "scenario": {
+        "name": "tool_only",
+        "description": "Single tool call (weather) with structured response (no LLM).",
+        "message": "What is the weather in Paris right now?",
+        "city": "Paris"
+      },
+      "trials": 30,
+      "successes": 30,
+      "failures": 0,
+      "ttft_ms": {
+        "n": 30,
+        "mean": 785.312,
+        "median": 769.01,
+        "p90": 875.139,
+        "p99": 983.908,
+        "min": 661.476,
+        "max": 1021.36
+      },
+      "inter_token_ms_avg": {
+        "n": 30,
+        "mean": 9.095,
+        "median": 9.111,
+        "p90": 9.274,
+        "p99": 9.561,
+        "min": 8.672,
+        "max": 9.585
+      },
+      "e2e_ms": {
+        "n": 30,
+        "mean": 1593.701,
+        "median": 1597.346,
+        "p90": 1781.093,
+        "p99": 1839.737,
+        "min": 1368.255,
+        "max": 1855.293
+      },
+      "samples": [
+        {
+          "ok": true,
+          "error": null,
+          "connect_ms": 2077.877,
+          "ttft_ms": 1021.36,
+          "inter_token_ms_avg": 8.707,
+          "e2e_ms": 1779.232,
+          "token_events": 87,
+          "final_message_chars": 329,
+          "debug": {
+            "rag_latency_ms": 20.1,
+            "rag_chunks": 1,
+            "tools_used": []
+          }
+        },
+        {
+          "ok": true,
+          "error": null,
+          "connect_ms": 2049.267,
+          "ttft_ms": 798.458,
+          "inter_token_ms_avg": 9.039,
+          "e2e_ms": 1593.566,
+          "token_events": 88,
+          "final_message_chars": 297,
+          "debug": {
+            "rag_latency_ms": 0.0,
+            "rag_chunks": 1,
+            "tools_used": []
+          }
+        },
+        {
+          "ok": true,
+          "error": null,
+          "connect_ms": 2036.8,
+          "ttft_ms": 701.58,
+          "inter_token_ms_avg": 8.822,
+          "e2e_ms": 1371.284,
+          "token_events": 76,
+          "final_message_chars": 273,
+          "debug": {
+            "rag_latency_ms": 0.0,
+            "rag_chunks": 1,
+            "tools_used": []
+          }
+        },
+        {
+          "ok": true,
+          "error": null,
+          "connect_ms": 2045.769,
+          "ttft_ms": 661.476,
+          "inter_token_ms_avg": 8.672,
+          "e2e_ms": 1632.901,
+          "token_events": 112,
+          "final_message_chars": 400,
+          "debug": {
+            "rag_latency_ms": 0.0,
+            "rag_chunks": 1,
+            "tools_used": []
+          }
+        },
+        {
+          "ok": true,
+          "error": null,
+          "connect_ms": 2058.289,
+          "ttft_ms": 780.194,
+          "inter_token_ms_avg": 9.168,
+          "e2e_ms": 1622.222,
+          "token_events": 92,
+          "final_message_chars": 299,
+          "debug": {
+            "rag_latency_ms": 0.5,
+            "rag_chunks": 1,
+            "tools_used": []
+          }
+        },
+        {
+          "ok": true,
+          "error": null,
+          "connect_ms": 2049.672,
+          "ttft_ms": 892.215,
+          "inter_token_ms_avg": 9.502,
+          "e2e_ms": 1643.803,
+          "token_events": 79,
+          "final_message_chars": 301,
+          "debug": {
+            "rag_latency_ms": 0.0,
+            "rag_chunks": 1,
+            "tools_used": []
+          }
+        },
+        {
+          "ok": true,
+          "error": null,
+          "connect_ms": 2047.348,
+          "ttft_ms": 880.169,
+          "inter_token_ms_avg": 9.585,
+          "e2e_ms": 1598.486,
+          "token_events": 75,
+          "final_message_chars": 230,
+          "debug": {
+            "rag_latency_ms": 0.0,
+            "rag_chunks": 1,
+            "tools_used": []
+          }
+        },
+        {
+          "ok": true,
+          "error": null,
+          "connect_ms": 2055.812,
+          "ttft_ms": 804.797,
+          "inter_token_ms_avg": 9.196,
+          "e2e_ms": 1660.397,
+          "token_events": 93,
+          "final_message_chars": 344,
+          "debug": {
+            "rag_latency_ms": 0.0,
+            "rag_chunks": 1,
+            "tools_used": []
+          }
+        },
+        {
+          "ok": true,
+          "error": null,
+          "connect_ms": 2057.578,
+          "ttft_ms": 826.898,
+          "inter_token_ms_avg": 9.097,
+          "e2e_ms": 1773.905,
+          "token_events": 104,
+          "final_message_chars": 376,
+          "debug": {
+            "rag_latency_ms": 0.0,
+            "rag_chunks": 1,
+            "tools_used": []
+          }
+        },
+        {
+          "ok": true,
+          "error": null,
+          "connect_ms": 2036.98,
+          "ttft_ms": 822.395,
+          "inter_token_ms_avg": 9.166,
+          "e2e_ms": 1510.258,
+          "token_events": 75,
+          "final_message_chars": 242,
+          "debug": {
+            "rag_latency_ms": 0.5,
+            "rag_chunks": 1,
+            "tools_used": []
+          }
+        },
+        {
+          "ok": true,
+          "error": null,
+          "connect_ms": 2045.002,
+          "ttft_ms": 779.271,
+          "inter_token_ms_avg": 8.951,
+          "e2e_ms": 1557.471,
+          "token_events": 87,
+          "final_message_chars": 325,
+          "debug": {
+            "rag_latency_ms": 0.0,
+            "rag_chunks": 1,
+            "tools_used": []
+          }
+        },
+        {
+          "ok": true,
+          "error": null,
+          "connect_ms": 2041.413,
+          "ttft_ms": 745.929,
+          "inter_token_ms_avg": 8.839,
+          "e2e_ms": 1567.361,
+          "token_events": 93,
+          "final_message_chars": 295,
+          "debug": {
+            "rag_latency_ms": 0.0,
+            "rag_chunks": 1,
+            "tools_used": []
+          }
+        },
+        {
+          "ok": true,
+          "error": null,
+          "connect_ms": 2050.163,
+          "ttft_ms": 735.414,
+          "inter_token_ms_avg": 8.862,
+          "e2e_ms": 1639.109,
+          "token_events": 102,
+          "final_message_chars": 385,
+          "debug": {
+            "rag_latency_ms": 0.0,
+            "rag_chunks": 1,
+            "tools_used": []
+          }
+        },
+        {
+          "ok": true,
+          "error": null,
+          "connect_ms": 2032.218,
+          "ttft_ms": 850.921,
+          "inter_token_ms_avg": 8.88,
+          "e2e_ms": 1855.293,
+          "token_events": 113,
+          "final_message_chars": 361,
+          "debug": {
+            "rag_latency_ms": 0.0,
+            "rag_chunks": 1,
+            "tools_used": []
+          }
+        },
+        {
+          "ok": true,
+          "error": null,
+          "connect_ms": 2057.317,
+          "ttft_ms": 874.58,
+          "inter_token_ms_avg": 9.367,
+          "e2e_ms": 1801.651,
+          "token_events": 99,
+          "final_message_chars": 359,
+          "debug": {
+            "rag_latency_ms": 0.5,
+            "rag_chunks": 1,
+            "tools_used": []
+          }
+        },
+        {
+          "ok": true,
+          "error": null,
+          "connect_ms": 2045.189,
+          "ttft_ms": 801.982,
+          "inter_token_ms_avg": 9.131,
+          "e2e_ms": 1797.844,
+          "token_events": 109,
+          "final_message_chars": 436,
+          "debug": {
+            "rag_latency_ms": 0.4,
+            "rag_chunks": 1,
+            "tools_used": []
+          }
+        },
+        {
+          "ok": true,
+          "error": null,
+          "connect_ms": 2053.594,
+          "ttft_ms": 744.817,
+          "inter_token_ms_avg": 9.21,
+          "e2e_ms": 1517.477,
+          "token_events": 84,
+          "final_message_chars": 278,
+          "debug": {
+            "rag_latency_ms": 0.0,
+            "rag_chunks": 1,
+            "tools_used": []
+          }
+        },
+        {
+          "ok": true,
+          "error": null,
+          "connect_ms": 2053.188,
+          "ttft_ms": 794.049,
+          "inter_token_ms_avg": 9.17,
+          "e2e_ms": 1738.012,
+          "token_events": 103,
+          "final_message_chars": 355,
+          "debug": {
+            "rag_latency_ms": 0.5,
+            "rag_chunks": 1,
+            "tools_used": []
+          }
+        },
+        {
+          "ok": true,
+          "error": null,
+          "connect_ms": 2051.977,
+          "ttft_ms": 746.795,
+          "inter_token_ms_avg": 9.122,
+          "e2e_ms": 1704.221,
+          "token_events": 105,
+          "final_message_chars": 372,
+          "debug": {
+            "rag_latency_ms": 0.0,
+            "rag_chunks": 1,
+            "tools_used": []
+          }
+        },
+        {
+          "ok": true,
+          "error": null,
+          "connect_ms": 2053.047,
+          "ttft_ms": 800.908,
+          "inter_token_ms_avg": 9.04,
+          "e2e_ms": 1597.547,
+          "token_events": 88,
+          "final_message_chars": 326,
+          "debug": {
+            "rag_latency_ms": 0.0,
+            "rag_chunks": 1,
+            "tools_used": []
+          }
+        },
+        {
+          "ok": true,
+          "error": null,
+          "connect_ms": 2050.534,
+          "ttft_ms": 741.005,
+          "inter_token_ms_avg": 9.154,
+          "e2e_ms": 1371.941,
+          "token_events": 69,
+          "final_message_chars": 288,
+          "debug": {
+            "rag_latency_ms": 0.0,
+            "rag_chunks": 1,
+            "tools_used": []
+          }
+        },
+        {
+          "ok": true,
+          "error": null,
+          "connect_ms": 2031.722,
+          "ttft_ms": 738.074,
+          "inter_token_ms_avg": 9.218,
+          "e2e_ms": 1487.35,
+          "token_events": 81,
+          "final_message_chars": 271,
+          "debug": {
+            "rag_latency_ms": 0.0,
+            "rag_chunks": 1,
+            "tools_used": []
+          }
+        },
+        {
+          "ok": true,
+          "error": null,
+          "connect_ms": 2056.014,
+          "ttft_ms": 758.23,
+          "inter_token_ms_avg": 9.225,
+          "e2e_ms": 1421.724,
+          "token_events": 72,
+          "final_message_chars": 239,
+          "debug": {
+            "rag_latency_ms": 0.0,
+            "rag_chunks": 1,
+            "tools_used": []
+          }
+        },
+        {
+          "ok": true,
+          "error": null,
+          "connect_ms": 2047.667,
+          "ttft_ms": 799.291,
+          "inter_token_ms_avg": 9.222,
+          "e2e_ms": 1518.706,
+          "token_events": 78,
+          "final_message_chars": 261,
+          "debug": {
+            "rag_latency_ms": 0.0,
+            "rag_chunks": 1,
+            "tools_used": []
+          }
+        },
+        {
+          "ok": true,
+          "error": null,
+          "connect_ms": 2035.114,
+          "ttft_ms": 729.867,
+          "inter_token_ms_avg": 9.034,
+          "e2e_ms": 1407.98,
+          "token_events": 75,
+          "final_message_chars": 257,
+          "debug": {
+            "rag_latency_ms": 0.0,
+            "rag_chunks": 1,
+            "tools_used": []
+          }
+        },
+        {
+          "ok": true,
+          "error": null,
+          "connect_ms": 2032.248,
+          "ttft_ms": 733.851,
+          "inter_token_ms_avg": 9.1,
+          "e2e_ms": 1597.145,
+          "token_events": 95,
+          "final_message_chars": 355,
+          "debug": {
+            "rag_latency_ms": 0.0,
+            "rag_chunks": 1,
+            "tools_used": []
+          }
+        },
+        {
+          "ok": true,
+          "error": null,
+          "connect_ms": 2045.416,
+          "ttft_ms": 748.73,
+          "inter_token_ms_avg": 9.264,
+          "e2e_ms": 1368.255,
+          "token_events": 67,
+          "final_message_chars": 219,
+          "debug": {
+            "rag_latency_ms": 0.0,
+            "rag_chunks": 1,
+            "tools_used": []
+          }
+        },
+        {
+          "ok": true,
+          "error": null,
+          "connect_ms": 2059.756,
+          "ttft_ms": 747.359,
+          "inter_token_ms_avg": 9.0,
+          "e2e_ms": 1619.485,
+          "token_events": 97,
+          "final_message_chars": 306,
+          "debug": {
+            "rag_latency_ms": 0.0,
+            "rag_chunks": 1,
+            "tools_used": []
+          }
+        },
+        {
+          "ok": true,
+          "error": null,
+          "connect_ms": 2046.138,
+          "ttft_ms": 740.002,
+          "inter_token_ms_avg": 9.051,
+          "e2e_ms": 1509.719,
+          "token_events": 85,
+          "final_message_chars": 297,
+          "debug": {
+            "rag_latency_ms": 0.0,
+            "rag_chunks": 1,
+            "tools_used": []
+          }
+        },
+        {
+          "ok": true,
+          "error": null,
+          "connect_ms": 2042.38,
+          "ttft_ms": 758.75,
+          "inter_token_ms_avg": 9.054,
+          "e2e_ms": 1546.686,
+          "token_events": 87,
+          "final_message_chars": 294,
+          "debug": {
+            "rag_latency_ms": 0.0,
+            "rag_chunks": 1,
+            "tools_used": []
+          }
+        }
+      ]
+    },
+    {
+      "scenario": {
+        "name": "rag_only",
+        "description": "Knowledge retrieval for travel tips using RAG documents.",
+        "message": "What are the essential items to pack for a winter trip to Islamabad?",
+        "city": "Islamabad"
+      },
+      "trials": 30,
+      "successes": 30,
+      "failures": 0,
+      "ttft_ms": {
+        "n": 30,
+        "mean": 757.953,
+        "median": 755.832,
+        "p90": 803.515,
+        "p99": 890.808,
+        "min": 620.376,
+        "max": 900.794
+      },
+      "inter_token_ms_avg": {
+        "n": 30,
+        "mean": 8.597,
+        "median": 8.604,
+        "p90": 8.754,
+        "p99": 8.81,
+        "min": 8.296,
+        "max": 8.82
+      },
+      "e2e_ms": {
+        "n": 30,
+        "mean": 4290.068,
+        "median": 4371.072,
+        "p90": 5019.841,
+        "p99": 5095.985,
+        "min": 2834.886,
+        "max": 5108.111
+      },
+      "samples": [
+        {
+          "ok": true,
+          "error": null,
+          "connect_ms": 2042.004,
+          "ttft_ms": 900.794,
+          "inter_token_ms_avg": 8.445,
+          "e2e_ms": 2834.886,
+          "token_events": 229,
+          "final_message_chars": 1105,
+          "debug": {
+            "rag_latency_ms": 15.7,
+            "rag_chunks": 1,
+            "tools_used": []
+          }
+        },
+        {
+          "ok": true,
+          "error": null,
+          "connect_ms": 2061.269,
+          "ttft_ms": 773.684,
+          "inter_token_ms_avg": 8.508,
+          "e2e_ms": 4117.536,
+          "token_events": 393,
+          "final_message_chars": 1960,
+          "debug": {
+            "rag_latency_ms": 0.0,
+            "rag_chunks": 1,
+            "tools_used": []
+          }
+        },
+        {
+          "ok": true,
+          "error": null,
+          "connect_ms": 2054.682,
+          "ttft_ms": 789.62,
+          "inter_token_ms_avg": 8.488,
+          "e2e_ms": 4508.113,
+          "token_events": 438,
+          "final_message_chars": 2107,
+          "debug": {
+            "rag_latency_ms": 0.0,
+            "rag_chunks": 1,
+            "tools_used": []
+          }
+        },
+        {
+          "ok": true,
+          "error": null,
+          "connect_ms": 2052.416,
+          "ttft_ms": 752.562,
+          "inter_token_ms_avg": 8.702,
+          "e2e_ms": 3737.28,
+          "token_events": 343,
+          "final_message_chars": 1708,
+          "debug": {
+            "rag_latency_ms": 0.0,
+            "rag_chunks": 1,
+            "tools_used": []
+          }
+        },
+        {
+          "ok": true,
+          "error": null,
+          "connect_ms": 2027.867,
+          "ttft_ms": 754.882,
+          "inter_token_ms_avg": 8.726,
+          "e2e_ms": 5022.956,
+          "token_events": 490,
+          "final_message_chars": 2240,
+          "debug": {
+            "rag_latency_ms": 0.0,
+            "rag_chunks": 1,
+            "tools_used": []
+          }
+        },
+        {
+          "ok": true,
+          "error": null,
+          "connect_ms": 2049.719,
+          "ttft_ms": 780.368,
+          "inter_token_ms_avg": 8.599,
+          "e2e_ms": 3686.942,
+          "token_events": 338,
+          "final_message_chars": 1658,
+          "debug": {
+            "rag_latency_ms": 0.0,
+            "rag_chunks": 1,
+            "tools_used": []
+          }
+        },
+        {
+          "ok": true,
+          "error": null,
+          "connect_ms": 2058.494,
+          "ttft_ms": 747.271,
+          "inter_token_ms_avg": 8.604,
+          "e2e_ms": 3715.933,
+          "token_events": 345,
+          "final_message_chars": 1685,
+          "debug": {
+            "rag_latency_ms": 0.0,
+            "rag_chunks": 1,
+            "tools_used": []
+          }
+        },
+        {
+          "ok": true,
+          "error": null,
+          "connect_ms": 2033.806,
+          "ttft_ms": 733.713,
+          "inter_token_ms_avg": 8.609,
+          "e2e_ms": 3703.901,
+          "token_events": 345,
+          "final_message_chars": 1719,
+          "debug": {
+            "rag_latency_ms": 0.0,
+            "rag_chunks": 1,
+            "tools_used": []
+          }
+        },
+        {
+          "ok": true,
+          "error": null,
+          "connect_ms": 2033.584,
+          "ttft_ms": 736.918,
+          "inter_token_ms_avg": 8.771,
+          "e2e_ms": 3473.632,
+          "token_events": 312,
+          "final_message_chars": 1366,
+          "debug": {
+            "rag_latency_ms": 0.0,
+            "rag_chunks": 1,
+            "tools_used": []
+          }
+        },
+        {
+          "ok": true,
+          "error": null,
+          "connect_ms": 2040.425,
+          "ttft_ms": 757.917,
+          "inter_token_ms_avg": 8.786,
+          "e2e_ms": 4589.622,
+          "token_events": 436,
+          "final_message_chars": 2198,
+          "debug": {
+            "rag_latency_ms": 0.0,
+            "rag_chunks": 1,
+            "tools_used": []
+          }
+        },
+        {
+          "ok": true,
+          "error": null,
+          "connect_ms": 2046.707,
+          "ttft_ms": 819.554,
+          "inter_token_ms_avg": 8.684,
+          "e2e_ms": 4345.257,
+          "token_events": 406,
+          "final_message_chars": 2035,
+          "debug": {
+            "rag_latency_ms": 0.0,
+            "rag_chunks": 1,
+            "tools_used": []
+          }
+        },
+        {
+          "ok": true,
+          "error": null,
+          "connect_ms": 2058.407,
+          "ttft_ms": 788.677,
+          "inter_token_ms_avg": 8.752,
+          "e2e_ms": 4088.93,
+          "token_events": 377,
+          "final_message_chars": 1891,
+          "debug": {
+            "rag_latency_ms": 0.0,
+            "rag_chunks": 1,
+            "tools_used": []
+          }
+        },
+        {
+          "ok": true,
+          "error": null,
+          "connect_ms": 2060.476,
+          "ttft_ms": 801.733,
+          "inter_token_ms_avg": 8.583,
+          "e2e_ms": 4372.726,
+          "token_events": 416,
+          "final_message_chars": 2072,
+          "debug": {
+            "rag_latency_ms": 0.0,
+            "rag_chunks": 1,
+            "tools_used": []
+          }
+        },
+        {
+          "ok": true,
+          "error": null,
+          "connect_ms": 2027.199,
+          "ttft_ms": 749.451,
+          "inter_token_ms_avg": 8.556,
+          "e2e_ms": 5019.495,
+          "token_events": 499,
+          "final_message_chars": 2232,
+          "debug": {
+            "rag_latency_ms": 0.0,
+            "rag_chunks": 1,
+            "tools_used": []
+          }
+        },
+        {
+          "ok": true,
+          "error": null,
+          "connect_ms": 2030.41,
+          "ttft_ms": 779.011,
+          "inter_token_ms_avg": 8.719,
+          "e2e_ms": 4772.645,
+          "token_events": 458,
+          "final_message_chars": 2183,
+          "debug": {
+            "rag_latency_ms": 0.6,
+            "rag_chunks": 1,
+            "tools_used": []
+          }
+        },
+        {
+          "ok": true,
+          "error": null,
+          "connect_ms": 2038.765,
+          "ttft_ms": 800.147,
+          "inter_token_ms_avg": 8.632,
+          "e2e_ms": 4564.099,
+          "token_events": 436,
+          "final_message_chars": 2156,
+          "debug": {
+            "rag_latency_ms": 0.0,
+            "rag_chunks": 1,
+            "tools_used": []
+          }
+        },
+        {
+          "ok": true,
+          "error": null,
+          "connect_ms": 2040.657,
+          "ttft_ms": 735.201,
+          "inter_token_ms_avg": 8.603,
+          "e2e_ms": 4494.7,
+          "token_events": 437,
+          "final_message_chars": 1885,
+          "debug": {
+            "rag_latency_ms": 0.0,
+            "rag_chunks": 1,
+            "tools_used": []
+          }
+        },
+        {
+          "ok": true,
+          "error": null,
+          "connect_ms": 2050.047,
+          "ttft_ms": 620.376,
+          "inter_token_ms_avg": 8.402,
+          "e2e_ms": 4049.102,
+          "token_events": 408,
+          "final_message_chars": 1827,
+          "debug": {
+            "rag_latency_ms": 0.0,
+            "rag_chunks": 1,
+            "tools_used": []
+          }
+        },
+        {
+          "ok": true,
+          "error": null,
+          "connect_ms": 2058.944,
+          "ttft_ms": 625.316,
+          "inter_token_ms_avg": 8.296,
+          "e2e_ms": 4749.136,
+          "token_events": 498,
+          "final_message_chars": 2111,
+          "debug": {
+            "rag_latency_ms": 0.0,
+            "rag_chunks": 1,
+            "tools_used": []
+          }
+        },
+        {
+          "ok": true,
+          "error": null,
+          "connect_ms": 2053.524,
+          "ttft_ms": 866.359,
+          "inter_token_ms_avg": 8.82,
+          "e2e_ms": 4588.813,
+          "token_events": 422,
+          "final_message_chars": 1879,
+          "debug": {
+            "rag_latency_ms": 0.0,
+            "rag_chunks": 1,
+            "tools_used": []
+          }
+        },
+        {
+          "ok": true,
+          "error": null,
+          "connect_ms": 2053.8,
+          "ttft_ms": 750.166,
+          "inter_token_ms_avg": 8.535,
+          "e2e_ms": 4369.418,
+          "token_events": 424,
+          "final_message_chars": 2026,
+          "debug": {
+            "rag_latency_ms": 0.0,
+            "rag_chunks": 1,
+            "tools_used": []
+          }
+        },
+        {
+          "ok": true,
+          "error": null,
+          "connect_ms": 2048.744,
+          "ttft_ms": 744.858,
+          "inter_token_ms_avg": 8.421,
+          "e2e_ms": 4181.113,
+          "token_events": 408,
+          "final_message_chars": 1923,
+          "debug": {
+            "rag_latency_ms": 0.0,
+            "rag_chunks": 1,
+            "tools_used": []
+          }
+        },
+        {
+          "ok": true,
+          "error": null,
+          "connect_ms": 2044.227,
+          "ttft_ms": 751.449,
+          "inter_token_ms_avg": 8.466,
+          "e2e_ms": 4130.043,
+          "token_events": 399,
+          "final_message_chars": 1913,
+          "debug": {
+            "rag_latency_ms": 0.0,
+            "rag_chunks": 1,
+            "tools_used": []
+          }
+        },
+        {
+          "ok": true,
+          "error": null,
+          "connect_ms": 2053.94,
+          "ttft_ms": 689.087,
+          "inter_token_ms_avg": 8.36,
+          "e2e_ms": 4668.501,
+          "token_events": 476,
+          "final_message_chars": 2102,
+          "debug": {
+            "rag_latency_ms": 0.0,
+            "rag_chunks": 1,
+            "tools_used": []
+          }
+        },
+        {
+          "ok": true,
+          "error": null,
+          "connect_ms": 3366.431,
+          "ttft_ms": 671.064,
+          "inter_token_ms_avg": 8.645,
+          "e2e_ms": 4985.635,
+          "token_events": 500,
+          "final_message_chars": 2186,
+          "debug": {
+            "rag_latency_ms": 0.0,
+            "rag_chunks": 1,
+            "tools_used": []
+          }
+        },
+        {
+          "ok": true,
+          "error": null,
+          "connect_ms": 2047.468,
+          "ttft_ms": 762.667,
+          "inter_token_ms_avg": 8.682,
+          "e2e_ms": 3315.652,
+          "token_events": 294,
+          "final_message_chars": 1379,
+          "debug": {
+            "rag_latency_ms": 0.0,
+            "rag_chunks": 1,
+            "tools_used": []
+          }
+        },
+        {
+          "ok": true,
+          "error": null,
+          "connect_ms": 2054.671,
+          "ttft_ms": 787.723,
+          "inter_token_ms_avg": 8.573,
+          "e2e_ms": 5066.298,
+          "token_events": 500,
+          "final_message_chars": 2326,
+          "debug": {
+            "rag_latency_ms": 0.0,
+            "rag_chunks": 1,
+            "tools_used": []
+          }
+        },
+        {
+          "ok": true,
+          "error": null,
+          "connect_ms": 2041.928,
+          "ttft_ms": 751.277,
+          "inter_token_ms_avg": 8.593,
+          "e2e_ms": 4446.519,
+          "token_events": 430,
+          "final_message_chars": 1966,
+          "debug": {
+            "rag_latency_ms": 0.0,
+            "rag_chunks": 1,
+            "tools_used": []
+          }
+        },
+        {
+          "ok": true,
+          "error": null,
+          "connect_ms": 2051.358,
+          "ttft_ms": 759.967,
+          "inter_token_ms_avg": 8.711,
+          "e2e_ms": 5108.111,
+          "token_events": 500,
+          "final_message_chars": 2317,
+          "debug": {
+            "rag_latency_ms": 0.0,
+            "rag_chunks": 1,
+            "tools_used": []
+          }
+        },
+        {
+          "ok": true,
+          "error": null,
+          "connect_ms": 2038.366,
+          "ttft_ms": 756.783,
+          "inter_token_ms_avg": 8.652,
+          "e2e_ms": 3995.051,
+          "token_events": 374,
+          "final_message_chars": 1818,
+          "debug": {
+            "rag_latency_ms": 0.0,
+            "rag_chunks": 1,
+            "tools_used": []
+          }
+        }
+      ]
+    },
+    {
+      "scenario": {
+        "name": "rag_plus_tool",
+        "description": "Combined RAG retrieval + tool call (e.g. food recommendations + weather).",
+        "message": "Tell me about the food in Tokyo and what the weather is like today.",
+        "city": "Tokyo"
+      },
+      "trials": 30,
+      "successes": 30,
+      "failures": 0,
+      "ttft_ms": {
+        "n": 30,
+        "mean": 772.311,
+        "median": 769.311,
+        "p90": 816.598,
+        "p99": 929.85,
+        "min": 588.159,
+        "max": 947.058
+      },
+      "inter_token_ms_avg": {
+        "n": 30,
+        "mean": 8.709,
+        "median": 8.691,
+        "p90": 8.845,
+        "p99": 8.902,
+        "min": 8.52,
+        "max": 8.915
+      },
+      "e2e_ms": {
+        "n": 30,
+        "mean": 2723.493,
+        "median": 2650.793,
+        "p90": 3492.627,
+        "p99": 4229.453,
+        "min": 1988.234,
+        "max": 4362.611
+      },
+      "samples": [
+        {
+          "ok": true,
+          "error": null,
+          "connect_ms": 2043.994,
+          "ttft_ms": 947.058,
+          "inter_token_ms_avg": 8.642,
+          "e2e_ms": 3903.444,
+          "token_events": 342,
+          "final_message_chars": 1460,
+          "debug": {
+            "rag_latency_ms": 17.0,
+            "rag_chunks": 1,
+            "tools_used": []
+          }
+        },
+        {
+          "ok": true,
+          "error": null,
+          "connect_ms": 2053.703,
+          "ttft_ms": 771.386,
+          "inter_token_ms_avg": 8.83,
+          "e2e_ms": 2801.525,
+          "token_events": 230,
+          "final_message_chars": 874,
+          "debug": {
+            "rag_latency_ms": 0.0,
+            "rag_chunks": 1,
+            "tools_used": []
+          }
+        },
+        {
+          "ok": true,
+          "error": null,
+          "connect_ms": 2043.828,
+          "ttft_ms": 773.889,
+          "inter_token_ms_avg": 8.838,
+          "e2e_ms": 2267.959,
+          "token_events": 169,
+          "final_message_chars": 717,
+          "debug": {
+            "rag_latency_ms": 1.0,
+            "rag_chunks": 1,
+            "tools_used": []
+          }
+        },
+        {
+          "ok": true,
+          "error": null,
+          "connect_ms": 2043.504,
+          "ttft_ms": 757.988,
+          "inter_token_ms_avg": 8.792,
+          "e2e_ms": 1988.234,
+          "token_events": 140,
+          "final_message_chars": 566,
+          "debug": {
+            "rag_latency_ms": 0.0,
+            "rag_chunks": 1,
+            "tools_used": []
+          }
+        },
+        {
+          "ok": true,
+          "error": null,
+          "connect_ms": 2042.731,
+          "ttft_ms": 761.47,
+          "inter_token_ms_avg": 8.808,
+          "e2e_ms": 2630.142,
+          "token_events": 212,
+          "final_message_chars": 946,
+          "debug": {
+            "rag_latency_ms": 0.0,
+            "rag_chunks": 1,
+            "tools_used": []
+          }
+        },
+        {
+          "ok": true,
+          "error": null,
+          "connect_ms": 2041.683,
+          "ttft_ms": 746.301,
+          "inter_token_ms_avg": 8.776,
+          "e2e_ms": 2984.203,
+          "token_events": 255,
+          "final_message_chars": 1153,
+          "debug": {
+            "rag_latency_ms": 0.0,
+            "rag_chunks": 1,
+            "tools_used": []
+          }
+        },
+        {
+          "ok": true,
+          "error": null,
+          "connect_ms": 2058.647,
+          "ttft_ms": 796.284,
+          "inter_token_ms_avg": 8.726,
+          "e2e_ms": 2280.448,
+          "token_events": 170,
+          "final_message_chars": 696,
+          "debug": {
+            "rag_latency_ms": 0.0,
+            "rag_chunks": 1,
+            "tools_used": []
+          }
+        },
+        {
+          "ok": true,
+          "error": null,
+          "connect_ms": 2063.244,
+          "ttft_ms": 777.532,
+          "inter_token_ms_avg": 8.659,
+          "e2e_ms": 2658.265,
+          "token_events": 217,
+          "final_message_chars": 1011,
+          "debug": {
+            "rag_latency_ms": 0.0,
+            "rag_chunks": 1,
+            "tools_used": []
+          }
+        },
+        {
+          "ok": true,
+          "error": null,
+          "connect_ms": 2044.28,
+          "ttft_ms": 733.017,
+          "inter_token_ms_avg": 8.86,
+          "e2e_ms": 2681.983,
+          "token_events": 220,
+          "final_message_chars": 911,
+          "debug": {
+            "rag_latency_ms": 0.0,
+            "rag_chunks": 1,
+            "tools_used": []
+          }
+        },
+        {
+          "ok": true,
+          "error": null,
+          "connect_ms": 2034.244,
+          "ttft_ms": 783.424,
+          "inter_token_ms_avg": 8.71,
+          "e2e_ms": 3677.167,
+          "token_events": 332,
+          "final_message_chars": 1434,
+          "debug": {
+            "rag_latency_ms": 0.0,
+            "rag_chunks": 1,
+            "tools_used": []
+          }
+        },
+        {
+          "ok": true,
+          "error": null,
+          "connect_ms": 2022.264,
+          "ttft_ms": 772.722,
+          "inter_token_ms_avg": 8.869,
+          "e2e_ms": 2050.642,
+          "token_events": 144,
+          "final_message_chars": 612,
+          "debug": {
+            "rag_latency_ms": 0.0,
+            "rag_chunks": 1,
+            "tools_used": []
+          }
+        },
+        {
+          "ok": true,
+          "error": null,
+          "connect_ms": 2044.499,
+          "ttft_ms": 764.237,
+          "inter_token_ms_avg": 8.733,
+          "e2e_ms": 3472.123,
+          "token_events": 310,
+          "final_message_chars": 1362,
+          "debug": {
+            "rag_latency_ms": 0.0,
+            "rag_chunks": 1,
+            "tools_used": []
+          }
+        },
+        {
+          "ok": true,
+          "error": null,
+          "connect_ms": 2060.302,
+          "ttft_ms": 784.848,
+          "inter_token_ms_avg": 8.663,
+          "e2e_ms": 4362.611,
+          "token_events": 413,
+          "final_message_chars": 2031,
+          "debug": {
+            "rag_latency_ms": 0.0,
+            "rag_chunks": 1,
+            "tools_used": []
+          }
+        },
+        {
+          "ok": true,
+          "error": null,
+          "connect_ms": 2042.366,
+          "ttft_ms": 746.687,
+          "inter_token_ms_avg": 8.843,
+          "e2e_ms": 2259.384,
+          "token_events": 171,
+          "final_message_chars": 702,
+          "debug": {
+            "rag_latency_ms": 0.5,
+            "rag_chunks": 1,
+            "tools_used": []
+          }
+        },
+        {
+          "ok": true,
+          "error": null,
+          "connect_ms": 2052.817,
+          "ttft_ms": 808.967,
+          "inter_token_ms_avg": 8.915,
+          "e2e_ms": 2913.547,
+          "token_events": 236,
+          "final_message_chars": 999,
+          "debug": {
+            "rag_latency_ms": 0.0,
+            "rag_chunks": 1,
+            "tools_used": []
+          }
+        },
+        {
+          "ok": true,
+          "error": null,
+          "connect_ms": 2053.967,
+          "ttft_ms": 737.594,
+          "inter_token_ms_avg": 8.763,
+          "e2e_ms": 2079.631,
+          "token_events": 153,
+          "final_message_chars": 746,
+          "debug": {
+            "rag_latency_ms": 0.0,
+            "rag_chunks": 1,
+            "tools_used": []
+          }
+        },
+        {
+          "ok": true,
+          "error": null,
+          "connect_ms": 2054.678,
+          "ttft_ms": 799.617,
+          "inter_token_ms_avg": 8.646,
+          "e2e_ms": 2684.803,
+          "token_events": 218,
+          "final_message_chars": 971,
+          "debug": {
+            "rag_latency_ms": 0.0,
+            "rag_chunks": 1,
+            "tools_used": []
+          }
+        },
+        {
+          "ok": true,
+          "error": null,
+          "connect_ms": 2054.697,
+          "ttft_ms": 802.029,
+          "inter_token_ms_avg": 8.671,
+          "e2e_ms": 2640.32,
+          "token_events": 212,
+          "final_message_chars": 878,
+          "debug": {
+            "rag_latency_ms": 0.0,
+            "rag_chunks": 1,
+            "tools_used": []
+          }
+        },
+        {
+          "ok": true,
+          "error": null,
+          "connect_ms": 2042.458,
+          "ttft_ms": 780.657,
+          "inter_token_ms_avg": 8.6,
+          "e2e_ms": 2948.227,
+          "token_events": 252,
+          "final_message_chars": 1045,
+          "debug": {
+            "rag_latency_ms": 0.0,
+            "rag_chunks": 1,
+            "tools_used": []
+          }
+        },
+        {
+          "ok": true,
+          "error": null,
+          "connect_ms": 2057.205,
+          "ttft_ms": 885.272,
+          "inter_token_ms_avg": 8.606,
+          "e2e_ms": 3286.684,
+          "token_events": 279,
+          "final_message_chars": 1202,
+          "debug": {
+            "rag_latency_ms": 1.5,
+            "rag_chunks": 1,
+            "tools_used": []
+          }
+        },
+        {
+          "ok": true,
+          "error": null,
+          "connect_ms": 2048.375,
+          "ttft_ms": 639.23,
+          "inter_token_ms_avg": 8.52,
+          "e2e_ms": 3016.517,
+          "token_events": 279,
+          "final_message_chars": 1282,
+          "debug": {
+            "rag_latency_ms": 0.0,
+            "rag_chunks": 1,
+            "tools_used": []
+          }
+        },
+        {
+          "ok": true,
+          "error": null,
+          "connect_ms": 2040.47,
+          "ttft_ms": 588.159,
+          "inter_token_ms_avg": 8.647,
+          "e2e_ms": 2732.522,
+          "token_events": 248,
+          "final_message_chars": 1116,
+          "debug": {
+            "rag_latency_ms": 0.0,
+            "rag_chunks": 1,
+            "tools_used": []
+          }
+        },
+        {
+          "ok": true,
+          "error": null,
+          "connect_ms": 2048.899,
+          "ttft_ms": 887.721,
+          "inter_token_ms_avg": 8.702,
+          "e2e_ms": 2610.946,
+          "token_events": 198,
+          "final_message_chars": 913,
+          "debug": {
+            "rag_latency_ms": 0.0,
+            "rag_chunks": 1,
+            "tools_used": []
+          }
+        },
+        {
+          "ok": true,
+          "error": null,
+          "connect_ms": 2039.253,
+          "ttft_ms": 767.235,
+          "inter_token_ms_avg": 8.58,
+          "e2e_ms": 2508.945,
+          "token_events": 203,
+          "final_message_chars": 880,
+          "debug": {
+            "rag_latency_ms": 0.0,
+            "rag_chunks": 1,
+            "tools_used": []
+          }
+        },
+        {
+          "ok": true,
+          "error": null,
+          "connect_ms": 2051.981,
+          "ttft_ms": 762.528,
+          "inter_token_ms_avg": 8.627,
+          "e2e_ms": 2065.116,
+          "token_events": 151,
+          "final_message_chars": 659,
+          "debug": {
+            "rag_latency_ms": 0.0,
+            "rag_chunks": 1,
+            "tools_used": []
+          }
+        },
+        {
+          "ok": true,
+          "error": null,
+          "connect_ms": 2049.401,
+          "ttft_ms": 750.969,
+          "inter_token_ms_avg": 8.562,
+          "e2e_ms": 2643.322,
+          "token_events": 221,
+          "final_message_chars": 996,
+          "debug": {
+            "rag_latency_ms": 0.0,
+            "rag_chunks": 1,
+            "tools_used": []
+          }
+        },
+        {
+          "ok": true,
+          "error": null,
+          "connect_ms": 2054.089,
+          "ttft_ms": 742.814,
+          "inter_token_ms_avg": 8.609,
+          "e2e_ms": 2361.495,
+          "token_events": 188,
+          "final_message_chars": 841,
+          "debug": {
+            "rag_latency_ms": 0.0,
+            "rag_chunks": 1,
+            "tools_used": []
+          }
+        },
+        {
+          "ok": true,
+          "error": null,
+          "connect_ms": 2054.992,
+          "ttft_ms": 756.976,
+          "inter_token_ms_avg": 8.681,
+          "e2e_ms": 2163.487,
+          "token_events": 162,
+          "final_message_chars": 701,
+          "debug": {
+            "rag_latency_ms": 0.5,
+            "rag_chunks": 1,
+            "tools_used": []
+          }
+        },
+        {
+          "ok": true,
+          "error": null,
+          "connect_ms": 2056.587,
+          "ttft_ms": 754.918,
+          "inter_token_ms_avg": 8.743,
+          "e2e_ms": 2826.55,
+          "token_events": 237,
+          "final_message_chars": 1077,
+          "debug": {
+            "rag_latency_ms": 0.0,
+            "rag_chunks": 1,
+            "tools_used": []
+          }
+        },
+        {
+          "ok": true,
+          "error": null,
+          "connect_ms": 2042.075,
+          "ttft_ms": 787.81,
+          "inter_token_ms_avg": 8.636,
+          "e2e_ms": 2204.542,
+          "token_events": 164,
+          "final_message_chars": 811,
+          "debug": {
+            "rag_latency_ms": 0.0,
+            "rag_chunks": 1,
+            "tools_used": []
+          }
+        }
+      ]
+    },
+    {
+      "scenario": {
+        "name": "full_pipeline",
+        "description": "Full itinerary request triggering RAG, tools, and narrative LLM generation.",
+        "message": "Plan a detailed 3-day itinerary for Istanbul including flights, hotels, and budget.",
+        "city": "Istanbul"
+      },
+      "trials": 30,
+      "successes": 30,
+      "failures": 0,
+      "ttft_ms": {
+        "n": 30,
+        "mean": 1119.707,
+        "median": 1130.592,
+        "p90": 1159.942,
+        "p99": 1181.263,
+        "min": 748.549,
+        "max": 1185.83
+      },
+      "inter_token_ms_avg": {
+        "n": 30,
+        "mean": 8.474,
+        "median": 8.474,
+        "p90": 8.593,
+        "p99": 8.671,
+        "min": 8.32,
+        "max": 8.684
+      },
+      "e2e_ms": {
+        "n": 30,
+        "mean": 4493.993,
+        "median": 5289.527,
+        "p90": 5341.385,
+        "p99": 5406.79,
+        "min": 1587.862,
+        "max": 5412.44
+      },
+      "samples": [
+        {
+          "ok": true,
+          "error": null,
+          "connect_ms": 2050.999,
+          "ttft_ms": 1023.894,
+          "inter_token_ms_avg": 8.551,
+          "e2e_ms": 5231.562,
+          "token_events": 493,
+          "final_message_chars": 1914,
+          "debug": {
+            "rag_latency_ms": 15.4,
+            "rag_chunks": 1,
+            "tools_used": []
+          }
+        },
+        {
+          "ok": true,
+          "error": null,
+          "connect_ms": 2043.285,
+          "ttft_ms": 1153.84,
+          "inter_token_ms_avg": 8.419,
+          "e2e_ms": 5330.57,
+          "token_events": 497,
+          "final_message_chars": 1615,
+          "debug": {
+            "rag_latency_ms": 0.0,
+            "rag_chunks": 1,
+            "tools_used": []
+          }
+        },
+        {
+          "ok": true,
+          "error": null,
+          "connect_ms": 2048.771,
+          "ttft_ms": 1146.429,
+          "inter_token_ms_avg": 8.369,
+          "e2e_ms": 2176.433,
+          "token_events": 123,
+          "final_message_chars": 543,
+          "debug": {
+            "rag_latency_ms": 0.0,
+            "rag_chunks": 1,
+            "tools_used": []
+          }
+        },
+        {
+          "ok": true,
+          "error": null,
+          "connect_ms": 2044.684,
+          "ttft_ms": 1159.176,
+          "inter_token_ms_avg": 8.37,
+          "e2e_ms": 5336.956,
+          "token_events": 500,
+          "final_message_chars": 1932,
+          "debug": {
+            "rag_latency_ms": 0.0,
+            "rag_chunks": 1,
+            "tools_used": []
+          }
+        },
+        {
+          "ok": true,
+          "error": null,
+          "connect_ms": 2048.535,
+          "ttft_ms": 1121.415,
+          "inter_token_ms_avg": 8.419,
+          "e2e_ms": 5172.117,
+          "token_events": 481,
+          "final_message_chars": 1832,
+          "debug": {
+            "rag_latency_ms": 0.0,
+            "rag_chunks": 1,
+            "tools_used": []
+          }
+        },
+        {
+          "ok": true,
+          "error": null,
+          "connect_ms": 2054.611,
+          "ttft_ms": 1108.431,
+          "inter_token_ms_avg": 8.502,
+          "e2e_ms": 5283.833,
+          "token_events": 492,
+          "final_message_chars": 2151,
+          "debug": {
+            "rag_latency_ms": 0.0,
+            "rag_chunks": 1,
+            "tools_used": []
+          }
+        },
+        {
+          "ok": true,
+          "error": null,
+          "connect_ms": 2042.063,
+          "ttft_ms": 1128.534,
+          "inter_token_ms_avg": 8.554,
+          "e2e_ms": 5320.852,
+          "token_events": 491,
+          "final_message_chars": 1882,
+          "debug": {
+            "rag_latency_ms": 0.0,
+            "rag_chunks": 1,
+            "tools_used": []
+          }
+        },
+        {
+          "ok": true,
+          "error": null,
+          "connect_ms": 2057.435,
+          "ttft_ms": 1143.155,
+          "inter_token_ms_avg": 8.519,
+          "e2e_ms": 5335.384,
+          "token_events": 493,
+          "final_message_chars": 1744,
+          "debug": {
+            "rag_latency_ms": 0.0,
+            "rag_chunks": 1,
+            "tools_used": []
+          }
+        },
+        {
+          "ok": true,
+          "error": null,
+          "connect_ms": 2053.62,
+          "ttft_ms": 1120.422,
+          "inter_token_ms_avg": 8.639,
+          "e2e_ms": 5310.858,
+          "token_events": 486,
+          "final_message_chars": 2199,
+          "debug": {
+            "rag_latency_ms": 0.0,
+            "rag_chunks": 1,
+            "tools_used": []
+          }
+        },
+        {
+          "ok": true,
+          "error": null,
+          "connect_ms": 2029.828,
+          "ttft_ms": 1133.241,
+          "inter_token_ms_avg": 8.418,
+          "e2e_ms": 5335.113,
+          "token_events": 500,
+          "final_message_chars": 2038,
+          "debug": {
+            "rag_latency_ms": 0.0,
+            "rag_chunks": 1,
+            "tools_used": []
+          }
+        },
+        {
+          "ok": true,
+          "error": null,
+          "connect_ms": 2042.919,
+          "ttft_ms": 1120.912,
+          "inter_token_ms_avg": 8.32,
+          "e2e_ms": 1587.862,
+          "token_events": 56,
+          "final_message_chars": 242,
+          "debug": {
+            "rag_latency_ms": 0.0,
+            "rag_chunks": 1,
+            "tools_used": []
+          }
+        },
+        {
+          "ok": true,
+          "error": null,
+          "connect_ms": 2047.989,
+          "ttft_ms": 748.549,
+          "inter_token_ms_avg": 8.562,
+          "e2e_ms": 5004.562,
+          "token_events": 498,
+          "final_message_chars": 1811,
+          "debug": {
+            "rag_latency_ms": 0.0,
+            "rag_chunks": 1,
+            "tools_used": []
+          }
+        },
+        {
+          "ok": true,
+          "error": null,
+          "connect_ms": 2045.784,
+          "ttft_ms": 1107.255,
+          "inter_token_ms_avg": 8.52,
+          "e2e_ms": 5300.28,
+          "token_events": 493,
+          "final_message_chars": 2125,
+          "debug": {
+            "rag_latency_ms": 0.0,
+            "rag_chunks": 1,
+            "tools_used": []
+          }
+        },
+        {
+          "ok": true,
+          "error": null,
+          "connect_ms": 2045.379,
+          "ttft_ms": 1119.522,
+          "inter_token_ms_avg": 8.435,
+          "e2e_ms": 1828.634,
+          "token_events": 84,
+          "final_message_chars": 387,
+          "debug": {
+            "rag_latency_ms": 0.0,
+            "rag_chunks": 1,
+            "tools_used": []
+          }
+        },
+        {
+          "ok": true,
+          "error": null,
+          "connect_ms": 2054.66,
+          "ttft_ms": 1166.834,
+          "inter_token_ms_avg": 8.367,
+          "e2e_ms": 5226.194,
+          "token_events": 485,
+          "final_message_chars": 1944,
+          "debug": {
+            "rag_latency_ms": 0.0,
+            "rag_chunks": 1,
+            "tools_used": []
+          }
+        },
+        {
+          "ok": true,
+          "error": null,
+          "connect_ms": 2041.831,
+          "ttft_ms": 1170.082,
+          "inter_token_ms_avg": 8.529,
+          "e2e_ms": 5392.958,
+          "token_events": 496,
+          "final_message_chars": 2159,
+          "debug": {
+            "rag_latency_ms": 0.0,
+            "rag_chunks": 1,
+            "tools_used": []
+          }
+        },
+        {
+          "ok": true,
+          "error": null,
+          "connect_ms": 2053.14,
+          "ttft_ms": 1109.525,
+          "inter_token_ms_avg": 8.335,
+          "e2e_ms": 5261.292,
+          "token_events": 499,
+          "final_message_chars": 1783,
+          "debug": {
+            "rag_latency_ms": 0.0,
+            "rag_chunks": 1,
+            "tools_used": []
+          }
+        },
+        {
+          "ok": true,
+          "error": null,
+          "connect_ms": 3703.546,
+          "ttft_ms": 1185.83,
+          "inter_token_ms_avg": 8.538,
+          "e2e_ms": 5275.897,
+          "token_events": 479,
+          "final_message_chars": 2114,
+          "debug": {
+            "rag_latency_ms": 0.0,
+            "rag_chunks": 1,
+            "tools_used": []
+          }
+        },
+        {
+          "ok": true,
+          "error": null,
+          "connect_ms": 2039.153,
+          "ttft_ms": 1150.597,
+          "inter_token_ms_avg": 8.591,
+          "e2e_ms": 5412.44,
+          "token_events": 497,
+          "final_message_chars": 1923,
+          "debug": {
+            "rag_latency_ms": 0.0,
+            "rag_chunks": 1,
+            "tools_used": []
+          }
+        },
+        {
+          "ok": true,
+          "error": null,
+          "connect_ms": 2040.795,
+          "ttft_ms": 1114.433,
+          "inter_token_ms_avg": 8.456,
+          "e2e_ms": 5165.694,
+          "token_events": 479,
+          "final_message_chars": 1774,
+          "debug": {
+            "rag_latency_ms": 0.0,
+            "rag_chunks": 1,
+            "tools_used": []
+          }
+        },
+        {
+          "ok": true,
+          "error": null,
+          "connect_ms": 2035.774,
+          "ttft_ms": 1116.855,
+          "inter_token_ms_avg": 8.615,
+          "e2e_ms": 5339.335,
+          "token_events": 491,
+          "final_message_chars": 2105,
+          "debug": {
+            "rag_latency_ms": 0.0,
+            "rag_chunks": 1,
+            "tools_used": []
+          }
+        },
+        {
+          "ok": true,
+          "error": null,
+          "connect_ms": 2051.31,
+          "ttft_ms": 1141.383,
+          "inter_token_ms_avg": 8.465,
+          "e2e_ms": 5324.365,
+          "token_events": 495,
+          "final_message_chars": 2005,
+          "debug": {
+            "rag_latency_ms": 0.0,
+            "rag_chunks": 1,
+            "tools_used": []
+          }
+        },
+        {
+          "ok": true,
+          "error": null,
+          "connect_ms": 2043.263,
+          "ttft_ms": 1142.633,
+          "inter_token_ms_avg": 8.485,
+          "e2e_ms": 5326.528,
+          "token_events": 494,
+          "final_message_chars": 1787,
+          "debug": {
+            "rag_latency_ms": 0.0,
+            "rag_chunks": 1,
+            "tools_used": []
+          }
+        },
+        {
+          "ok": true,
+          "error": null,
+          "connect_ms": 2041.423,
+          "ttft_ms": 1150.367,
+          "inter_token_ms_avg": 8.684,
+          "e2e_ms": 1775.483,
+          "token_events": 72,
+          "final_message_chars": 323,
+          "debug": {
+            "rag_latency_ms": 0.0,
+            "rag_chunks": 1,
+            "tools_used": []
+          }
+        },
+        {
+          "ok": true,
+          "error": null,
+          "connect_ms": 2046.565,
+          "ttft_ms": 1119.452,
+          "inter_token_ms_avg": 8.384,
+          "e2e_ms": 5295.221,
+          "token_events": 499,
+          "final_message_chars": 2047,
+          "debug": {
+            "rag_latency_ms": 0.0,
+            "rag_chunks": 1,
+            "tools_used": []
+          }
+        },
+        {
+          "ok": true,
+          "error": null,
+          "connect_ms": 2025.269,
+          "ttft_ms": 1131.629,
+          "inter_token_ms_avg": 8.483,
+          "e2e_ms": 1725.557,
+          "token_events": 70,
+          "final_message_chars": 312,
+          "debug": {
+            "rag_latency_ms": 0.0,
+            "rag_chunks": 1,
+            "tools_used": []
+          }
+        },
+        {
+          "ok": true,
+          "error": null,
+          "connect_ms": 2055.817,
+          "ttft_ms": 1155.563,
+          "inter_token_ms_avg": 8.382,
+          "e2e_ms": 1952.142,
+          "token_events": 95,
+          "final_message_chars": 428,
+          "debug": {
+            "rag_latency_ms": 0.0,
+            "rag_chunks": 1,
+            "tools_used": []
+          }
+        },
+        {
+          "ok": true,
+          "error": null,
+          "connect_ms": 2056.344,
+          "ttft_ms": 1129.555,
+          "inter_token_ms_avg": 8.411,
+          "e2e_ms": 2131.207,
+          "token_events": 119,
+          "final_message_chars": 583,
+          "debug": {
+            "rag_latency_ms": 0.0,
+            "rag_chunks": 1,
+            "tools_used": []
+          }
+        },
+        {
+          "ok": true,
+          "error": null,
+          "connect_ms": 2045.262,
+          "ttft_ms": 1158.67,
+          "inter_token_ms_avg": 8.485,
+          "e2e_ms": 5359.838,
+          "token_events": 496,
+          "final_message_chars": 1975,
+          "debug": {
+            "rag_latency_ms": 0.0,
+            "rag_chunks": 1,
+            "tools_used": []
+          }
+        },
+        {
+          "ok": true,
+          "error": null,
+          "connect_ms": 2044.118,
+          "ttft_ms": 1113.035,
+          "inter_token_ms_avg": 8.424,
+          "e2e_ms": 5300.628,
+          "token_events": 498,
+          "final_message_chars": 1775,
+          "debug": {
+            "rag_latency_ms": 0.0,
+            "rag_chunks": 1,
+            "tools_used": []
+          }
+        }
+      ]
+    }
+  ],
+  "status": "ok",
+  "skip_reason": null,
+  "ollama_up": true,
+  "runnable_scenarios": [
+    "tool_only",
+    "rag_only",
+    "rag_plus_tool",
+    "full_pipeline"
+  ],
+  "skipped_scenarios": []
+}
