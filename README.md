@@ -446,13 +446,3 @@ The final report is generated at `FINAL_EVALUATION_REPORT.md`.
 
 ---
 
-## Cloud Deployment
-
-Cloud deployment was not completed for this submission. The primary constraint is the LLM: `qwen2.5:1.5b` requires approximately 1.8 GB of RAM for model weights alone, which exceeds the usable memory on most free-tier cloud instances (e.g. Render free tier provides 512 MB, Hugging Face Spaces CPU basic provides 16 GB but has cold-start delays).
-
-If deploying to the cloud, the recommended approach would be to use **Oracle Cloud Free Tier** (always-free ARM instance with 24 GB RAM), run Ollama on the same instance, and expose only port 8000. The RAG index and SQLite database would be stored on a persistent block volume. No code changes would be required — only the `OLLAMA_BASE_URL` environment variable would need to point to `http://localhost:11434` on the cloud host.
-
-An alternative approach would be to replace Ollama with the Anthropic or OpenAI API for inference (removing the local LLM dependency entirely) and deploy the FastAPI server to Render or Google Cloud Run, which would bring hosting costs to near zero at low traffic volumes.
-
----
-
