@@ -4,9 +4,9 @@
 Voice Travel Assistant (Phase 5: RAG and Tool-Orchestrated Conversational AI)
 
 Group Members:
-- i230114
-- i230073
-- i230139
+- Abdullah Attique
+- Minahil Rizwan
+- Talha Akram
 
 ---
 
